@@ -1,0 +1,103 @@
+import appFirebase from "../../firebase-config";
+import { getDatabase, ref, set, push } from "firebase/database";
+import UserModel from '../../model/UserModel'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import Common from "../../components/js/Common.js"
+
+class RegisterData {
+    constructor(userName, email, password,passwordConf, referredBy,textError, 
+        setTextError,setMsjError,setbtnActive) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.passwordConf = passwordConf;
+        this.referredBy = referredBy;
+        this.textError=textError;
+        this.setbtnActive = setbtnActive;
+        this.setTextError = setTextError;
+        this.setMsjError = setMsjError;
+        this.common = new Common();
+    }
+
+    blurPass() {
+        if (this.password.length < 6 && !this.msjError) {
+            this.setMsjError(true)
+            this.setTextError("Password should contain at least 6 characters.")
+        } else {
+            this.setMsjError(false)
+            this.setTextError("")
+        }
+    }
+    blurPassConf() {
+        if (this.password !== this.passwordConf && !this.msjError) {
+            this.setMsjError(true);
+            this.setTextError("Passwords do not match.");
+        } else{
+            this.setMsjError(false);
+            this.setTextError("");
+        }
+    }
+    activateButton() {
+        if (this.common.isNullOrEmpty(this.userName) || this.common.isNullOrEmpty(this.email) ||
+            this.common.isNullOrEmpty(this.password) || this.common.isNullOrEmpty(this.passwordConf)) {
+            this.setbtnActive(false)
+        } else {
+            this.setbtnActive(true)
+        }
+    }
+    valid(e) {
+        if(this.textError===""){
+            this.functRegister(e)
+        }
+    }
+    saveData = async () => {
+        const userModel = new UserModel()
+        userModel.setDefaultValues();
+        const db = getDatabase(appFirebase);
+        const newDocRef = push(ref(db, `users/`));
+        const fechaActual = new Date();
+
+        userModel.email = this.email;
+        userModel.password = this.password;
+        userModel.referredBy = this.referredBy;
+        userModel.userName = this.userName;
+        userModel.password = this.password;
+        userModel.admissionDate = fechaActual.toISOString();
+        userModel.firebaseKey = newDocRef.key;
+
+        try {
+            await set(newDocRef, userModel);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    functRegister = async (e) => {
+        const auth = getAuth(appFirebase)
+        e.preventDefault();
+        try {
+            await createUserWithEmailAndPassword(auth, this.email, this.password)
+            await this.saveData();
+            window.location.href = '/pages/Dashboard/';
+        } catch (error) {
+            switch (error.code) { 
+                case 'auth/email-already-in-use':
+                    this.setTextError('The email address is already in use. Please choose another.');
+                    this.setMsjError3(true);
+                    break;
+                case 'auth/invalid-email':
+                    this.setTextError('The email address provided is invalid.');
+                    this.setMsjError3(true);
+                    break;
+                case 'auth/too-many-requests':
+                    this.setTextError('Too many unsuccessful login attempts. Please try again later.');
+                    this.setMsjError3(true);
+                    break;
+                default:
+                    this.setTextError('An error occurred during registration. Please try again later.');
+                    this.setMsjError3(true);
+            }
+        }
+    }
+}
+
+export default RegisterData

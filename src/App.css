@@ -1,0 +1,22 @@
+body {
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    /*background-image:url("./Assets/Images/Links/modern-skyscrapers-with-windows.jpg") ;*/
+}
+
+@font-face {
+    font-family: 'League Gothic';
+    src: url('./Assets/fonts/LeagueGothic-Regular.ttf') format('truetype'),
+}
+
+@font-face {
+    font-family: 'League Gothic Condensed';
+    src: url('./Assets/fonts/LeagueGothic-Condensed.ttf') format('truetype'),
+}
+
+@font-face {
+    font-family: 'League Gothic Italic';
+    src: url('./Assets/fonts/LeagueGothic-Italic.ttf') format('truetype');
+}

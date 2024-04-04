@@ -1,0 +1,102 @@
+@import "../../Assets/colors/colors.css";
+
+body{
+  overflow: hidden;
+}
+.registerDiv{
+  height: 100vh;
+  width: 100vw;
+}
+.form-register{
+  width: 25%;
+  height: 90%;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 5vh;
+  font-size: 20%;
+  color: rgb(255, 255, 255);
+  box-shadow: 7px 13px 37px #000;
+  border-radius: 10px;
+  padding-inline: 1%;
+}
+.form-register h4 {
+  font-family: 'League Gothic';
+  font-size: 15em;
+  margin-bottom: 3%;
+}
+.form-register input{
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  font-size: 10em;
+  border: 1px solid #1f53c5;
+  border-radius: 10px;
+  margin-bottom: 4%;
+  padding: 2%;
+  font-family: "League Gothic";
+}
+.form-register label{
+  font-size: 13em;
+  margin-bottom: 1vh;
+  margin-top: 2vh;
+  font-family: "League Gothic";
+}
+.form-register img{
+  content: url("../../Assets/Images/Logos/Logo_1.png");
+  width: 100%;
+  align-self: center;
+  margin-top: 2%;
+}
+.form-register .botons {
+  width: 100%;
+  background-image: url("../../Assets/Images/Baners_jpg/Gold.png");
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 2%;
+  color: white;
+  margin-top: 5%;
+  font-size: 10em;
+  font-family: "League Gothic";
+}
+.form-register .botonsE {
+  width: 100%;
+  background-image: url("../../Assets/Images/Baners_jpg/Gold.png");
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 2%;
+  color: white;
+  margin-top: 5%;
+  font-size: 10em;
+  font-family: "League Gothic";
+  cursor: not-allowed;
+  opacity: 0.5
+}
+.form-register .botons:hover{
+  border: 2px solid transparent;
+  border-color: #fff;
+}
+@media(max-width:1024px){
+  .form-register{
+    width: 40%;
+    height: 90%;
+    margin-top: 5%;
+    font-size: 15%;
+  }
+  .form-register .img{
+    width: 40%;
+  }
+}
+@media(max-width:600px){
+  .form-register{
+    width: 60%;
+    height: 75%;
+    margin-top: 10%;
+    font-size: 15%;
+  }
+}
+
+
+

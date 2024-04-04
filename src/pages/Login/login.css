@@ -1,0 +1,109 @@
+@import "../../Assets/colors/colors.css";
+body {
+  overflow: hidden;
+}
+.loginDiv{
+  height: 100vh;
+  width: 100vw;
+}
+.login-box {
+  width: 25%; 
+  height: 80%;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 5vh;
+  font-size: 20%;
+  color: #fff;
+  box-shadow: 7px 13px 37px #000;
+  border-radius: 10px;
+  padding-inline: 1%;
+}
+.login-box img {
+  content: url("../../Assets/Images/Logos/Logo_1.png");
+  width: 100%;
+  align-self: center;
+  margin-top: 2%;
+}
+.login-box h1 {
+  margin: 0;
+  margin-bottom: 5%;
+  text-align: start;
+  font-size: 15em;
+  font-family: "League Gothic";
+}
+.login-box label {
+  margin: 0;
+  padding: 0; 
+  margin-bottom: 1%;
+  font-weight: bold;
+  display: block;
+  font-size: 10em;
+  font-family: "League Gothic";
+}
+.login-box input {
+  margin-bottom: 10%;
+}
+.login-box input[type="text"], .login-box input[type="password"] {
+  padding: 2%;
+  width: 100%;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  font-size: 7em;
+  border: 1px solid #1f53c5;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+  font-family: "League Gothic";
+}
+.login-box input[type="submit"] {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 10em;
+  border-radius: 10px;
+  padding: 2%;
+  font-family: "League Gothic";
+  background-image: url("../../Assets/Images/Baners_jpg/Gold.png");
+  
+}
+.login-box input[type="submit"]:hover {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-color: #fff;
+}
+.login-box Link {
+  text-decoration: none;
+  font-size: 9em;
+  line-height: 20px;
+  color: rgb(234, 234, 234);
+  font-family: "League Gothic";
+}
+.login-box Link:hover {
+  color: #fff;
+  text-decoration: dashed;
+}
+@media(max-width:1024px){
+  .login-box{
+    width: 80%; 
+    height: 90%;
+    font-size:20%;
+    padding-inline: 5%;
+    font-size: 20%;
+  }
+}
+@media(max-width:600px){
+  .login-box{
+    width: 60%; 
+    height: 70%;
+    font-size:15%;
+    padding-inline: 5%;
+  }
+}
+
+
+
+
+
+

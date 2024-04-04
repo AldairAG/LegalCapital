@@ -1,0 +1,67 @@
+@import url("../../../Assets/colors/colors.css");
+
+.contain{
+    position: static;
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    height: 90%;
+    background-color:var(--primary-color-w) ;
+    border-radius: 10px;
+    align-items: center;
+    font-size: 10px;
+    margin: 0;
+    margin-inline: 1%;
+    margin-top: 3%;
+    padding: 0;
+    border-bottom-right-radius: 10px;
+}
+
+.contain span{
+    color: rgb(0, 0, 0);
+    font-family: "League Gothic";
+    font-size: 5em;
+    padding: 1%;
+}
+
+.ms{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    background-color: brown;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.ms span{
+    font-family: "League Gothic";
+    font-size: 5em;
+    padding: 1%;
+    text-align: center;
+}
+
+@media(max-width:600px){
+    .contain{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+        flex-direction: column;
+        margin-inline: 0;
+        margin-top: 0;
+        border-radius: 0px;
+    }
+    .ms{
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}
+
+
+
+
+
+

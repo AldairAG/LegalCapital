@@ -1,0 +1,54 @@
+.planes{
+    width: 100%;
+    height: 100%;
+    background-color: burlywood;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    border-bottom-right-radius: 10px;
+}
+
+.planComp{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 90%;
+    background-color: rgb(172, 172, 172);
+    margin-top: 5%;
+    border-radius: 10px;
+}
+
+.planComp .precio{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(214, 214, 214);
+    text-align: center;
+}
+
+.planComp .precio .costo{
+    font-size: 6em;
+}
+.planComp .precio .usdt{
+    font-size: 2rem;
+}
+.planComp .feat{
+    width: 60%;
+}
+
+@media(max-width:600px){
+    .planes{
+        flex-direction: column;
+    }
+    .planComp{
+        width: 100%;
+    }
+}
+
+@media(max-width:1300px){
+    .planes{
+        flex-direction: column;
+    }
+    .planComp{
+        width: 100%;
+    }
+}
