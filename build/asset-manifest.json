@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/LegalCapital/build/static/css/main.b78250fd.css",
+    "main.js": "/LegalCapital/build/static/js/main.8aa1d26a.js",
+    "static/media/modern-skyscrapers-with-windows.jpg": "/LegalCapital/build/static/media/modern-skyscrapers-with-windows.4eeb93dde078843ea515.jpg",
+    "static/media/Logo_1.png": "/LegalCapital/build/static/media/Logo_1.aad1b99bbf59c450c9f4.png",
+    "static/media/LeagueGothic-Italic.ttf": "/LegalCapital/build/static/media/LeagueGothic-Italic.745833118c77b4dcc587.ttf",
+    "static/media/LeagueGothic-Regular.ttf": "/LegalCapital/build/static/media/LeagueGothic-Regular.9a86844e5bf7d14acf69.ttf",
+    "static/media/LeagueGothic-Condensed.ttf": "/LegalCapital/build/static/media/LeagueGothic-Condensed.bf8e58a7b2122a9151f1.ttf",
+    "static/media/Logo_2.png": "/LegalCapital/build/static/media/Logo_2.543f05730ba6d8dcee13.png",
+    "static/media/Gold.png": "/LegalCapital/build/static/media/Gold.e3667339027380a45909.png",
+    "index.html": "/LegalCapital/build/index.html",
+    "main.b78250fd.css.map": "/LegalCapital/build/static/css/main.b78250fd.css.map",
+    "main.8aa1d26a.js.map": "/LegalCapital/build/static/js/main.8aa1d26a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b78250fd.css",
+    "static/js/main.8aa1d26a.js"
+  ]
+}
