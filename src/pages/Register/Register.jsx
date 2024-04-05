@@ -33,7 +33,7 @@ const Register = () => {
         <div className="registerDiv">
             <ErrorDiv visible={msjError} text={textError}/>
             <div className="form-register">
-                <img />
+                <img alt="logo"/>
                 <h4>Register</h4>
                 <input type="text" placeholder="Enter your Username" value={userName} onChange={(e) => setUserName(e.target.value)} />
                 <input type="email" placeholder="Enter your E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />

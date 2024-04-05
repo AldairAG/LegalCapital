@@ -21,7 +21,7 @@ const Login = () => {
         <div className="loginDiv">
             <ErrorDiv visible={displayError} text={textError}/>
             <div className="login-box">
-                <img/>
+                <img alt="logo"/>
                 <h1>Login Here</h1>
                 <form>
                     <label htmlFor="username">Username</label>

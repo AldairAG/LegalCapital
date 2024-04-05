@@ -2,7 +2,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Admin from "./pages/Admin/Admin";
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./App.css"
 
 

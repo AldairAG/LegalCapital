@@ -5,7 +5,7 @@ const WelcomeDiv = () => {
         <div className="welcomeDiv">
             <div className="welDiv">
                 <span className="welcome">Welcome to </span>
-                <img className="logo"/>
+                <img className="logo" alt="logo"/>
             </div>
             <span className="textWel">Texto de bienvenida Texto de bienvenida Texto de bienvenida</span>
             <div className="textWel2">

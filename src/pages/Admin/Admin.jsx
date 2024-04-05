@@ -17,7 +17,7 @@ const Admin = () => {
     return (
         <div className="mainAdmin">
             <div className="header">
-                <h1><img className="logo" /></h1>
+                <h1><img className="logo" alt="logo"/></h1>
             </div>
             <div className="ops">
                 <button>Gestionar<br />admnistradores</button>

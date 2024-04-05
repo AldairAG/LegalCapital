@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/legalCapital/build/static/css/main.3d8362f6.css",
-    "main.js": "/legalCapital/build/static/js/main.758a51d3.js",
-    "static/media/modern-skyscrapers-with-windows.jpg": "/legalCapital/build/static/media/modern-skyscrapers-with-windows.4eeb93dde078843ea515.jpg",
-    "static/media/Logo_1.png": "/legalCapital/build/static/media/Logo_1.aad1b99bbf59c450c9f4.png",
-    "static/media/LeagueGothic-Italic.ttf": "/legalCapital/build/static/media/LeagueGothic-Italic.745833118c77b4dcc587.ttf",
-    "static/media/LeagueGothic-Regular.ttf": "/legalCapital/build/static/media/LeagueGothic-Regular.9a86844e5bf7d14acf69.ttf",
-    "static/media/LeagueGothic-Condensed.ttf": "/legalCapital/build/static/media/LeagueGothic-Condensed.bf8e58a7b2122a9151f1.ttf",
-    "static/media/Logo_2.png": "/legalCapital/build/static/media/Logo_2.543f05730ba6d8dcee13.png",
-    "static/media/Gold.png": "/legalCapital/build/static/media/Gold.e3667339027380a45909.png",
-    "index.html": "/legalCapital/build/index.html",
-    "main.3d8362f6.css.map": "/legalCapital/build/static/css/main.3d8362f6.css.map",
-    "main.758a51d3.js.map": "/legalCapital/build/static/js/main.758a51d3.js.map"
+    "main.css": "/static/css/main.c58d3278.css",
+    "main.js": "/static/js/main.f0074d9f.js",
+    "static/media/modern-skyscrapers-with-windows.jpg": "/static/media/modern-skyscrapers-with-windows.4eeb93dde078843ea515.jpg",
+    "static/media/Logo_1.png": "/static/media/Logo_1.aad1b99bbf59c450c9f4.png",
+    "static/media/LeagueGothic-Italic.ttf": "/static/media/LeagueGothic-Italic.745833118c77b4dcc587.ttf",
+    "static/media/LeagueGothic-Regular.ttf": "/static/media/LeagueGothic-Regular.9a86844e5bf7d14acf69.ttf",
+    "static/media/LeagueGothic-Condensed.ttf": "/static/media/LeagueGothic-Condensed.bf8e58a7b2122a9151f1.ttf",
+    "static/media/Logo_2.png": "/static/media/Logo_2.543f05730ba6d8dcee13.png",
+    "static/media/Gold.png": "/static/media/Gold.e3667339027380a45909.png",
+    "index.html": "/index.html",
+    "main.c58d3278.css.map": "/static/css/main.c58d3278.css.map",
+    "main.f0074d9f.js.map": "/static/js/main.f0074d9f.js.map"
   },
   "entrypoints": [
-    "static/css/main.3d8362f6.css",
-    "static/js/main.758a51d3.js"
+    "static/css/main.c58d3278.css",
+    "static/js/main.f0074d9f.js"
   ]
 }
