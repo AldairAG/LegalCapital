@@ -2,21 +2,20 @@
   "name": "legalkap",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AldairAG.github.io/LegalCapital",
+  "homepage": "https://AldairAG.github.io/legalCapital/build",
+
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
     "firebase": "^10.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
-    "reactfire": "^4.2.3",
     "web-vitals": "^2.1.4"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
@@ -42,8 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1"
   }
 }
