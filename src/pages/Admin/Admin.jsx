@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 import { useState, useEffect } from 'react';
 import "./Admin.css"
 import AdminData from "./AdminData.js"
@@ -9,16 +9,41 @@ const Admin = () => {
     const [textFind, setTextFind] = useState("");
     const adminData = new AdminData(setUserModels);
 
+    const baseURL = "https://legalcapital-corp.com/register/";
+    const rValue = "LegalCapital";
+    const completeURL = `${baseURL}${rValue}`;
+
     useEffect(() => {
         const adminData = new AdminData(setUserModels);
         adminData.fetchData();
     }, []);
 
+    const handleCopy = () => {
+        const inputElement = document.getElementById("invitationLink");
+        inputElement.select();
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    };
+
+
     return (
         <div className="mainAdmin">
+
             <div className="header">
-                <h1><img className="logo" alt="logo"/></h1>
+                <img className="logo" alt="logo"/>
+
+                <div className="contain-link">
+                    <span>Invitation Link:</span>
+
+                    <div className="link">
+                        <input id='invitationLink' type="text" value={completeURL} readOnly/>
+                        <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
+                    </div>
+
+                </div>
+
             </div>
+
             <div className="ops">
                 <button>Gestionar<br />admnistradores</button>
                 <button>Gestionar<br />usuarios</button>

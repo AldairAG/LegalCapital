@@ -4,14 +4,17 @@ import { useState } from 'react';
 import "./login.css";
 import LoginData from "./LoginData.js"
 import ErrorDiv from "../../components/ErrorDiv/ErrorDiv.jsx"
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [textError,setTextError]=useState('');
     const [displayError,setDisplayError]=useState(false);
+    const history = useHistory();
     const loginData=new LoginData(email,password,
-        setTextError,setDisplayError);
+        setTextError,setDisplayError,history);
+        const username = 'mariaalvarez';
 
     const handleLogin = async (e) => {
         loginData.functAutentication(e)
@@ -29,11 +32,12 @@ const Login = () => {
                     <label htmlFor="password">Password</label>
                     <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <input type="submit" value="LogIn" onClick={(e) => handleLogin(e)}/>
-                    <Link to="/pages/register/">aaaaaaaaaaaaa</Link>
+                    <Link to={`/register/${username}`}>aaaaaaaaaaaaa</Link>
                 </form>
             </div>
         </div>
     )
+    //
 }
 
 export default Login;

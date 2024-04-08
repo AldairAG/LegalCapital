@@ -3,6 +3,7 @@ import { getDatabase, ref, set, push } from "firebase/database";
 import UserModel from '../../model/UserModel'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import Common from "../../components/js/Common.js"
+import WelcomeEmail from "./WelcomeEmail"
 
 class RegisterData {
     constructor(userName, email, password,passwordConf, referredBy,textError, 
@@ -17,6 +18,7 @@ class RegisterData {
         this.setTextError = setTextError;
         this.setMsjError = setMsjError;
         this.common = new Common();
+        this.welcomeEmail=new WelcomeEmail(userName,email);
     }
 
     blurPass() {
@@ -50,6 +52,8 @@ class RegisterData {
             this.functRegister(e)
         }
     }
+
+
     saveData = async () => {
         const userModel = new UserModel()
         userModel.setDefaultValues();
@@ -77,24 +81,25 @@ class RegisterData {
         try {
             await createUserWithEmailAndPassword(auth, this.email, this.password)
             await this.saveData();
-            window.location.href = '/pages/Dashboard/';
+            await this.welcomeEmail.sendEmail(e)
+            window.location.href = '/Dashboard';
         } catch (error) {
             switch (error.code) { 
                 case 'auth/email-already-in-use':
                     this.setTextError('The email address is already in use. Please choose another.');
-                    this.setMsjError3(true);
+                    this.setMsjError(true);
                     break;
                 case 'auth/invalid-email':
                     this.setTextError('The email address provided is invalid.');
-                    this.setMsjError3(true);
+                    this.setMsjError(true);
                     break;
                 case 'auth/too-many-requests':
                     this.setTextError('Too many unsuccessful login attempts. Please try again later.');
-                    this.setMsjError3(true);
+                    this.setMsjError(true);
                     break;
                 default:
                     this.setTextError('An error occurred during registration. Please try again later.');
-                    this.setMsjError3(true);
+                    this.setMsjError(true);
             }
         }
     }

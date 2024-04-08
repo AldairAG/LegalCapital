@@ -1,6 +1,6 @@
 class UserModel {
   constructor(userName,lastName,firstName,email,password,referredBy,savingsPlan,
-    rank,country,phoneNumber,fundador,membership,admissionDate,membershipDate,usdtAddress,firebaseKey){
+    rank,country,phoneNumber,fundador,membership,admissionDate,membershipDate,usdtAddress,firebaseKey,rol,){
       this.userName= userName;
       this.lastName=lastName;
       this.firstName=firstName;
@@ -17,6 +17,7 @@ class UserModel {
       this.admissionDate=admissionDate;
       this.membershipDate=membershipDate;
       this.firebaseKey=firebaseKey;
+      this.rol=rol;
     }
     setDefaultValues() {
       this.userName = "";
@@ -35,6 +36,7 @@ class UserModel {
       this.admissionDate = "";
       this.membershipDate = "---";
       this.firebaseKey="";
+      this.rol="u"
   }
 };
 

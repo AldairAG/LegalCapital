@@ -1,56 +1,96 @@
-.welcomeDiv{
+.contain-wd {
     width: 40%;
     height: 100%;
     background-color: rgb(228, 233, 149);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
     font-size: 100%;
     display: flex;
     flex-direction: column;
     text-align: start;
     font-family: "League Gothic";
-    border-top-left-radius: 10%;
 }
 
-.welcomeDiv .welDiv{
+.contain-wd .contain-msg {
     background-color: beige;
     display: flex;
     flex-direction: column;
     padding-inline: 5%;
-    border-top-left-radius: 10%;
 }
 
-.welcomeDiv .welDiv .welcome {
-    font-size: 5em;
+.contain-wd .contain-msg .welcome {
+    font-size: 4em;
     align-self: self-start;
+    margin-top: 2%;
 }
-.welcomeDiv .welDiv .logo {
-    width: 100%;
+
+.contain-wd .contain-msg .logo {
+    width: 60%;
     content: url("../../../Assets/Images/Logos/Logo_2.png");
 }
-.welcomeDiv .textWel {
-    font-size: 5em;
+
+.contain-wd .textWel {
+    width: 100%;
+    font-size: 3em;
+    text-align: justify;
+    padding-inline: 5%;
+    padding-top: 3%;
 }
 
-.welcomeDiv .textWel2{
-    text-align: center;
+.contain-wd .textWel2 {
+    display: block;
+    width: 90%;
+    background-color: aliceblue;
+    font-size: 3.5em;
+    border:  10px double rgb(0, 0, 0);
+    padding: 3%;
+    text-align: justify;
     margin-top: 20%;
-    border: 10px double #ffffff;
-}
-.welcomeDiv .textWel2 span{
-    font-size: 4em;
+    align-self: center;
 }
 
-@media(max-width:600px){
-    .welcomeDiv{
+@media(max-width:600px) {
+    .contain-wd {
         width: 100%;
         height: 100%;
-        border-radius: 0; 
+        border-radius: 0;
+        font-size: 40%;
+        align-items: center;
     }
-    .welcomeDiv .welDiv{
-        border-radius: 0; 
+
+    .contain-wd .contain-msg .welcome {
+        font-size: 6em;
     }
-    .welcomeDiv .textWel2{
+
+    .contain-wd  .textWel {
+        font-size: 4.5em;
+    }
+
+    .contain-wd  .textWel2 {
+        margin-top: 10%;
         margin-bottom: 10%;
+        font-size: 5.5em;
+    }
+}
+
+@media(max-width:1300px) {
+    .contain-wd {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        font-size: 60%;
+        align-items: center;
+    }
+
+    .contain-wd .contain-msg .welcome {
+        font-size: 6em;
+    }
+
+    .contain-wd  .textWel {
+        font-size: 4.5em;
+    }
+
+    .contain-wd  .textWel2 {
+        margin-top: 10%;
+        margin-bottom: 10%;
+        font-size: 5.5em;
     }
 }

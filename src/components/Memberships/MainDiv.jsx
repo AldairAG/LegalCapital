@@ -5,13 +5,13 @@ import WelcomeDiv from "./WelcomeDiv";
 
 const MainDiv = () => {
     return (
-        <div className="contain">
+        <div className="containMain">
             <WelcomeDiv/>
-            <div className="ms">
+            <div className="containMS">
                 <span >Memberships</span>
-                <div className="planes">
-                    <MSComponent plan="Plan basic" precio="250.0" />
-                    <MSComponent plan="Plan pro" precio="500.0" />
+                <div className="containMSC">
+                    <MSComponent plan="basic" precio="250.0" />
+                    <MSComponent plan="pro" precio="500.0" />
                 </div>
             </div>
         </div>

@@ -15,8 +15,42 @@
     border-bottom: 1px solid rgb(130, 130, 130);
 }
 .header .logo{
-    height: 100%;
+    height: auto;
     content:url("../../Assets/Images/Logos/Logo_2.png") ;
+}
+.header .contain-link{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-inline-start: auto;
+    margin-inline-end: 5%;
+}
+.header .contain-link span{
+    margin-bottom: 1%;
+    font-weight: bold;
+}
+.header .contain-link .link{
+    display: flex;
+    flex-direction: row;
+}
+.header .contain-link .link input{
+    width: 100%;
+    padding: 2%;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    border: 1px solid #1f53c5;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.header .contain-link .link button{
+    padding: 2%;
+    border: 1px solid #1f53c5;
+    color:#1f53c5 ;
+    font-size: 100%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 .ops{
     width: 100%;
@@ -143,7 +177,6 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
 .encabezado .refresh{
     align-items: center;
     font-size: 40px;
@@ -172,6 +205,7 @@
         font-size: 50%;
         max-height: 400px;
     }
+
 }
 @media (max-width:1400px) {
     .ops button{

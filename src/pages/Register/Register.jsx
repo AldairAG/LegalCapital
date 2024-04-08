@@ -3,6 +3,7 @@ import "./Register.css"
 import { useState, useEffect } from 'react';
 import RegisterData from "./RegisterData"
 import ErrorDiv from "../../components/ErrorDiv/ErrorDiv"
+import { useParams } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -15,18 +16,23 @@ const Register = () => {
     const [msjError, setMsjError] = useState(false);
     const registerData = new RegisterData(userName, email, password,passwordConf, referredBy,textError, 
     setTextError,setMsjError,setbtnActive);
+    const { r } = useParams();
 
+    useEffect(() => {
+        setReferredBy(r || '');
+      }, [r]);
     useEffect(() => {
         registerData.activateButton()
     }, [userName, email, password, passwordConf]);
-    const handleClick = (e) => {
-        registerData.valid(e)
-    };
     const blurPass = () => {
         registerData.blurPass()
     };
     const blurPassConf = () => {
         registerData.blurPassConf()
+    };
+
+    const handleClick = (e) => {
+        registerData.valid(e)
     };
 
     return (

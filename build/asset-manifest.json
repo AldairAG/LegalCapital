@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c58d3278.css",
-    "main.js": "/static/js/main.f0074d9f.js",
+    "main.css": "/static/css/main.3cf94798.css",
+    "main.js": "/static/js/main.1a5a9773.js",
     "static/media/modern-skyscrapers-with-windows.jpg": "/static/media/modern-skyscrapers-with-windows.4eeb93dde078843ea515.jpg",
     "static/media/Logo_1.png": "/static/media/Logo_1.aad1b99bbf59c450c9f4.png",
     "static/media/LeagueGothic-Italic.ttf": "/static/media/LeagueGothic-Italic.745833118c77b4dcc587.ttf",
@@ -10,11 +10,11 @@
     "static/media/Logo_2.png": "/static/media/Logo_2.543f05730ba6d8dcee13.png",
     "static/media/Gold.png": "/static/media/Gold.e3667339027380a45909.png",
     "index.html": "/index.html",
-    "main.c58d3278.css.map": "/static/css/main.c58d3278.css.map",
-    "main.f0074d9f.js.map": "/static/js/main.f0074d9f.js.map"
+    "main.3cf94798.css.map": "/static/css/main.3cf94798.css.map",
+    "main.1a5a9773.js.map": "/static/js/main.1a5a9773.js.map"
   },
   "entrypoints": [
-    "static/css/main.c58d3278.css",
-    "static/js/main.f0074d9f.js"
+    "static/css/main.3cf94798.css",
+    "static/js/main.1a5a9773.js"
   ]
 }
