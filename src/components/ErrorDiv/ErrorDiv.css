@@ -14,26 +14,58 @@
     border-color: white;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
   }
   
   .animated-div.visible {
     left: 1%; 
   }
-  .animated-div button{
-    background-color: rgb(255, 0, 0);
-    border:none;
-    color: rgb(255, 255, 255);
-    margin-inline-start:5% ;
-    margin-inline-end:2% ;
-    font-size: 30px;
-    display: inline-flex;
-    align-items: center;
-  }
-  .animated-div .texto{
+  .animated-div .texto-red{
+    position: absolute;
+    top: 25%;
+    width: 100%;
     background: red;
     align-content: center;
     font-weight: bold;
+    padding-inline-start: 2%;
+    border-radius: 5px;
   }
+
+  .animated-div .texto-green{
+    width: 100%;
+    background: rgb(16, 150, 16);
+    align-content: center;
+    font-weight: bold;
+    padding-inline-start: 2%;
+    border-radius: 5px;
+  }
+
+  .animated-div .texto{
+    align-content: center;
+    font-weight: bold;
+    padding-inline-start: 2%;
+    border-radius: 5px;
+  }
+
+  .progress-container {
+    border: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    background-color: red;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #ffffff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+
 
   @media(max-width:600px){
     .animated-div{

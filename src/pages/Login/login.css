@@ -1,31 +1,99 @@
 @import "../../Assets/colors/colors.css";
-body {
-  overflow: hidden;
+body{
+  background: rgb(20, 16, 43);
 }
-.loginDiv{
-  height: 100vh;
+
+.login-seccion{
   width: 100vw;
+  height: 100vh;
+  align-content: center;
+  margin-inline:15% ;
 }
-.login-box {
-  width: 25%; 
+.login-main-box{
+  background: white;
+  width: 70%;
   height: 80%;
-  background-color: var(--primary-color);
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 7px 13px 37px #000000;
+}
+.imagen{
+  width: 70%;
+  content: url("../../Assets/Images/Baners_jpg/imagelogin.png");
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.login-box{
+  width: 35%;
   display: flex;
   flex-direction: column;
-  margin: auto;
-  margin-top: 5vh;
-  font-size: 20%;
-  color: #fff;
-  box-shadow: 7px 13px 37px #000;
-  border-radius: 10px;
-  padding-inline: 1%;
+  font-size: 20px;
+  padding: 2%;
 }
-.login-box img {
-  content: url("../../Assets/Images/Logos/Logo_1.png");
+.login-box input {
+  margin-bottom: 10%;
+}
+.login-box input[type="text"], .login-box input[type="password"] {
+  padding: 0%;
   width: 100%;
-  align-self: center;
-  margin-top: 2%;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  font-size: 1em;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+  padding: 2%;
 }
+.login-box input[type="submit"] {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 10px;
+  padding: 2%;
+  background: rgb(130, 130, 230);
+}
+.login-box img{
+  height: 15%;
+  content: url("../../Assets/Images/Logos/Logo_2.png");
+}
+.login-box input[type="submit"]:hover {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-color: #fff;
+}
+
+.lg{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 10%;
+  margin-bottom: 5%;
+
+  hr{
+    transform: rotate(90deg);
+    background-color: black;
+  }
+}
+
+@media (max-width:600px) {
+  .imagen{
+    display: none;
+  }
+  .login-box{
+    width: 100%;
+  }
+}
+@media (max-width:1000px) {
+  .imagen{
+    width: 50%;
+  }
+  .login-box{
+    width: 100%;
+  }
+}
+/*8
 .login-box h1 {
   margin: 0;
   margin-bottom: 5%;
@@ -42,37 +110,7 @@ body {
   font-size: 10em;
   font-family: "League Gothic";
 }
-.login-box input {
-  margin-bottom: 10%;
-}
-.login-box input[type="text"], .login-box input[type="password"] {
-  padding: 2%;
-  width: 100%;
-  background: #ffffff;
-  color: rgb(0, 0, 0);
-  font-size: 7em;
-  border: 1px solid #1f53c5;
-  border-radius: 10px;
-  margin-bottom: 2vh;
-  font-family: "League Gothic";
-}
-.login-box input[type="submit"] {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 10em;
-  border-radius: 10px;
-  padding: 2%;
-  font-family: "League Gothic";
-  background-image: url("../../Assets/Images/Baners_jpg/Gold.png");
-  
-}
-.login-box input[type="submit"]:hover {
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-color: #fff;
-}
+
 .login-box Link {
   text-decoration: none;
   font-size: 9em;
@@ -102,7 +140,7 @@ body {
   }
 }
 
-
+*/
 
 
 
