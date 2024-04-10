@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #2c2c2c;
+    --primary-color: rgb(20, 16, 43);
     --primary-color-w: #ffffff;
 
     --color-texto:rgb(0,0,0);
-    --color-texto-menu:rgb(134,136,144);
+    --color-texto-menu:rgb(208, 208, 210);
 
     --color-menu-hover:rgb(238,238,238);
     --color-menu-hover-texto:rgb(0,0,0);
@@ -18,4 +18,8 @@
 
     --color-scroll:rgb(192,192,192);
     --color-scroll-hover:rgb(134,134,134);
+
+    --color-texto-normal:#2e385c;
+    --color-texto-span: #667197;
+    --color-hover:rgb(130, 130, 230) ;
   }

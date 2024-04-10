@@ -38,7 +38,7 @@ const Login = () => {
                         <label htmlFor="password">Password</label>
                         <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <input type="submit" value="LogIn" onClick={(e) => handleLogin(e)} />
-                        <Link to={`/register/${username}`}>aaaaaaaaaaaaa</Link>
+                        <Link to={`/register/${username}`}>register</Link>
                     </form>
                 </div>
                 <img className="imagen" alt="img1" />

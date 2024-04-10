@@ -1,6 +1,7 @@
 @import "../../Assets/colors/colors.css";
 body{
   background: rgb(20, 16, 43);
+  overflow: hidden;
 }
 
 .login-seccion{
@@ -8,6 +9,7 @@ body{
   height: 100vh;
   align-content: center;
   margin-inline:15% ;
+  overflow: hidden;
 }
 .login-main-box{
   background: white;
@@ -17,7 +19,7 @@ body{
   border-radius: 10px;
   box-shadow: 7px 13px 37px #000000;
 }
-.imagen{
+.login-main-box .imagen{
   width: 70%;
   content: url("../../Assets/Images/Baners_jpg/imagelogin.png");
   border-top-right-radius: 10px;
@@ -34,7 +36,6 @@ body{
   margin-bottom: 10%;
 }
 .login-box input[type="text"], .login-box input[type="password"] {
-  padding: 0%;
   width: 100%;
   background: #ffffff;
   color: rgb(0, 0, 0);
@@ -63,7 +64,10 @@ body{
   border: 2px solid transparent;
   border-color: #fff;
 }
-
+.login-box label{
+  font-weight: bold;
+  padding: 2%;
+}
 .lg{
   display: flex;
   width: 100%;
@@ -75,73 +79,18 @@ body{
     transform: rotate(90deg);
     background-color: black;
   }
+  span{
+    color: rgb(130, 130, 230);
+    font-weight: bolder;
+  }
 }
 
-@media (max-width:600px) {
-  .imagen{
+@media (max-width:700px) {
+  .login-main-box .imagen{
     display: none;
   }
   .login-box{
     width: 100%;
   }
 }
-@media (max-width:1000px) {
-  .imagen{
-    width: 50%;
-  }
-  .login-box{
-    width: 100%;
-  }
-}
-/*8
-.login-box h1 {
-  margin: 0;
-  margin-bottom: 5%;
-  text-align: start;
-  font-size: 15em;
-  font-family: "League Gothic";
-}
-.login-box label {
-  margin: 0;
-  padding: 0; 
-  margin-bottom: 1%;
-  font-weight: bold;
-  display: block;
-  font-size: 10em;
-  font-family: "League Gothic";
-}
-
-.login-box Link {
-  text-decoration: none;
-  font-size: 9em;
-  line-height: 20px;
-  color: rgb(234, 234, 234);
-  font-family: "League Gothic";
-}
-.login-box Link:hover {
-  color: #fff;
-  text-decoration: dashed;
-}
-@media(max-width:1024px){
-  .login-box{
-    width: 80%; 
-    height: 90%;
-    font-size:20%;
-    padding-inline: 5%;
-    font-size: 20%;
-  }
-}
-@media(max-width:600px){
-  .login-box{
-    width: 60%; 
-    height: 70%;
-    font-size:15%;
-    padding-inline: 5%;
-  }
-}
-
-*/
-
-
-
 
