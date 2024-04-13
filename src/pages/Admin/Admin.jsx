@@ -10,7 +10,7 @@ const Admin = () => {
     const adminData = new AdminData(setUserModels);
 
     const baseURL = "https://legalcapital-corp.com/register/";
-    const rValue = "LegalCapital";
+    const rValue = "LegalCapitalMaster";
     const completeURL = `${baseURL}${rValue}`;
 
     useEffect(() => {

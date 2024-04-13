@@ -21,32 +21,30 @@ const Login = () => {
     }
 
     return (
-        <div className="login-seccion">
-            <ErrorDiv visible={displayError} text={textError} />
-            <div className="login-main-box">
-                <div className="login-box">
-                    <img alt="logo" />
-                    <div className="lg">
-                        <hr />
-                        <span>sing in</span>
-                        <hr />
-                    </div>
-                    
-                    <form>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" placeholder="Enter Username" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <label htmlFor="password">Password</label>
-                        <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <input type="submit" value="LogIn" onClick={(e) => handleLogin(e)} />
-                        <Link to={`/register/${username}`}>register</Link>
-                    </form>
-                </div>
-                <img className="imagen" alt="img1" />
-            </div>
+            <div className="login-seccion">
+                <ErrorDiv visible={displayError} text={textError} />
+                <div className="login-main-box">
+                    <div className="login-box">
+                        <img alt="logo" />
+                        <div className="lg">
+                            <hr />
+                            <span>sing in</span>
+                            <hr />
+                        </div>
 
-        </div>
+                        <form>
+                            <label htmlFor="username">Username</label>
+                            <input type="text" placeholder="Enter Username" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <label htmlFor="password">Password</label>
+                            <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="submit" value="LogIn" onClick={(e) => handleLogin(e)} />
+                            <Link to={`/register/${username}`}>register</Link>
+                        </form>
+                    </div>
+                    <img className="imagen" alt="img1" />
+                </div>
+            </div>
     )
-    //
 }
 
 export default Login;

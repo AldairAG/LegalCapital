@@ -1,38 +1,64 @@
 @import url("../../../Assets/colors/colors.css");
 
-.containMain{
-    position: static;
+.seccion-main{
     display: flex;
     width: 100%;
     height: 100%;
     background-color:var(--primary-color-w) ;
-    align-items: center;
-    font-size: 10px;
     flex-direction: row;
+    font-size: 100%;
 }
-
-.containMS{
-    width: 60%;
-    height: 100%;
+.seccion1-h{
     display: flex;
     flex-direction: column;
-    background-color: brown;
+    width: 40%;
+    padding:2%;
+}
+.seccion1-h img{
+    content: url("../../../Assets/Images/Logos/Logo_2.png");
+    width: 75%;
+    height: 15%;
+    margin-bottom: 5%;
+}
+.seccion1-h p{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.seccion2-h{
+    width: 100%;
+}
+.seccion2-h p{
+    font-size: 2em;
+    font-weight: bold;
 }
 
-.containMSC{
+.seccion3-h{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: burlywood;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
+    align-items: center;
+    padding-top: 5%;
 }
-.containMS span{
-    font-family: "League Gothic";
-    font-size: 5em;
-    padding: 1%;
-    text-align: center;
+
+.seccion4-h{
+    width: 100%;
+    height: auto;
+
 }
+
+.boton-redondo {
+    width: 75px; 
+    height: 75px; 
+    border-radius: 50%; 
+    background-color: rgb(16, 4, 88); 
+    color: #ffffff; 
+    border: none;
+    cursor: pointer; 
+    font-size: 2em;
+  }
+  
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -55,13 +81,7 @@
         border-radius: 0px;
         margin: 0;
     }
-    .containMS{
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-    }
 }
-
 @media(max-width:1300px) {
     .containMain{
         position: static;
