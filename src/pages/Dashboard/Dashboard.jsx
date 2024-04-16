@@ -14,7 +14,6 @@ const Dashboard = () => {
     useEffect(() => {
         common.getUserData()
       }, []); 
-      console.log("resultado:",userData.userName)
     
     return (
         <div className="layout">

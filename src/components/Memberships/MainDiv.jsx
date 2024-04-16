@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./styles/MainDiv.css"
 import CopyLink from "../CopiLink/CopyLink";
 import ShowStats from "../ShowStats/ShowStats";
 import QRComponent from "./QrComponent"
+import MainDivData from "./js/MainDivData"
 
 const MainDiv = (props) => {
     const [totalMN, setTotalMN] = useState(0);
     const [newMN, setNewMN] = useState(0);
     const [totalRF, setTotalRF] = useState(0);
     const [newRF, setNewRF] = useState(0);
+    const mainDivData = new MainDivData(setTotalMN,setNewMN,setTotalRF,setNewRF)
+
+    useEffect(() => {
+        mainDivData.getDirectRef()
+    }, []);
 
     return (
         <div className="seccion-main">
@@ -22,7 +28,7 @@ const MainDiv = (props) => {
                     </p>
 
                     <div className="seccion2-h">
-                        <CopyLink username={props.userData.userName}/>
+                        <CopyLink username={props.userData.userName} />
                     </div>
 
                 </div>
