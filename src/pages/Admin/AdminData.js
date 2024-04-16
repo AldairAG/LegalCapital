@@ -1,5 +1,6 @@
 import appFirebase from "../../firebase-config";
-import { getDatabase, ref, get, set } from "firebase/database";
+import DepositoModel from "../../model/DepositoModel.js"
+import { getDatabase, ref, get, set,push } from "firebase/database";
 
 class AdminData {
   constructor(setUserModels) {
@@ -10,9 +11,10 @@ class AdminData {
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users");
     const snapshot = await get(dbRef);
+
     if (snapshot.exists()) {
       const users = Object.values(snapshot.val());
-      const filteredUsers = users.filter(user => user.membership === "pro" || user.membership === "basic");
+      const filteredUsers = users.filter(user => user.request !== 0);
       this.setUserModels(filteredUsers);
     } else {
       alert("error");
@@ -27,7 +29,7 @@ class AdminData {
       const users = Object.values(snapshot.val());
       const filteredUsers = users.filter(user => {
         if (user.email && user.membership) {
-          return user.email.includes(text) && (user.membership === "pro" || user.membership === "basic");
+          return user.email.includes(text) && (user.request !== 0);
         } else {
           return false;
         }
@@ -37,18 +39,28 @@ class AdminData {
       alert("error");
     }
   }
-  updateVigencia = async (key) => {
+
+  updateUser = async (key) => {
+    const depositoModel = new DepositoModel();
+    depositoModel.setDefaultValues()
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users/" + key);
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
       const userData = snapshot.val();
+      if (userData.validity === "") {
+        userData.validity = this.obtenerFechaVencimiento();
+      }
+      userData.wallet = userData.wallet + userData.request
+      depositoModel.request = userData.request
+      userData.request = 0
 
-      userData.membershipDate = this.obtenerFechaVencimiento();
       set(dbRef, userData)
         .then(() => {
           this.fetchData()
-          alert("aaa")
+          depositoModel.userName = userData.userName
+          depositoModel.email = userData.email
+          this.saveHistoryRequest(depositoModel)
         })
         .catch((error) => {
           alert("Error al actualizar los datos: " + error.message);
@@ -58,18 +70,17 @@ class AdminData {
     }
   }
 
-  updateMembership = async (key) => {
+  updateRequest = async (key) => {
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users/" + key);
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
       const userData = snapshot.val();
 
-      userData.membership = "---";
+      userData.request = 0;
       set(dbRef, userData)
         .then(() => {
           this.fetchData()
-          alert("aaa")
         })
         .catch((error) => {
           alert("Error al actualizar los datos: " + error.message);
@@ -81,18 +92,34 @@ class AdminData {
 
   obtenerFechaVencimiento() {
     const currentDate = new Date();
-    const nextYearDate = new Date(currentDate);
+    const next30DaysDate = new Date(currentDate);
 
-    nextYearDate.setFullYear(currentDate.getFullYear() + 1);
+    next30DaysDate.setDate(currentDate.getDate() + 30);
 
-    const dia = nextYearDate.getDate().toString().padStart(2, '0');
-    const mes = (nextYearDate.getMonth() + 1).toString().padStart(2, '0');
-    const año = nextYearDate.getFullYear().toString();
+    const dia = next30DaysDate.getDate().toString().padStart(2, '0');
+    const mes = (next30DaysDate.getMonth() + 1).toString().padStart(2, '0');
+    const año = next30DaysDate.getFullYear().toString();
 
-    const fechaDentroDeUnAño = `${dia}/${mes}/${año}`;
+    const fechaDentroDe30Dias = `${dia}/${mes}/${año}`;
 
-    return fechaDentroDeUnAño;
+    return fechaDentroDe30Dias;
   }
+
+  saveHistoryRequest = async (requestData) => {
+    const db = getDatabase(appFirebase);
+    const newDocRef = push(ref(db, 'historyRequest/'));
+    const fechaActual = new Date();
+    
+    requestData.dateRequest = fechaActual.toISOString();
+    requestData.firebaseKey = newDocRef.key;
+
+    try {
+        await set(newDocRef, requestData);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 }
 
 export default AdminData

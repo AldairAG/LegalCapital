@@ -2,7 +2,7 @@
 
 .seccion-ShowStats {
     position: relative;
-    width: 85%;
+    width: 80%;
     height: 70%;
     display: flex;
     flex-direction: column;
@@ -23,14 +23,14 @@
 
 .seccion1-c img {
     width: 35%;
-    content: url("../../Assets/Images/Logos/Logo_1.png");
+    content: url("../../Assets/Images/Logos/Logo_3.png");
 }
 .seccion1-c p{
     width: 100%;
     text-align: end;
     justify-self: center;
     padding: 4%;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     color: white;
 }
@@ -55,13 +55,12 @@
 }
 
 .seccion3-c {
-    font-size: 3em;
-    font-weight: bold;
+    font-size: 2em;
     height: 100%;
     display: flex;
     flex-direction: column;
     color: white;
     text-align: end;
     justify-content: center;
-    padding: 5%;
+    padding-inline: 5%;
 }

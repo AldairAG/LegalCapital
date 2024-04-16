@@ -13,7 +13,9 @@ const CopyLink = (props) => {
 
     return (
         <div className="contain-link">
-            <span>Invitation Link:</span>
+            <div className='header'>
+                <h3><i class="bi bi-person-fill-add"></i> Invitation Link:</h3>
+            </div>
 
             <div className="link">
                 <input id='invitationLink' type="text" value={"https://legalcapital-corp.com/register/" + props.username} readOnly />

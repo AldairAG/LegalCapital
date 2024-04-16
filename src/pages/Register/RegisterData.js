@@ -58,7 +58,7 @@ class RegisterData {
         const userModel = new UserModel()
         userModel.setDefaultValues();
         const db = getDatabase(appFirebase);
-        const newDocRef = push(ref(db, `users/`));
+        const newDocRef = push(ref(db, 'users/'));
         const fechaActual = new Date();
 
         userModel.email = this.email;

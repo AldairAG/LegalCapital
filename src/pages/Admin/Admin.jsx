@@ -61,7 +61,7 @@ const Admin = () => {
                 <li>
                     <span className="column-header">Nombre de usuario</span>
                     <span className="column-header">E-mail</span>
-                    <span className="column-header">Membresía</span>
+                    <span className="column-header">Cantidad</span>
                     <span className="column-header">Vigencia</span>
                     <span className="column-header">Aprobar</span>
                 </li>
@@ -71,11 +71,11 @@ const Admin = () => {
                             <li key={index}>
                                 <span>{item.userName}</span>
                                 <span>{item.email}</span>
-                                <span>{item.membership}</span>
-                                <span>{item.membershipDate}</span>
+                                <span>{item.request}</span>
+                                <span>{item.validity}</span>
                                 <div className="aprobar">
-                                    <button onClick={() => adminData.updateVigencia(item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
-                                    <button onClick={() => adminData.updateMembership(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>
+                                    <button onClick={() => adminData.updateUser(item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
+                                    <button onClick={() => adminData.updateRequest(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>
                                 </div>
                             </li>
                         ))}

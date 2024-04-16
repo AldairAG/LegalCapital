@@ -3,11 +3,12 @@ import { getDatabase, ref, get, set } from "firebase/database";
 import Common from "../../js/Common";
 
 class QrData{
-    constructor(){
+    constructor(request){
+        this.request=request
         this.common=new Common()
     }
 
-    findCurrentUser = async (membership) => {
+    setRequest = async () => {
         const user = this.common.getCurrentUser();
         
         if (!user) {
@@ -24,19 +25,14 @@ class QrData{
           const currentUserData = Object.values(userData).find(userData => userData.email === user.email);
       
           if (currentUserData) {
-            currentUserData.membership = membership;
+            currentUserData.request = this.request;
             try {
               await set(ref(db, `users/${currentUserData.firebaseKey}`), currentUserData);
-              //this.fetchData();
-              //alert("Membresía actualizada con éxito.");
             } catch (error) {
-              //alert("Error al actualizar los datos: " + error.message);
             }
           } else {
-            //alert("No se encontró el usuario actual en la base de datos.");
           }
         } else {
-          //alert("No se encontraron datos en la base de datos.");
         }
       }
     
