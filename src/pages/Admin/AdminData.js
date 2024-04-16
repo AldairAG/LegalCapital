@@ -1,10 +1,12 @@
 import appFirebase from "../../firebase-config";
 import DepositoModel from "../../model/DepositoModel.js"
-import { getDatabase, ref, get, set,push } from "firebase/database";
+import { getDatabase, ref, get, set, push } from "firebase/database";
+import Common from "../../components/js/Common.js";
 
 class AdminData {
   constructor(setUserModels) {
     this.setUserModels = setUserModels
+    const commom = new Common()
   }
 
   fetchData = async () => {
@@ -40,7 +42,7 @@ class AdminData {
     }
   }
 
-  updateUser = async (key) => {
+  aprobar = async (key) => {
     const depositoModel = new DepositoModel();
     depositoModel.setDefaultValues()
     const db = getDatabase(appFirebase);
@@ -58,9 +60,13 @@ class AdminData {
       set(dbRef, userData)
         .then(() => {
           this.fetchData()
+          if (userData.primerDeposito) {
+            this.bonoReferenciaDirecta(userData.referredBy, userData.wallet)
+          }
           depositoModel.userName = userData.userName
           depositoModel.email = userData.email
           this.saveHistoryRequest(depositoModel)
+
         })
         .catch((error) => {
           alert("Error al actualizar los datos: " + error.message);
@@ -70,7 +76,7 @@ class AdminData {
     }
   }
 
-  updateRequest = async (key) => {
+  denegar = async (key) => {
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users/" + key);
     const snapshot = await get(dbRef);
@@ -109,16 +115,72 @@ class AdminData {
     const db = getDatabase(appFirebase);
     const newDocRef = push(ref(db, 'historyRequest/'));
     const fechaActual = new Date();
-    
+
     requestData.dateRequest = fechaActual.toISOString();
     requestData.firebaseKey = newDocRef.key;
 
     try {
-        await set(newDocRef, requestData);
+      await set(newDocRef, requestData);
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
+  }
+
+  bonoReferenciaDirecta = async (userName, cant) => {
+    try {
+      const db = getDatabase(appFirebase);
+      const dbRef = ref(db, "users");
+      const snapshot = await get(dbRef);
+
+      if (snapshot.exists()) {
+        const users = Object.values(snapshot.val());
+        const userFind = users.find(user => user.userName === userName);
+        if (userFind) {
+          const username = userFind.userName;
+          const bono = this.determinarBono(cant);
+          alert(username);
+          this.commom.addToWallet(username, bono);
+        } else {
+          console.log("Usuario no encontrado");
+        }
+      }
+
+    } catch (error) {
+      console.error("Error finding user by username:", error);
+      return null; // Error al obtener datos de la base de datos
+    }
+  };
+
+  determinarBono = (valor) => {
+    let bono = 0;
+
+    switch (true) {
+      case (valor >= 100 && valor <= 499):
+        bono = 10;
+        break;
+      case (valor > 500 && valor <= 2499):
+        bono = 50;
+        break;
+      case (valor > 2500 && valor <= 4999):
+        bono = 125;
+        break;
+      case (valor > 5000 && valor <= 9999):
+        bono = 250;
+        break;
+      case (valor > 10000 && valor <= 24999):
+        bono = 500;
+        break;
+      case (valor > 25000 && valor <= 99999):
+        bono = 1250;
+        break;
+      default:
+        bono = 5000;
+        break;
+    }
+
+    return bono;
+  };
+
 
 }
 

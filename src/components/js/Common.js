@@ -1,10 +1,10 @@
 import appFirebase from "../../firebase-config";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get,set } from "firebase/database";
 
 class Common {
-    constructor(setUserData){
-        this.setUserData=setUserData
+    constructor(setUserData) {
+        this.setUserData = setUserData
     }
 
     isNullOrEmpty(value) {
@@ -33,6 +33,36 @@ class Common {
             alert("No se encontraron datos en la base de datos");
         }
     }
+
+    addToWallet = async (username,cantidad) => {
+        try {
+            alert(username)
+            const db = getDatabase(appFirebase);
+            const usersRef = ref(db, "users");
+            const snapshot = await get(usersRef);
+
+            if (snapshot.exists()) {
+                const users = Object.values(snapshot.val());
+                const usuarioEncontrado = users.find(user => user.userName === username);
+
+                if (usuarioEncontrado) {
+                    usuarioEncontrado.wallet += cantidad;
+
+                    const userRef = ref(db, `users/${usuarioEncontrado.firebaseKey}`);
+                    await set(userRef, { wallet: usuarioEncontrado.wallet });
+
+                    console.log(`Se aumentó la cantidad en la wallet de ${username}`);
+                } else {
+                    console.log(`No se encontró al usuario ${username}`);
+                }
+            } else {
+                console.log("No se encontraron usuarios en la base de datos");
+            }
+        } catch (error) {
+            console.error("Error al aumentar la cantidad en la wallet:", error);
+        }
+    };
+
 }
 
 export default Common

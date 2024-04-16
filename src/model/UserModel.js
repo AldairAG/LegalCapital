@@ -1,6 +1,6 @@
 class UserModel {
   constructor(userName,lastName,firstName,email,password,referredBy,
-    rank,country,phoneNumber,validity,admissionDate,usdtAddress,firebaseKey,rol,request,requestR,wallet){
+    rank,country,phoneNumber,validity,admissionDate,usdtAddress,firebaseKey,rol,request,requestR,wallet,primerDeposito){
       this.userName= userName;
       this.lastName=lastName;
       this.firstName=firstName;
@@ -18,6 +18,7 @@ class UserModel {
       this.request=request;
       this.requestR=requestR;
       this.wallet=wallet;
+      this.primerDeposito=primerDeposito
     }
     setDefaultValues() {
       this.userName = "";
@@ -37,7 +38,8 @@ class UserModel {
       this.request=0.00;
       this.requestR=0.00;
       this.validity="";
-      this.wallet=0
+      this.wallet=0;
+      this.primerDeposito=true;
   }
 };
 

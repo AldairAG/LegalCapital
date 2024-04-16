@@ -74,8 +74,8 @@ const Admin = () => {
                                 <span>{item.request}</span>
                                 <span>{item.validity}</span>
                                 <div className="aprobar">
-                                    <button onClick={() => adminData.updateUser(item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
-                                    <button onClick={() => adminData.updateRequest(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>
+                                    <button onClick={() => adminData.aprobar(item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
+                                    <button onClick={() => adminData.denegar(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>
                                 </div>
                             </li>
                         ))}

@@ -6,15 +6,21 @@ import QRComponent from "./QrComponent"
 import MainDivData from "./js/MainDivData"
 
 const MainDiv = (props) => {
-    const [totalMN, setTotalMN] = useState(0);
+    const [totalMN, setTotalMN] = useState(1);
     const [newMN, setNewMN] = useState(0);
     const [totalRF, setTotalRF] = useState(0);
     const [newRF, setNewRF] = useState(0);
-    const mainDivData = new MainDivData(setTotalMN,setNewMN,setTotalRF,setNewRF)
+    const [userName, setUserName] = useState("");
 
     useEffect(() => {
+        // Acceder directamente a props.userData.userName
+        const userName = props.userData.userName;
+        const mainDivData = new MainDivData(setTotalMN,setNewMN,setTotalRF,setNewRF,userName,totalMN)
         mainDivData.getDirectRef()
-    }, []);
+        mainDivData.contarTotalReferidos(userName).then(total => {
+            setTotalMN(total)
+        });
+    }, [props.userData]);
 
     return (
         <div className="seccion-main">
