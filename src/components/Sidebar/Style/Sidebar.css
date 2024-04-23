@@ -4,12 +4,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
-body{
+.siderbar-body{
     height: 100vh;
     width: 100%;
 }
+
+body{
+    height:100vh ;
+}
+
 /*-----------------Menu*/
 .menu{
     position: fixed;
@@ -33,21 +39,24 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 250px;
+    width: 200px;
     height: 100vh;
     overflow: hidden;
     padding: 20px 15px;
-    background-color: var(--primary-color);
+    background-color: ghostwhite;
     transition: width 0.5s ease,background-color 0.3s ease,left 0.5s ease;
     z-index: 50;
 }
 .mini-barra-lateral{
     width: 80px;
 }
+.mini-barra-lateral .navegacion h4{
+    display: none;
+}
 .barra-lateral span{
     width: 100px;
     white-space: nowrap;
-    font-size: 18px;
+    font-size: 15px;
     text-align: left;
     padding-left: 7px;
     opacity: 1;
@@ -57,37 +66,21 @@ body{
     opacity: 0;
     width: 0;
 }
-
-/*------------> Nombre de la página */
-.barra-lateral .nombre-pagina img{
-    width: 100%;
-    height: 50%;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
+.barra-lateral h4.oculto{
+    opacity: 0;
+    width: 0;
+    display: none;
 }
-
 /*--------------> Menu Navegación*/
 .barra-lateral .navegacion{
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
 }
-.barra-lateral .navegacion::-webkit-scrollbar{
-    width: 5px;
-}
-.barra-lateral .navegacion::-webkit-scrollbar-thumb{
-    background-color: var(--color-scroll);
-    border-radius: 5px;
-}
-.barra-lateral .navegacion::-webkit-scrollbar-thumb:hover{
-    background-color: var(--color-scroll-hover);
-}
 .barra-lateral .navegacion li{  
     list-style: none;
     display: flex;
     margin-bottom: 5px;
-
 }
 .barra-lateral .navegacion a{
     width: 100%;
@@ -96,7 +89,7 @@ body{
     align-items: center;
     text-decoration: none;
     border-radius: 10px;
-    color: var(--color-texto-menu);
+    color:black;
 }
 .barra-lateral .navegacion a:hover{
     background-color: var(--color-menu-hover);
@@ -106,6 +99,11 @@ body{
     min-width: 50px;
     font-size: 40px;
     padding-left: 5px;
+    color: black;
+}
+.barra-lateral h4{
+    color: gray;
+    display: block;
 }
 
 /*------------> Botón*/
@@ -128,18 +126,16 @@ body{
     font-size: 25px;
 }
 
-/*-------------main*/
-#inbox{
-    background-color: var(--color-menu-hover);
-    color: var(--color-menu-hover-texto);
+
+.barra-lateral .navegacion::-webkit-scrollbar{
+    width: 5px;
 }
-main{
-    margin-left: 250px;
-    padding: 20px;
-    transition: margin-left 0.5s ease;
+.barra-lateral .navegacion::-webkit-scrollbar-thumb{
+    background-color: var(--color-scroll);
+    border-radius: 5px;
 }
-main.min-main{
-    margin-left: 80px;
+.barra-lateral .navegacion::-webkit-scrollbar-thumb:hover{
+    background-color: var(--color-scroll-hover);
 }
 
 /*------------------> Responsive*/

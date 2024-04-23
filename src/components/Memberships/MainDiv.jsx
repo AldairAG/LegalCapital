@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./styles/MainDiv.css"
-import CopyLink from "../CopiLink/CopyLink";
-import ShowStats from "../ShowStats/ShowStats";
-import QRComponent from "./QrComponent"
 import MainDivData from "./js/MainDivData"
+import Aviso from './Aviso/Aviso';
+import CardData from "./CardData/CardData"
+import image1 from "../../Assets/Images/Logos/ganancia.png";
 
 const MainDiv = (props) => {
     const [totalMN, setTotalMN] = useState(1);
@@ -13,9 +13,8 @@ const MainDiv = (props) => {
     const [userName, setUserName] = useState("");
 
     useEffect(() => {
-        // Acceder directamente a props.userData.userName
         const userName = props.userData.userName;
-        const mainDivData = new MainDivData(setTotalMN,setNewMN,setTotalRF,setNewRF,userName,totalMN)
+        const mainDivData = new MainDivData(setTotalMN, setNewMN, setTotalRF, setNewRF, userName, totalMN)
         mainDivData.getDirectRef()
         mainDivData.contarTotalReferidos(userName).then(total => {
             setTotalMN(total)
@@ -24,70 +23,16 @@ const MainDiv = (props) => {
 
     return (
         <div className="seccion-main">
-            <div className='seccion-m-1-h'>
-                <div className="seccion1-h">
-                    <img alt="logo" />
-                    <p>
-                        You're embarking on a journey towards financial
-                        success with Legal Capital Corp. We provide the tools
-                        and support for your financial goals. Welcome aboard!
-                    </p>
-
-                    <div className="seccion2-h">
-                        <CopyLink username={props.userData.userName} />
-                    </div>
-
-                </div>
-
-                <div className="seccion3-h">
-                    <ShowStats tittle="Total income:" stat={"$"} ic="bi bi-wallet2" />
-
-                    <div className="seccion4-h">
-                        <QRComponent />
-                    </div>
-                </div>
-            </div>
-
-            <div className='seccion-m-2-h'>
-                <div className="seccion5-h">
-                    <div className='cabecera'>
-                        <h1>My network</h1>
-                    </div>
-
-                    <div className="stats">
-                        <div className="stat">
-                            <h2>Total <i class="bi bi-people-fill"></i></h2>
-                            <span>{totalMN}</span>
-                        </div>
-                        <div className="stat">
-                            <h2>New <i class="bi bi-person-add"></i></h2>
-                            <span>{newMN}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="seccion6-h">
-                    <div className='cabecera'>
-                        <h1>My direct referrals</h1>
-                    </div>
-                    <div className="stats">
-                        <div className="stat">
-                            <h2>Total <i class="bi bi-people-fill"></i></h2>
-                            <span>{totalRF}</span>
-                        </div>
-                        <div className="stat">
-                            <h2>New <i class="bi bi-person-add"></i></h2>
-                            <span>{newRF}</span>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
+            <section className='dashboard'>
+                <Aviso />
+                <div className="seccion1"><CardData type={true} titulo="Wallet"/></div>
+                <div className="seccion2"><CardData type={false} image={image1} titulo="Comision wallet"/></div>
+                
+                <div className="seccion4">a</div>
+            </section>
 
         </div>
     )
-
 }
 
 export default MainDiv

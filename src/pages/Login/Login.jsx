@@ -18,6 +18,7 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         loginData.functAutentication(e)
+        //loginData.comprobarVigencia()
     }
 
     return (

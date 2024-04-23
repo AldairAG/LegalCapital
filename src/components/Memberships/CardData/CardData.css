@@ -1,0 +1,98 @@
+.contain-data {
+    max-width: 320px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.contain-data .title {
+    display: flex;
+    align-items: center;
+}
+.contain-data .title p {
+    margin-left: 0.5rem;
+    color: #374151;
+    font-size: 18px;
+}
+.contain-data .data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.contain-data .data p {
+    margin-top: 1rem;
+    color: #1F2937;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    text-align: left;
+    
+}
+.contain-data .title .logo {
+    width: 25px;
+    content: url("../../../Assets/Images/Logos/usdt.png");
+}
+.contain-data .title .percent {
+    margin-left: 0.5rem;
+    color: #02972f;
+    font-weight: 600;
+    display: flex;
+}
+
+.contain-data-2{
+    max-width: 320px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    align-items: center;
+}
+.contain-data-2 img{
+    content: none;
+    width: 60px;
+    height: 60px;
+}
+.contain-data-2 .containImg{
+    background-color: white;
+    border: 1px solid #727374;
+    border-radius: 10px;
+    padding: 5px;
+}
+.contain-data-2 .contain1{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 0.5rem;
+    height: 75px;
+}
+.contain-data-2 .title {
+    margin-bottom: auto;
+    display: flex;
+    align-items: center;
+}
+.contain-data-2 .title p {
+    color: #374151;
+    font-size: 20px;
+}
+.contain-data-2 .data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: auto;
+}
+.contain-data-2 .data p {
+    color: #1F2937;
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: left;
+    
+}
+.none{
+    display: none;
+}

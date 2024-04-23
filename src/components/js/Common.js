@@ -1,6 +1,6 @@
 import appFirebase from "../../firebase-config";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, get,set } from "firebase/database";
+import { getDatabase, ref, get,set,query,orderByChild,startAt } from "firebase/database";
 
 class Common {
     constructor(setUserData) {
@@ -49,7 +49,7 @@ class Common {
                     usuarioEncontrado.wallet += cantidad;
 
                     const userRef = ref(db, `users/${usuarioEncontrado.firebaseKey}`);
-                    await set(userRef, { wallet: usuarioEncontrado.wallet });
+                    await set(userRef, usuarioEncontrado);
 
                     console.log(`Se aumentó la cantidad en la wallet de ${username}`);
                 } else {
@@ -63,6 +63,34 @@ class Common {
         }
     };
 
+    bonoFastTrack = async () => {
+        try {
+          const db = getDatabase(appFirebase);
+          const usersRef = ref(db, "users");
+          
+          // Obtener la fecha actual
+          const currentDate = new Date();
+          
+          // Calcular la fecha límite hace 45 días
+          const fortyFiveDaysAgo = new Date();
+          fortyFiveDaysAgo.setDate(currentDate.getDate() - 45);
+      
+          const q = query(usersRef, orderByChild("admissionDate"), startAt(fortyFiveDaysAgo.toISOString()));
+      
+          const snapshot = await get(q);
+          const users = snapshot.exists() ? Object.values(snapshot.val()) : [];
+      
+          // Verificar si hay al menos 3 usuarios registrados dentro de los últimos 45 días
+          if (users.length >= 3) {
+            console.log("¡Hay al menos 3 usuarios registrados dentro de los últimos 45 días!");
+          } else {
+            console.log("No hay suficientes usuarios registrados dentro de los últimos 45 días.");
+          }
+      
+        } catch (error) {
+          console.error("Error counting direct referrals:", error);
+        }
+      };
 }
 
 export default Common

@@ -6,7 +6,6 @@ import Common from "../../components/js/Common.js";
 class AdminData {
   constructor(setUserModels) {
     this.setUserModels = setUserModels
-    const commom = new Common()
   }
 
   fetchData = async () => {
@@ -56,13 +55,14 @@ class AdminData {
       userData.wallet = userData.wallet + userData.request
       depositoModel.request = userData.request
       userData.request = 0
+      if (userData.primerDeposito) {
+        this.bonoReferenciaDirecta(userData.referredBy, userData.wallet)
+        userData.primerDeposito=false
+      }
 
       set(dbRef, userData)
         .then(() => {
           this.fetchData()
-          if (userData.primerDeposito) {
-            this.bonoReferenciaDirecta(userData.referredBy, userData.wallet)
-          }
           depositoModel.userName = userData.userName
           depositoModel.email = userData.email
           this.saveHistoryRequest(depositoModel)
@@ -127,6 +127,7 @@ class AdminData {
   }
 
   bonoReferenciaDirecta = async (userName, cant) => {
+    const commom=new Common()
     try {
       const db = getDatabase(appFirebase);
       const dbRef = ref(db, "users");
@@ -139,7 +140,7 @@ class AdminData {
           const username = userFind.userName;
           const bono = this.determinarBono(cant);
           alert(username);
-          this.commom.addToWallet(username, bono);
+          commom.addToWallet(username, bono);
         } else {
           console.log("Usuario no encontrado");
         }
@@ -181,6 +182,7 @@ class AdminData {
     return bono;
   };
 
+  
 
 }
 
