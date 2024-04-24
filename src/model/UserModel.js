@@ -65,6 +65,7 @@ class UserModel {
       this.residualBono=0;
       this.residualBonoMensual=0;
       this.bonoFastTract=0;
+      this.bonoFT=0
   }
 };
 

@@ -79,10 +79,10 @@ class RegisterData {
         const auth = getAuth(appFirebase)
         e.preventDefault();
         try {
-            await createUserWithEmailAndPassword(auth, this.email, this.password)
+            //await createUserWithEmailAndPassword(auth, this.email, this.password)
             await this.saveData();
-            await this.welcomeEmail.sendEmail(e)
-            window.location.href = '/Dashboard';
+            //await this.welcomeEmail.sendEmail(e)
+            //window.location.href = '/Dashboard';
         } catch (error) {
             switch (error.code) { 
                 case 'auth/email-already-in-use':

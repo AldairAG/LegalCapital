@@ -14,7 +14,7 @@ const Login = () => {
     const history = useHistory();
     const loginData = new LoginData(email, password,
         setTextError, setDisplayError, history);
-    const username = 'mariaalvarez';
+    const username = 'pp';
 
     const handleLogin = async (e) => {
         loginData.functAutentication(e)
