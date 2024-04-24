@@ -4,8 +4,11 @@
     width: 100%;
     margin-top: 5%;
     display: flex;
+    z-index:101;
 }
-
+.none{
+    display: none;
+}
 .btnOpen {
     width: 40%;
     border-radius: 10px;

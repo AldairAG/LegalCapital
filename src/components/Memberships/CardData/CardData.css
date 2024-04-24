@@ -1,98 +1,115 @@
 .contain-data {
-    max-width: 320px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-.contain-data .title {
-    display: flex;
-    align-items: center;
-}
-.contain-data .title p {
-    margin-left: 0.5rem;
-    color: #374151;
-    font-size: 18px;
-}
-.contain-data .data {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-.contain-data .data p {
-    margin-top: 1rem;
-    color: #1F2937;
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    font-weight: 700;
-    text-align: left;
-    
-}
-.contain-data .title .logo {
-    width: 25px;
-    content: url("../../../Assets/Images/Logos/usdt.png");
-}
-.contain-data .title .percent {
-    margin-left: 0.5rem;
-    color: #02972f;
-    font-weight: 600;
-    display: flex;
+  max-width: 100%;
+  height: 60%;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
-.contain-data-2{
-    max-width: 320px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    align-items: center;
+.contain-data .title {
+  display: flex;
+  align-items: center;
 }
-.contain-data-2 img{
-    content: none;
-    width: 60px;
-    height: 60px;
+
+.contain-data .title p {
+  margin-left: 0.5rem;
+  color: #374151;
+  font-size: 18px;
 }
-.contain-data-2 .containImg{
-    background-color: white;
-    border: 1px solid #727374;
-    border-radius: 10px;
-    padding: 5px;
+
+.contain-data .data {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-.contain-data-2 .contain1{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-left: 0.5rem;
-    height: 75px;
+
+.contain-data .data p {
+  margin-top: 1rem;
+  color: #1F2937;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  text-align: left;
+
 }
-.contain-data-2 .title {
-    margin-bottom: auto;
-    display: flex;
-    align-items: center;
+
+.contain-data .title .logo {
+  width: 25px;
+  content: url("../../../Assets/Images/Logos/usdt.png");
 }
-.contain-data-2 .title p {
-    color: #374151;
-    font-size: 20px;
+
+.contain-data .title .percent {
+  margin-left: 0.5rem;
+  color: #02972f;
+  font-weight: 600;
+  display: flex;
 }
-.contain-data-2 .data {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-bottom: auto;
+
+.content2-btn {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: auto;
 }
-.contain-data-2 .data p {
-    color: #1F2937;
-    font-size: 1.7rem;
-    font-weight: 700;
-    text-align: left;
-    
+
+.Btn {
+  width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15, 15, 15);
+  border: none;
+  color: white;
+  font-weight: 600;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px;
 }
-.none{
-    display: none;
+
+.svgIcon {
+  width: 16px;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.Btn::before {
+  width: 100%;
+  height: 130px;
+  position: absolute;
+  content: "";
+  background-color: rgb(239, 239, 239);
+  border-radius: 50%;
+  left: -100%;
+  top: 0;
+  transition-duration: .3s;
+  mix-blend-mode: difference;
+}
+
+.Btn:hover::before {
+  transition-duration: .3s;
+  transform: translate(100%, -50%);
+  border-radius: 0;
+}
+
+.Btn:active {
+  transform: translate(5px, 5px);
+  transition-duration: .3s;
+}
+
+
+.none {
+  display: none;
 }

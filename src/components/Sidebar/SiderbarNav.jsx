@@ -7,10 +7,10 @@ const SiderNav = () => {
                 <h4>Main menu</h4>
                 <hr />
                 <li>
-                    <NavBtn lk="" ic="bi bi-house" sp="Home" />
+                    <NavBtn lk="/Dashboard/home" ic="bi bi-house" sp="Home" />
                 </li>
                 <li>
-                    <NavBtn lk="" ic="bi bi-boxes" sp="Products" />
+                    <NavBtn lk="/Dashboard/packs" ic="bi bi-boxes" sp="Products" />
                 </li>
             </ul>
         </nav>

@@ -22,7 +22,7 @@ class LoginData {
       if (this.userRole === 'admin') {
         this.history.push('/admin');
       } else {
-        this.history.push('/Dashboard');
+        this.history.push('/Dashboard/home');
       }
     } catch (error) {
       switch (error.code) {

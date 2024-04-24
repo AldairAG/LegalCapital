@@ -2,7 +2,9 @@
 
 .aviso {
     display: flex;
-    height: 80%;
+    position: fixed;
+    height: 100%;
+    width: 94%;
     flex-direction: column;
     flex-wrap: wrap;
     padding: 2%;
@@ -12,7 +14,7 @@
     margin: 10px;
     background-color: var(--secundary-color-l);
     animation: desplazar 1s ease-in-out;
-    z-index: 1;
+    z-index: 102;
     overflow-y: auto;
 }
 

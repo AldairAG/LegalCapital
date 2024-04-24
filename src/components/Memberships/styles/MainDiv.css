@@ -1,52 +1,131 @@
 @import url("../../../Assets/colors/colors.css");
 
 .seccion-main {
-    display: flex;
-    width: 100%;
+    width: 100%-200px;
     height: 100%;
     background-color: var(--secundary-color-l);
     padding: 0;
     margin: 0;
+    display: flex;
 }
 
 .dashboard {
     width: 100%;
     height: auto;
-    padding: 0;
     margin: 0;
-    grid-template-columns: 6fr 4fr;
-    grid-template-rows: repeat(6,1fr);
+    grid-template-columns: 3fr 3fr 35%;
+    grid-template-rows: 100px 200px 200px 200px 200px;
     display: grid;
     grid-template-areas:
-    "sec1 sec4"
-    "sec2 sec4"
-    "sec3 sec4";
-    background-color: brown;
-    overflow-y: auto;
+    "sec0 sec0 sec0"
+    "sec1 sec2 sec7"
+    "sec3 sec4 sec7"
+    "sec5 sec6 sec7"
+    "sec8 sec8 sec7";
 }
 
+.seccion0 {
+    grid-area: sec0;
+    padding: 2%;
+    padding-top: 1%;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+}
+.seccion0 h1{
+    font-size: 40px;
+    margin-right: 10px;
+}
+.seccion0 i{
+    font-size: 40px;
+}
 .seccion1 {
-    padding: 2%;
-    background-color: #888;
     grid-area: sec1;
+    align-content: center;
+    justify-items: center;
 }
-
 .seccion2 {
-    padding: 2%;
-    background-color: blue;
+    align-content: center;
+    justify-items: center;
     grid-area: sec2;
 }
-
 .seccion3 {
-    padding: 2%;
-    background-color: aquamarine;
+    align-content: center;
+    justify-items: center;
     grid-area:sec3;
 }
-
 .seccion4 {
-    padding: 2%;
-    background-color: blueviolet;
+    align-content: center;
+    justify-items: center;
     grid-area: sec4;
+}
+.seccion5 {
+    align-content: center;
+    justify-items: center;
+    grid-area: sec5;
+}
+.seccion6 {
+    align-content: center;
+    justify-items: center;
+    grid-area:sec6;
+}
+.seccion7 {
+    padding: 2%;
+    grid-area: sec7;
+}
+.seccion7 .userDetail{
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px;
+    height: 100%;
+}
+.seccion7 .userDetail .rangoImg{
+    width: 300px;
+    margin-top: 5%;
+    margin-bottom: 1%;
+    content: url("../../../Assets/Images/Logos/rangos/rank-0.png");
+}
+.seccion7 .userDetail .p0{
+    font-size: 50px;
+    font-weight: bold;
+}
+.seccion7 .userDetail .p1{
+    font-size: 25px;
+    margin-bottom: 3%;
+}
+
+.seccion7 .userDetail .datosUser{
+    width: 80%;
+    height: 20%;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:space-around ;
+}
+.seccion7 .userDetail .p2{
+    font-size: 20px;
+    border-bottom: 1px dashed black;
+}
+
+
+.seccion7 .tablaRed {
+    width: 50%;
+    display: table;
+    border-collapse: collapse;
+    text-align: center;
+}
+.seccion7 .fila {
+    display: table-row;
+}
+.seccion7 .celda {
+    border-radius: 10px;
+    display: table-cell;
+    padding: 10px;
 }
 
 
