@@ -1,7 +1,7 @@
 class UserModel {
   constructor(userName, lastName, firstName, email, password, referredBy, country, phoneNumber, validity, rank,
     admissionDate, usdtAddress, firebaseKey, rol,
-    walletDiv, walletCom, propietario, bonoRefDirect, bonoFastTrack, bonoIgualacion,bonoIgualacionSem, bonoIngresoRes, bonoRangoRes,
+    walletDiv, walletCom, bonoRefDirect, bonoFastTrack, bonoIgualacion,bonoIgualacionSem, bonoIngresoRes, bonoRangoRes,
     firtsAdd, activo) {
 
     this.firstName = firstName;
@@ -21,7 +21,6 @@ class UserModel {
 
     this.walletDiv=walletDiv
     this.walletCom=walletCom
-    this.propietario=propietario
     this.bonoRefDirect=bonoRefDirect
     this.bonoFastTrack=bonoFastTrack
     this.bonoIgualacion=bonoIgualacion
@@ -40,10 +39,9 @@ class UserModel {
     this.email = "";
     this.password = "";
     this.referredBy = "";
-    this.rank = "";
+    this.rank = 0;
     this.country = "";
     this.phoneNumber = "";
-    this.membership = "---";
     this.usdtAddress = "";
     this.admissionDate = "";
     this.firebaseKey = "";
@@ -52,7 +50,6 @@ class UserModel {
 
     this.walletDiv=0
     this.walletCom=0
-    this.propietario=""
     this.bonoRefDirect=0
     this.bonoFastTrack=0
     this.bonoIgualacion=0
