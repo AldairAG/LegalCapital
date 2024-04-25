@@ -1,72 +1,67 @@
 class UserModel {
-  constructor(userName,lastName,firstName,email,password,referredBy,
-    rank,country,phoneNumber,validity,admissionDate,usdtAddress,firebaseKey,rol,request,requestR,wallet,primerDeposito,active,
-    refDirecBono,
-    MatchBono,
-    MatchBonoSemanal,
-    residualBono,
-    residualBonoMensual,
-    bonoFT){
-      this.firstName=firstName;
-      this.lastName=lastName;
-      this.country=country;
-      this.phoneNumber=phoneNumber;
-      this.admissionDate=admissionDate;
-      this.firebaseKey=firebaseKey;
-      this.rol=rol;
+  constructor(userName, lastName, firstName, email, password, referredBy, country, phoneNumber, validity, rank,
+    admissionDate, usdtAddress, firebaseKey, rol,
+    walletDiv, walletCom, propietario, bonoRefDirect, bonoFastTrack, bonoIgualacion,bonoIgualacionSem, bonoIngresoRes, bonoRangoRes,
+    firtsAdd, activo) {
 
-      this.userName= userName;
-      this.email= email;
-      this.password= password;
-      this.referredBy= referredBy;
-      this.validity=validity
-      this.usdtAddress=usdtAddress;
-      
-      this.wallet=wallet;
-      this.request=request;
-      this.requestR=requestR;
-      this.rank=rank;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.country = country;
+    this.phoneNumber = phoneNumber;
+    this.admissionDate = admissionDate;
+    this.firebaseKey = firebaseKey;
+    this.rol = rol;
+    this.userName = userName;
+    this.email = email;
+    this.password = password;
+    this.referredBy = referredBy;
+    this.validity = validity
+    this.usdtAddress = usdtAddress;
+    this.rank = rank;
 
-      this.refDirecBono=refDirecBono;
-      this.MatchBono=MatchBono;
-      this.MatchBonoSemanal=MatchBonoSemanal;
-      this.residualBono=residualBono;
-      this.residualBonoMensual=residualBonoMensual;
-      this.bonoFT=bonoFT;
+    this.walletDiv=walletDiv
+    this.walletCom=walletCom
+    this.propietario=propietario
+    this.bonoRefDirect=bonoRefDirect
+    this.bonoFastTrack=bonoFastTrack
+    this.bonoIgualacion=bonoIgualacion
+    this.bonoIgualacionSem=bonoIgualacionSem
+    this.bonoIngresoRes=bonoIngresoRes
+    this.bonoRangoRes=bonoRangoRes
+    this.firtsAdd=firtsAdd
+    this.activo=activo
 
-      this.primerDeposito=primerDeposito
-      this.active=active
-    }
-    setDefaultValues() {
-      this.userName = "";
-      this.lastName = "";
-      this.firstName = "";
-      this.email = "";
-      this.password = "";
-      this.referredBy = "";
-      this.rank = "";
-      this.country = "";
-      this.phoneNumber = "";
-      this.membership = "---";
-      this.usdtAddress = "";
-      this.admissionDate = "";
-      this.firebaseKey="";
-      this.rol="u";
-      this.request=0.00;
-      this.requestR=0.00;
-      this.validity="";
-      this.wallet=0;
-      this.primerDeposito=true;
-      this.active=true;
+  }
 
-      this.refDirecBono=0;
-      this.MatchBono=0;
-      this.MatchBonoSemanal=0;
-      this.residualBono=0;
-      this.residualBonoMensual=0;
-      this.bonoFastTract=0;
-      this.bonoFT=0
+  setDefaultValues() {
+    this.userName = "";
+    this.lastName = "";
+    this.firstName = "";
+    this.email = "";
+    this.password = "";
+    this.referredBy = "";
+    this.rank = "";
+    this.country = "";
+    this.phoneNumber = "";
+    this.membership = "---";
+    this.usdtAddress = "";
+    this.admissionDate = "";
+    this.firebaseKey = "";
+    this.rol = "u";
+    this.validity=""
+
+    this.walletDiv=0
+    this.walletCom=0
+    this.propietario=""
+    this.bonoRefDirect=0
+    this.bonoFastTrack=0
+    this.bonoIgualacion=0
+    this.bonoIgualacionSem=0
+    this.bonoIngresoRes=0
+    this.bonoRangoRes=0
+    this.firtsAdd=false
+    this.activo=false
   }
 };
 
-  export default UserModel
+export default UserModel
