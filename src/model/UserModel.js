@@ -2,7 +2,11 @@ class UserModel {
   constructor(userName, lastName, firstName, email, password, referredBy, country, phoneNumber, validity, rank,
     admissionDate, usdtAddress, firebaseKey, rol,
     walletDiv, walletCom, bonoRefDirect, bonoFastTrack, bonoIgualacion,bonoIgualacionSem, bonoIngresoRes, bonoRangoRes,
+<<<<<<< HEAD
+    firtsAdd, activo,retirosTotales,request,requestR,plan) {
+=======
     firtsAdd, activo) {
+>>>>>>> dc67494d55e68569c326a88eafd05d7fa4a5f5b3
 
     this.firstName = firstName;
     this.lastName = lastName;
@@ -29,6 +33,13 @@ class UserModel {
     this.bonoRangoRes=bonoRangoRes
     this.firtsAdd=firtsAdd
     this.activo=activo
+<<<<<<< HEAD
+    this.retirosTotales=retirosTotales
+    this.request=request
+    this.requestR=requestR
+    this.plan=plan
+
+=======
 
   }
 
@@ -58,7 +69,42 @@ class UserModel {
     this.bonoRangoRes=0
     this.firtsAdd=false
     this.activo=false
+>>>>>>> dc67494d55e68569c326a88eafd05d7fa4a5f5b3
+  }
+
+<<<<<<< HEAD
+  setDefaultValues() {
+    this.userName = "";
+    this.lastName = "";
+    this.firstName = "";
+    this.email = "";
+    this.password = "";
+    this.referredBy = "";
+    this.rank = 0;
+    this.country = "";
+    this.phoneNumber = "";
+    this.usdtAddress = "";
+    this.admissionDate = "";
+    this.firebaseKey = "";
+    this.rol = "u";
+    this.validity=""
+
+    this.walletDiv=0
+    this.walletCom=0
+    this.bonoRefDirect=0
+    this.bonoFastTrack=0
+    this.bonoIgualacion=0
+    this.bonoIgualacionSem=0
+    this.bonoIngresoRes=0
+    this.bonoRangoRes=0
+    this.firtsAdd=false
+    this.activo=false
+    this.retirosTotales=0
+    this.request=0
+    this.requestR=0
+    this.plan=""
   }
 };
-
+=======
 export default UserModel
+>>>>>>> dc67494d55e68569c326a88eafd05d7fa4a5f5b3

@@ -1,14 +1,13 @@
 .contain-data {
   max-width: 100%;
-  height: 60%;
+  height: 150px;
   border-radius: 10px;
   background-color: #ffffff;
   padding: 10px;
+  margin-inline-start: 5%;
   display: flex;
   flex-direction: row;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  margin-left: 5%;
-  margin-right: 5%;
 }
 
 .contain-data .title {

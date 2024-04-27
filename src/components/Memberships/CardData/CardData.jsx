@@ -1,5 +1,10 @@
 import "./CardData.css"
+import React, { useState, useEffect } from 'react';
 const CardData = (props) => {
+    const [valor, setValor] = useState(0.00);
+    useEffect(() => {
+        setValor(props.dato||0.00);
+      }, []);
     return (
         <section className="contain-data">
             <div className="contain1">
@@ -8,7 +13,7 @@ const CardData = (props) => {
                     <p>{props.titulo}</p>
                 </div>
                 <div className="data">
-                    <p>$0.00</p>
+                    <p>${valor}</p>
                 </div>
             </div>
             <div className={props.type ? 'content2-btn' : 'none'}>
