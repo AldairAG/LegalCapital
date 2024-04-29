@@ -52,12 +52,12 @@ class AdminData {
       if (userData.validity === "") {
         userData.validity = this.obtenerFechaVencimiento();
       }
-      userData.wallet = userData.wallet + userData.request
+      userData.walletDiv = userData.walletDiv + userData.request
       depositoModel.request = userData.request
       userData.request = 0
-      if (userData.primerDeposito) {
-        this.bonoReferenciaDirecta(userData.referredBy, userData.wallet)
-        userData.primerDeposito=false
+      if (!userData.firstAdd) {
+        this.bonoReferenciaDirecta(userData.referredBy, userData.walletDiv)
+        userData.firstAdd = true
       }
 
       set(dbRef, userData)
@@ -127,7 +127,7 @@ class AdminData {
   }
 
   bonoReferenciaDirecta = async (userName, cant) => {
-    const commom=new Common()
+    const commom = new Common()
     try {
       const db = getDatabase(appFirebase);
       const dbRef = ref(db, "users");
@@ -182,7 +182,7 @@ class AdminData {
     return bono;
   };
 
-  
+
 
 }
 

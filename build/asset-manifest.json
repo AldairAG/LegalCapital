@@ -1,24 +1,40 @@
 {
   "files": {
-    "main.css": "/static/css/main.2884d55f.css",
-    "main.js": "/static/js/main.a9ab4348.js",
+    "main.css": "/static/css/main.3bf7e31b.css",
+    "main.js": "/static/js/main.3da860e6.js",
     "static/media/imagelogin.png": "/static/media/imagelogin.1d4b272652a9dcb4abe1.png",
+    "static/media/platinum.png": "/static/media/platinum.615a99197293021d78b9.png",
+    "static/media/bronze.png": "/static/media/bronze.3c2a20745b0a67460047.png",
+    "static/media/gold.png": "/static/media/gold.ef55156d8dd608bfaafa.png",
     "static/media/qrms.png": "/static/media/qrms.8b181fc82cd9b273c041.png",
+    "static/media/plata.png": "/static/media/plata.ed6cb6218904572b0f4a.png",
+    "static/media/builder.png": "/static/media/builder.6f4466d9b04385d2a3ef.png",
+    "static/media/Rank-4.png": "/static/media/Rank-4.2c882b173e21a34f20f7.png",
+    "static/media/Rank-6.png": "/static/media/Rank-6.0cfeb0c4567c691755e7.png",
+    "static/media/Rank-5.png": "/static/media/Rank-5.1f46908c5afe5efc91ce.png",
+    "static/media/rank-1.png": "/static/media/rank-1.1f46908c5afe5efc91ce.png",
+    "static/media/Rank-8.png": "/static/media/Rank-8.e3234e1ce151d95e61e3.png",
+    "static/media/Rank-3.png": "/static/media/Rank-3.2360e3d232f0d189438d.png",
+    "static/media/Rank-7.png": "/static/media/Rank-7.f5268433f530dc9537c9.png",
+    "static/media/Rank-9.png": "/static/media/Rank-9.88cfdfc55832aa05393b.png",
     "static/media/Logo_1.png": "/static/media/Logo_1.aad1b99bbf59c450c9f4.png",
     "static/media/LeagueGothic-Italic.ttf": "/static/media/LeagueGothic-Italic.745833118c77b4dcc587.ttf",
     "static/media/LeagueGothic-Regular.ttf": "/static/media/LeagueGothic-Regular.9a86844e5bf7d14acf69.ttf",
     "static/media/LeagueGothic-Condensed.ttf": "/static/media/LeagueGothic-Condensed.bf8e58a7b2122a9151f1.ttf",
+    "static/media/rank-0.png": "/static/media/rank-0.d71e05fe8bdfcf228b3e.png",
     "static/media/Logo_1pq.png": "/static/media/Logo_1pq.97c7a4737b0ec0e161db.png",
     "static/media/Logo_1l.png": "/static/media/Logo_1l.5aad6acc488ca0966307.png",
-    "static/media/Logo_3.png": "/static/media/Logo_3.468e3d4f2465b39fcf08.png",
     "static/media/Logo_2.png": "/static/media/Logo_2.543f05730ba6d8dcee13.png",
-    "static/media/Gold.png": "/static/media/Gold.e3667339027380a45909.png",
+    "static/media/usdt.png": "/static/media/usdt.176daf5b0e7615e72cd2.png",
+    "static/media/advertencia.png": "/static/media/advertencia.1ac0ac0116bf86a11597.png",
+    "static/media/retiro.png": "/static/media/retiro.92fd700228561bdec6fe.png",
+    "static/media/wallet.png": "/static/media/wallet.8b6f7e9bf9a90228195e.png",
     "index.html": "/index.html",
-    "main.2884d55f.css.map": "/static/css/main.2884d55f.css.map",
-    "main.a9ab4348.js.map": "/static/js/main.a9ab4348.js.map"
+    "main.3bf7e31b.css.map": "/static/css/main.3bf7e31b.css.map",
+    "main.3da860e6.js.map": "/static/js/main.3da860e6.js.map"
   },
   "entrypoints": [
-    "static/css/main.2884d55f.css",
-    "static/js/main.a9ab4348.js"
+    "static/css/main.3bf7e31b.css",
+    "static/js/main.3da860e6.js"
   ]
 }

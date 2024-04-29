@@ -1,0 +1,110 @@
+@import url("../../../Assets/colors/colors.css");
+
+.seccion-main {
+    width: 100%-200px;
+    height: 100%;
+    background-color: var(--secundary-color-l);
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.dashboard {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    grid-template-columns: 33% 33% 34%;
+    grid-template-rows: 100px repeat(4,150px);
+    display: grid;
+    grid-template-areas:
+    "sec0 sec0 sec0"
+    "sec1 sec2 sec7"
+    "sec3 sec4 sec7"
+    "sec5 sec6 sec7"
+    "sec8 sec9 sec7";
+    position: static;
+    justify-content: space-between;
+}
+.item-grid{
+}
+
+.s0 {
+    grid-area: sec0;
+    padding-top: 1%;
+    padding-inline: 2%;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    grid-gap: 5px;
+}
+.seccion0 h1{
+    font-size: 40px;
+    margin-right: 10px;
+}
+.seccion0 i{
+    font-size: 40px;
+}
+.s1{
+    grid-area: sec1;
+}
+.s2 {
+    grid-area: sec2;
+}
+.s3 {
+    grid-area:sec3;
+}
+.s4 {
+    grid-area: sec4;
+}
+.s5 {
+    grid-area: sec5;
+}
+.s6 {
+    grid-area:sec6;
+}
+.s7 {
+    grid-area: sec7;
+    align-content: inherit;
+    justify-items: inherit;
+}
+.s8 {
+    grid-area: sec8;
+}
+.s9 {
+    grid-area: sec9;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #eee;
+}
+
+/*@media(max-width:600px) {
+    .containMain {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        flex-direction: column;
+        border-radius: 0px;
+        margin: 0;
+    }
+}
+
+@media(max-width:1300px) {
+    .containMain {
+        position: static;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        flex-direction: column;
+    }
+}*/

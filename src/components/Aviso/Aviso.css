@@ -1,0 +1,132 @@
+@import url("../../Assets/colors/colors.css");
+
+.aviso {
+    display: flex;
+    position: fixed;
+    height: 100%;
+    width: 94%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 2%;
+    color: #7a7a7a;
+    border-bottom: 1px groove rgb(210, 210, 210);
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.142);
+    margin: 10px;
+    background-color: var(--secundary-color-l);
+    animation: desplazar 1s ease-in-out;
+    z-index: 102;
+    overflow-y: auto;
+}
+
+.aviso-0 {
+    display: none;
+    height: 70%;
+}
+
+.aviso1 {
+    display: flex;
+}
+
+.aviso img {
+    content: url('../../Assets/Images/Baners_jpg/advertencia.png');
+    width: 200px;
+    height: 200px;
+    border: none;
+    padding: 2%;
+}
+
+.aviso span {
+    font-weight: bold;
+}
+
+.aviso h2 {
+    color: #5d5c5c;
+}
+
+.aviso button {
+    display: block;
+}
+
+
+.cta {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.cta span {
+    padding-bottom: 7px;
+    letter-spacing: 4px;
+    font-size: 14px;
+    padding-right: 15px;
+    text-transform: uppercase;
+}
+
+.cta svg {
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+}
+
+.cta:hover svg {
+    transform: translateX(0);
+}
+
+.cta:active svg {
+    transform: scale(0.9);
+}
+
+.hover-underline-animation {
+    position: relative;
+    color: black;
+    padding-bottom: 20px;
+}
+
+.hover-underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+@media(max-width:400px) {
+    .aviso p{
+        font-size: smaller;
+    }
+    .aviso img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media(max-width:600px) {
+    .aviso img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+
+@keyframes desplazar {
+    0% {
+        transform: translateY(-100%);
+        /* Posición inicial: desplazado hacia arriba */
+    }
+
+    100% {
+        transform: translateY(0);
+        /* Posición final: no desplazado */
+    }
+}

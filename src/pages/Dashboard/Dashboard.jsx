@@ -1,12 +1,12 @@
 import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar"
 import "./Dashboard.css"
-import MainDiv from "../../components/Memberships/MainDiv";
-import Packs from "../Packs/Packs.jsx"
+import MainDiv from "../DashboardPages/home/MainDiv.jsx";
+import Packs from "../DashboardPages/Packs/Packs.jsx"
 import Common from "../../components/js/Common";
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Aviso from '../../components/Memberships/Aviso/Aviso.jsx';
+import Aviso from '../../components/Aviso/Aviso.jsx';
 
 
 const Dashboard = () => {
@@ -27,12 +27,15 @@ const Dashboard = () => {
                     <Sidebar />
                 </div>
                 <div className="content2">
-                <Aviso/>
-                    <Switch>
-                        <Route path="/Dashboard/home" component={Home} />
-                        <Route path="/Dashboard/packs" component={Page1} />
-                    </Switch>
+                    <Aviso />
+                    <div className="contentSeccion">
+                        <Switch>
+                            <Route path="/Dashboard/home" component={Home} />
+                            <Route path="/Dashboard/packs" component={Page1} />
+                        </Switch>
+                    </div>
                 </div>
+
             </section>
         </div>
     )

@@ -6,19 +6,19 @@ import Common from "../../components/js/Common.js"
 import WelcomeEmail from "./WelcomeEmail"
 
 class RegisterData {
-    constructor(userName, email, password,passwordConf, referredBy,textError, 
-        setTextError,setMsjError,setbtnActive) {
+    constructor(userName, email, password, passwordConf, referredBy, textError,
+        setTextError, setMsjError, setbtnActive) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.passwordConf = passwordConf;
         this.referredBy = referredBy;
-        this.textError=textError;
+        this.textError = textError;
         this.setbtnActive = setbtnActive;
         this.setTextError = setTextError;
         this.setMsjError = setMsjError;
         this.common = new Common();
-        this.welcomeEmail=new WelcomeEmail(userName,email);
+        this.welcomeEmail = new WelcomeEmail(userName, email);
     }
 
     blurPass() {
@@ -34,7 +34,7 @@ class RegisterData {
         if (this.password !== this.passwordConf && !this.msjError) {
             this.setMsjError(true);
             this.setTextError("Passwords do not match.");
-        } else{
+        } else {
             this.setMsjError(false);
             this.setTextError("");
         }
@@ -48,7 +48,7 @@ class RegisterData {
         }
     }
     valid(e) {
-        if(this.textError===""){
+        if (this.textError === "") {
             this.functRegister(e)
         }
     }
@@ -61,12 +61,20 @@ class RegisterData {
         const newDocRef = push(ref(db, 'users/'));
         const fechaActual = new Date();
 
+        // Obtener el día, mes y año
+        const dia = fechaActual.getDate();
+        const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+        const anio = fechaActual.getFullYear();
+
+        // Formatear la fecha en el formato "d-m-Y"
+        const fechaFormateada = `${dia}-${mes}-${anio}`;
+
         userModel.email = this.email;
         userModel.password = this.password;
         userModel.referredBy = this.referredBy;
         userModel.userName = this.userName;
         userModel.password = this.password;
-        userModel.admissionDate = fechaActual.toISOString();
+        userModel.admissionDate = fechaFormateada;
         userModel.firebaseKey = newDocRef.key;
 
         try {
@@ -84,7 +92,7 @@ class RegisterData {
             //await this.welcomeEmail.sendEmail(e)
             //window.location.href = '/Dashboard';
         } catch (error) {
-            switch (error.code) { 
+            switch (error.code) {
                 case 'auth/email-already-in-use':
                     this.setTextError('The email address is already in use. Please choose another.');
                     this.setMsjError(true);
