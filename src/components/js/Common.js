@@ -33,6 +33,23 @@ class Common {
             alert("No se encontraron datos en la base de datos");
         }
     }
+    getUserDataR = async () => {
+        const db = getDatabase(appFirebase);
+        const dbRef = ref(db, "users/");
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+            const users = Object.values(snapshot.val());
+            const currentUserEmail = this.getCurrentUser();
+            const user = users.find(user => user.email === currentUserEmail.email);
+            if (user) {
+                return user
+            } else {
+                alert("No se encontró el usuario");
+            }
+        } else {
+            alert("No se encontraron datos en la base de datos");
+        }
+    }
 
     addToWallet = async (username,cantidad) => {
         try {

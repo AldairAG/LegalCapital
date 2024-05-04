@@ -1,60 +1,41 @@
 .mainAdmin {
     height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
     background-color: aliceblue;
     overflow: hidden;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:100px 100px 220px auto;
+    grid-template-areas: 
+    "header"
+    "nav"
+    "link"
+    "contenido";
+    overflow-y: auto;
 }
-.header{
-    width: 100%;
-    height: 10%;
-    display: flex;
+header{
+    grid-template-columns: 300px auto 150px;
+    grid-template-rows: 100px;
+    display: grid;
+    grid-template-areas: 
+    "logo espacio cs";
     border-bottom: 1px solid rgb(130, 130, 130);
 }
-.header .logo{
-    height: auto;
+header .logo{
+    display: flex;
+    grid-area: logo;
+}
+header .logo img{
     content:url("../../Assets/Images/Logos/Logo_2.png") ;
 }
-.header .contain-link{
-    height: 100%;
-    width: 40%;
+header .cs{
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    margin-inline-start: auto;
-    margin-inline-end: 5%;
+    align-items:center ;
+    grid-area: cs;
 }
-.header .contain-link span{
-    margin-bottom: 1%;
-    font-weight: bold;
-}
-.header .contain-link .link{
-    display: flex;
-    flex-direction: row;
-}
-.header .contain-link .link input{
-    width: 100%;
-    padding: 2%;
-    background: #ffffff;
-    color: rgb(0, 0, 0);
-    border: 1px solid #1f53c5;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-.header .contain-link .link button{
-    padding: 2%;
-    border: 1px solid #1f53c5;
-    color:#1f53c5 ;
-    font-size: 100%;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-.header .contain-link .link button i{
-    font-size: 20px;
-}
+
 .ops{
     width: 100%;
     display: flex;
@@ -62,6 +43,7 @@
     padding: 1%;
     justify-content: space-around;
     border-bottom: 1px solid rgb(130, 130, 130);
+    grid-area: nav;
 }
 .ops button{
     width: 10%;
@@ -77,15 +59,23 @@
     color: white;
     background-color: rgb(238, 173, 32);
 }
+.linkC{
+    grid-area: link;
+    padding: 2%;
+}
+.contenido{
+    grid-area: contenido;
+}
 .tabla{
     width: 96%;
-    height: 100%;
-    background-color: white;
+    height: 800px;
+    background-color: #ffffff;
     padding: 2%;
     margin: 2%;
     border: 2px solid rgb(143, 143, 143);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
+    overflow-y: auto;
 }
 ::-webkit-scrollbar {
     width: 10px;

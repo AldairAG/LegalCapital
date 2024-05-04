@@ -7,11 +7,12 @@ import Common from "../../components/js/Common";
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Aviso from '../../components/Aviso/Aviso.jsx';
-
+import Header from "../../components/header/Header.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
     const common = new Common(setUserData)
+    const [miniBarraLateral, setMiniBarraLateral] = useState(false);
 
     useEffect(() => {
         common.getUserData()
@@ -19,14 +20,10 @@ const Dashboard = () => {
 
     return (
         <div className="layout">
-            <header>
-                <img className="logo" alt="logo" />
-            </header>
-            <section className="seccion-main">
-                <div className="content1">
-                    <Sidebar />
-                </div>
-                <div className="content2">
+            <div className="containDash">
+                <div className="sidebar"><Sidebar max={miniBarraLateral}/> </div>
+                <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
+                <div className="container">
                     <Aviso />
                     <div className="contentSeccion">
                         <Switch>
@@ -35,8 +32,7 @@ const Dashboard = () => {
                         </Switch>
                     </div>
                 </div>
-
-            </section>
+            </div>
         </div>
     )
 

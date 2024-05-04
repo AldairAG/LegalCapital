@@ -8,16 +8,19 @@
     border-radius: 10px;
     box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px;
     height: 100%;
-    width: 500px;
-    margin-inline-start: 5%;
+    width: 100%;
 }
 .userDetail .rangoImg{
     width: 200px;
+    height: 200px;
+    background-color: rgb(245, 249, 252);
     margin-top: 5%;
     margin-bottom: 1%;
+    border: 2px solid black;
+    border-radius: 50%;
 }
 .userDetail .p0{
-    font-size: 50px;
+    font-size: 20px;
     font-weight: bold;
 }
 .userDetail .p1{

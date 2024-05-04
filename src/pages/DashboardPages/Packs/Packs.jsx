@@ -20,7 +20,7 @@ const Packs = () => {
             <QrComponent visible={isVisible} setIsVisible={setIsVisible} op={opc} img={img}/>
             <div className="containPacks">
                 <div className="titulo">
-                    <h1>Stater Packs</h1>
+                    <h1>STARTER PACKS</h1>
                     <i class="bi bi-boxes"></i>
                 </div>
                 <div className="seccion1-p"><Pack img={img1} setImg={setImg} setOpc={setOpc} op={1} isVisible={isVisible} setIsVisible={setIsVisible}/></div>

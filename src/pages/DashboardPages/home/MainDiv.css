@@ -1,76 +1,101 @@
 @import url("../../../Assets/colors/colors.css");
 
 .seccion-main {
-    width: 100%-200px;
+    width: 100%;
     height: 100%;
     background-color: var(--secundary-color-l);
     padding: 0;
     margin: 0;
     display: flex;
+    overflow-y: auto;
 }
 
 .dashboard {
     width: 100%;
-    height: auto;
+    height: 100%;
     margin: 0;
-    grid-template-columns: 33% 33% 34%;
-    grid-template-rows: 100px repeat(4,150px);
+    grid-template-columns: repeat(12, 1fr) ;
+    grid-template-rows: 75px repeat(4,150px) 175px 600px;
     display: grid;
     grid-template-areas:
-    "sec0 sec0 sec0"
-    "sec1 sec2 sec7"
-    "sec3 sec4 sec7"
-    "sec5 sec6 sec7"
-    "sec8 sec9 sec7";
-    position: static;
+    "sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0"
+    "sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1"
+    "sec2 sec2 sec2 sec2 sec2 sec2 sec3 sec3 sec3 sec3 sec3 sec3"
+    "sec4 sec4 sec4 sec4 sec5 sec5 sec5 sec5 sec6 sec6 sec6 sec6"
+    "sec7 sec7 sec7 sec7 sec8 sec8 sec8 sec8 sec9 sec9 sec9 sec9"
+    "sec10 sec10 sec10 sec10 sec10 sec10 sec10 sec10 sec12 sec12 sec12 sec12"
+    "sec13 sec13 sec13 sec13 sec13 sec13 sec13 sec13 sec13 sec14 sec14 sec14";
     justify-content: space-between;
+    padding: 2%;
+    padding-top: 0;
+    gap: 15px;
 }
 .item-grid{
+    align-content: center;
 }
 
-.s0 {
+.sec0 {
     grid-area: sec0;
-    padding-top: 1%;
-    padding-inline: 2%;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
-    grid-gap: 5px;
+    align-items: center;
+    color: #DEB358;
 }
-.seccion0 h1{
-    font-size: 40px;
-    margin-right: 10px;
-}
-.seccion0 i{
+.sec0 h1{
     font-size: 40px;
 }
-.s1{
+.sec0 i{
+    font-size: 40px;
+}
+.sec1{
     grid-area: sec1;
 }
-.s2 {
+.sec2 {
     grid-area: sec2;
 }
-.s3 {
+.sec3 {
     grid-area:sec3;
 }
-.s4 {
+.sec4 {
     grid-area: sec4;
 }
-.s5 {
+.sec5 {
     grid-area: sec5;
 }
-.s6 {
+.sec6 {
     grid-area:sec6;
 }
-.s7 {
+.sec7 {
     grid-area: sec7;
-    align-content: inherit;
-    justify-items: inherit;
 }
-.s8 {
+.sec8 {
     grid-area: sec8;
 }
-.s9 {
+.sec9 {
     grid-area: sec9;
+}
+.sec10{
+    grid-area: sec10;
+}
+.sec11{
+    grid-area: sec11;
+}
+.sec12{
+    grid-area: sec12;
+}
+.sec13{
+    grid-area: sec13;
+    display: flex;
+    border-radius: 10px;
+}
+.sec13 img{
+    width: 100%;
+    height: 100%;
+    content: url("../../../Assets/Images/Baners_jpg/promo.png");
+    border-radius: 10px;
+}
+.sec14{
+    grid-area: sec14;
 }
 
 

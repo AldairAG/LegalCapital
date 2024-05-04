@@ -2,7 +2,6 @@
 class ControlSidebar {
   openClose(miniBarraLateral, setMiniBarraLateral) {
     setMiniBarraLateral(!miniBarraLateral);
-
   }
 }
 

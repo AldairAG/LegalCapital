@@ -12,7 +12,7 @@ const Pack = (props) => {
             <div className="imgPack">
                 <img src={props.img} alt="imgpack" />
             </div>
-            <button onClick={visibleClick} class="btn1">Get</button>
+            <button onClick={visibleClick} class="btn1">Buy</button>
         </div>
     )
 }

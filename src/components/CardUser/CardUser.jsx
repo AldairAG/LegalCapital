@@ -94,7 +94,7 @@ const CardUser = (props) => {
     return (
         <section className="userDetail">
             <img className='rangoImg' src={imgRango} alt="rango" />
-            <p className='p0'>{props.userData.userName}</p>
+            <p className='p0'>Username: {props.userData.userName}</p>
             <p className='p1'>{rango}</p>
             <div className="datosUser">
                 <p className='p2'>Team capital: $0</p>

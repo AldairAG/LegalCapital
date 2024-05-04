@@ -1,4 +1,5 @@
 import NavBtn from "./NavBtn"
+import LogoutButton from "../LogoutButton/LogoutButton"
 
 const SiderNav = () => {
     return (
@@ -16,13 +17,22 @@ const SiderNav = () => {
                     <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-diagram-3" sp="My network" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-bag" sp="Shop" />
+                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-graph-up-arrow" sp="dividend" />
+                </li>
+                <li>
+                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-person-vcard" sp="Withdrawals" />
+                </li>
+                <li>
+                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-bag" sp="E-comerce" />
+                </li>
+                <li>
+                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-archive" sp="Tools" />
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-exclamation-octagon" sp="Support" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-person-gear" sp="Settings" />
+                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-person-gear" sp="Edit profile" />
                 </li>
             </ul>
         </nav>

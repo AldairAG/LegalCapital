@@ -1,6 +1,6 @@
 import appFirebase from "../../firebase-config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-import { getDatabase, ref, get ,set} from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 const auth = getAuth(appFirebase)
 
 class LoginData {
@@ -11,41 +11,33 @@ class LoginData {
     this.setDisplayError = setDisplayError;
     this.history = history;
     this.userRole = "";
+    this.userData = [];
   }
 
   functAutentication = async (e) => {
     e.preventDefault();
+    await this.getUserData()
     try {
       await signInWithEmailAndPassword(auth, this.email, this.password);
-      await this.getUserData()
-
+      // Autenticación exitosa
       if (this.userRole === 'admin') {
         this.history.push('/admin');
       } else {
         this.history.push('/Dashboard/home');
       }
     } catch (error) {
-      switch (error.code) {
-        case 'auth/invalid-email':
-          this.setTextError('Invalid email address.');
-          this.setDisplayError(true);
-          break;
-        case 'auth/user-disabled':
-          this.setTextError('This user account has been disabled.');
-          this.setDisplayError(true);
-          break;
-        case 'auth/user-not-found':
-          this.setTextError('No user corresponding to the given email.');
-          this.setDisplayError(true);
-          break;
-        case 'auth/wrong-password':
-          this.setTextError('Incorrect password.');
-          this.setDisplayError(true);
-          break;
-        default:
-          this.setTextError('The username or password is incorrect.');
-          this.setDisplayError(true);
-          break;
+      // Error durante la autenticación
+      console.error('Error durante el inicio de sesión:', error);
+      if (this.email === this.userData.userName && this.password === this.userData.password) {
+        await signInWithEmailAndPassword(auth, this.userData.email, this.userData.password);
+        if (this.userRole === 'admin') {
+          this.history.push('/admin');
+        } else {
+          this.history.push('/Dashboard/home');
+        }
+      } else {
+        this.setTextError('The username or password is incorrect.');
+        this.setDisplayError(true);
       }
     }
   }
@@ -59,9 +51,14 @@ class LoginData {
       const user = users.find(user => user.email === this.email);
       if (user) {
         this.userRole = user.rol;
-      } else { alert("error2"); }
-    } else {
-      alert("error");
+        this.userData = user
+      } else {
+        const user = users.find(user => user.userName === this.email);
+        if (user) {
+          this.userRole = user.rol;
+          this.userData = user
+        }
+      }
     }
   }
 
@@ -73,9 +70,9 @@ class LoginData {
       if (snapshot.exists()) {
         snapshot.forEach((childSnapshot) => {
           const userData = childSnapshot.val();
-        
+
           if (this.compararFechaActual(userData.validity)) {
-            this.restarWallet(userData.firebaseKey)    
+            this.restarWallet(userData.firebaseKey)
           }
         });
       } else {
@@ -98,30 +95,30 @@ class LoginData {
     const añoVigency = parseInt(partesVigency[2], 10);
 
     if (diaActual === diaVigency && mesActual === mesVigency && añoActual === añoVigency) {
-        return true; 
+      return true;
     } else {
-        return false;
+      return false;
     }
-};
+  };
 
-restarWallet = async (key) => {
-  const db = getDatabase(appFirebase);
-  const dbRef = ref(db, "users/" + key);
-  const snapshot = await get(dbRef);
-  if (snapshot.exists()) {
-    const userData = snapshot.val();
+  restarWallet = async (key) => {
+    const db = getDatabase(appFirebase);
+    const dbRef = ref(db, "users/" + key);
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
 
-    userData.wallet=userData.wallet-25
-    set(dbRef, userData)
-      .then(() => {
-      })
-      .catch((error) => {
-        alert("Error al actualizar los datos: " + error.message);
-      });
-  } else {
-    alert("El usuario con la clave " + key + " no existe.");
+      userData.wallet = userData.wallet - 25
+      set(dbRef, userData)
+        .then(() => {
+        })
+        .catch((error) => {
+          alert("Error al actualizar los datos: " + error.message);
+        });
+    } else {
+      alert("El usuario con la clave " + key + " no existe.");
+    }
   }
-}
 
 }
 
