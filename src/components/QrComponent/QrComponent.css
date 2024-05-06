@@ -3,174 +3,109 @@
 .compQR {
     width: 100%;
     margin-top: 5%;
-    display: flex;
-    z-index:101;
+    z-index: 101;
 }
-.none{
+
+.none {
     display: none;
 }
 
 
 .modal-content {
-    overflow-y: auto;
-    height: 70%;
-    width: 70%;
+    width: 1000PX;
+    height: 550PX;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    line-height: 1.4;
     background: #f1f1f1;
-    padding: 14px 28px;
     border-radius: 10px;
-    /*max-width: 600px;
-    min-width: 300px;*/
-    display: flex;
-    flex-direction: row;
-    background-color: white;
+    display: grid;
+    grid-template-columns: 450px auto;
+    grid-template-rows: 50px repeat(3, 150px) 50px;
+    grid-template-areas:
+        "secqr1 secqr1"
+        "secqr2 secqr3"
+        "secqr2 secqr4"
+        "secqr2 secqr4"
+        "secqr5 secqr5";
 }
 
-/*Seccion 1////////////////////////////////*/
-.seccion1-mc{
-    width: 40%;
-    height: 100%;
+.secqr1 {
+    grid-area: secqr1;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-inline: 1%;
+    padding-top: 1%;
+}
+.secqr2 {
+    grid-area: secqr2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: 150%;
-    color: rgb(0, 0, 0);
+    padding: 2%;
+}
+.secqr3 {
+    grid-area: secqr3;
+    padding: 2%;
+}
+.secqr4 {
+    grid-area: secqr4;
+}
+.secqr5 {
+    grid-area: secqr5;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-inline: 1%;
 }
 
-.seccion1-mc .qr {
-    border-radius: 10px;
-    margin-top:3%;
+.secqr1 .close-modal{
+    background: transparent;
+    border: none;
+}
+
+.secqr2 .qr {
     width: 90%;
+    border-radius: 10px;
     content: url("../../Assets/Images/qr/qrms.png");
     border: 2px solid black;
 }
-
-/*Seccion 2////////////////////////////////*/
-.seccion2-mc{
-    width: 60%;
-    display: flex;
-    flex-direction: column;
+.secqr2 p {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 18px;
 }
 
-/*Seccion 2////////////////////////////////*/
-.seccion3-mc{
+.secqr3 input {
     width: 100%;
-    padding-inline-start: 2%;
-    display: flex;
-    flex-direction: column;
-    font-size: 100%;
-    font-weight: 600;
-    color: rgb(0, 0, 0);
-}
-
-.seccion3-mc .end{
-    width: 50%;
-    align-self: self-end;
-}
-
-.seccion3-mc input {
-    width: 98%;
     padding: 2%;
     border-radius: 10px;
 }
 
-.seccion3-mc .wallet {
-    width: 98%;
+.secqr3 .wallet {
+    width: 100%;
     display: flex;
     margin-bottom: 2%;
 }
 
-.seccion3-mc .wallet input {
+.secqr3 .wallet input {
     border-radius: 0;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-.seccion3-mc .wallet i{
+
+.secqr3 .wallet i {
     font-size: 15px;
 }
 
-.seccion3-mc .wallet button {
+.secqr3 .wallet button {
     width: 5%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     margin-inline-start: -1%;
 }
 
-.seccion3-mc .close-modal {
-    margin-inline-start: auto;
-    padding: 0;
-    border: none;
-    font-size: 25px;
-    color: rgb(0, 0, 0);
-    background-color: transparent;
-}
-
-.seccion4-mc{
-    height: 100%;
-    display: flex;
-    padding: 3%;
-    justify-items: center;
-}
-.seccion4-mc img{
-    align-self: center;
-    width: 150px;
-    height: 200px;
-}
-
-
-
-/*Seccion 2////////////////////////////////*/
-.seccion5-mc{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 100%;
-    border: 3px solid rgb(0, 0, 0);
-    border-radius: 15px;
-    text-align: center;
-    font-size: 200%;
-    color: rgb(0, 0, 0);
-}
-.seccion5-mc img{
-    width: 90%;
-    height: 300px;
-}
-
-.seccion6-mc{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    padding-inline-start: 3%;
-}
-/*.seccion6-mc button{
-    width: 75%;
-    background: url("../../../Assets/Images/Baners_jpg/Gold.png");
-    font-size: 200%;
-    border: 2px solid rgb(0, 0, 0);
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
-    align-self: center;
-    margin-top: 25%;
-}
-.seccion6-mc button:hover{
-    border: 4px solid rgb(0, 0, 0);
-}*/
-.seccion7-mc{
-    padding: 2%;
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    text-align: center;
-}
-.seccion7-mc span{
-font-weight: bold;
-}
-.select-container{
+.secqr3 .select-container {
     width: 100%;
     display: flex;
     position: relative;
@@ -179,9 +114,9 @@ font-weight: bold;
     height: 40px;
 }
 
-.select-box{
+.secqr3 .select-box {
     appearance: none;
-    width: 98%;
+    width: 100%;
     padding: 1%;
     padding-inline: 2%;
     color: rgb(0, 0, 0);
@@ -189,7 +124,8 @@ font-weight: bold;
     font-size: 20px;
     border-radius: 10px;
 }
-.select-container .icon-container{
+
+.secqr3 .select-container .icon-container {
     width: 5%;
     height: 100%;
     display: flex;
@@ -201,14 +137,57 @@ font-weight: bold;
     border: 2px solid black;
     margin-inline-start: -5%;
 }
-.icon-container i{
+
+.secqr3 .icon-container i {
     font-size: 20px;
 }
 
-.button {
-    margin-top: 20%;
-    align-self: center;
+.secqr4{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+    "seccionPack nota";
+    gap: 10px;
+    padding: 2%;
+}
+.seccionPack{
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    border-radius: 10px;
+    grid-area: seccionPack;
+    justify-content: center;
+    align-items: center;
+}
+.seccionPack p{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.seccionPack img{
     width: 60%;
+}
+
+.seccionNota{
+    display: flex;
+    flex-direction: column;
+    grid-area: nota;
+}
+.seccionNota p{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 2%;
+}
+.seccionNota span{
+    font-weight: bold;
+}
+
+.secqr5 .button {
+    align-self: center;
+    width: 15%;
+    height: 20px;
     display: flex;
     align-items: center;
     font-family: inherit;
@@ -221,30 +200,26 @@ font-weight: bold;
     border: none;
     letter-spacing: 0.05em;
     border-radius: 16px;
-  }
-  
-  .button svg {
+}
+.secqr5 .button svg {
     margin-right: 3px;
     transform: rotate(30deg);
     transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-  }
-  
-  .button span {
+}
+.secqr5 .button span {
     transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-  }
-  
-  .button:hover svg {
+}
+.secqr5 .button:hover svg {
     transform: translateX(5px) rotate(90deg);
-  }
-  
-  .button:hover span {
+}
+.secqr5 .button:hover span {
     transform: translateX(7px);
-  }
-  
+}
+
+
 .overlay {
     background: rgba(49, 49, 49, 0.8);
 }
-
 .modal,
 .overlay {
     width: 100vw;
@@ -259,12 +234,10 @@ font-weight: bold;
 .modal-content::-webkit-scrollbar {
     width: 8px;
 }
-
 .modal-content::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px;
 }
-
 .modal-content::-webkit-scrollbar-track {
     background-color: #000000;
     border-top-right-radius: 10px;

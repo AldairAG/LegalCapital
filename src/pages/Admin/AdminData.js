@@ -41,40 +41,56 @@ class AdminData {
     }
   }
 
-  aprobar = async (key) => {
-    const depositoModel = new DepositoModel();
-    depositoModel.setDefaultValues()
+  bonoReferenciaDirectaDiferencia= async (userData,key) =>{
+    const commom = new Common()
+    const diferencia = [40, 75, 125, 250,0];
+
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users/" + key);
-    const snapshot = await get(dbRef);
-    if (snapshot.exists()) {
-      const userData = snapshot.val();
-      if (userData.validity === "") {
-        userData.validity = this.obtenerFechaVencimiento();
-      }
-      userData.walletDiv = userData.walletDiv + userData.request
-      depositoModel.request = userData.request
-      userData.request = 0
-      if (!userData.firstAdd) {
-        this.bonoReferenciaDirecta(userData.referredBy, userData.walletDiv)
-        userData.firstAdd = true
-      }
 
+    if (userData.firstAdd == 0) {
+      this.bonoReferenciaDirecta(userData.userName, userData.walletDiv)
+      userData.firstAdd = this.determinarPaquete(userData.walletDiv)
       set(dbRef, userData)
-        .then(() => {
-          this.fetchData()
-          depositoModel.userName = userData.userName
-          depositoModel.email = userData.email
-          this.saveHistoryRequest(depositoModel)
-
-        })
-        .catch((error) => {
-          alert("Error al actualizar los datos: " + error.message);
-        });
-    } else {
-      alert("El usuario con la clave " + key + " no existe.");
+    } else if (this.determinarPaquete(userData.walletDiv) > userData.firstAdd) {
+      userData.firstAdd = this.determinarPaquete(userData.walletDiv)
+      const bono = diferencia[this.determinarPaquete(userData.firstAdd)]
+      userData.walletDiv = userData.walletDiv + bono
+      //commom.addToWallet(userData.userName, bono)
     }
   }
+
+  aprobar = async (key) => {
+    //const depositoModel = new DepositoModel();
+    //depositoModel.setDefaultValues()
+    const db = getDatabase(appFirebase);
+
+    const dbRef = ref(db, "users/" + key);
+    const snapshot = await get(dbRef);
+
+    try {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        if (userData.validity === "") {
+          userData.validity = this.obtenerFechaVencimiento();
+        }
+        userData.walletDiv = userData.walletDiv + userData.request
+        userData.request = 0
+
+        set(dbRef, userData).then(() => {
+          this.fetchData()
+          //userData.firstAdd = this.determinarPaquete(userData.walletDiv)
+          this.bonoReferenciaDirectaDiferencia(userData,key)
+
+        }).catch(()=>{
+          console.log("error")
+        })
+      }
+    } catch (error) {
+
+    }
+  }
+
 
   denegar = async (key) => {
     const db = getDatabase(appFirebase);
@@ -106,7 +122,7 @@ class AdminData {
     const mes = (next30DaysDate.getMonth() + 1).toString().padStart(2, '0');
     const año = next30DaysDate.getFullYear().toString();
 
-    const fechaDentroDe30Dias = `${dia}/${mes}/${año}`;
+    const fechaDentroDe30Dias = `${dia}-${mes}-${año}`;
 
     return fechaDentroDe30Dias;
   }
@@ -128,62 +144,57 @@ class AdminData {
 
   bonoReferenciaDirecta = async (userName, cant) => {
     const commom = new Common()
-    try {
-      const db = getDatabase(appFirebase);
-      const dbRef = ref(db, "users");
-      const snapshot = await get(dbRef);
+    console.log("hola")
+    const db = getDatabase(appFirebase);
+    const dbRef = ref(db, "users");
+    const snapshot = await get(dbRef);
 
-      if (snapshot.exists()) {
-        const users = Object.values(snapshot.val());
-        const userFind = users.find(user => user.userName === userName);
-        if (userFind) {
-          const username = userFind.userName;
-          const bono = this.determinarBono(cant);
-          alert(username);
-          commom.addToWallet(username, bono);
-        } else {
-          console.log("Usuario no encontrado");
-        }
-      }
+    if (snapshot.exists()) {
+      const users = Object.values(snapshot.val());
+      const userFind = users.find(user => user.userName === userName);
 
-    } catch (error) {
-      console.error("Error finding user by username:", error);
-      return null; // Error al obtener datos de la base de datos
+      const bono = this.determinarBono(cant);
+      console.log("hola")
+      commom.addToWallet(userFind.userName, bono);
+    } else {
+      console.log("Usuario no encontrado");
     }
+
   };
 
   determinarBono = (valor) => {
-    let bono = 0;
-
     switch (true) {
       case (valor >= 100 && valor <= 499):
-        bono = 10;
-        break;
+        return 10;
       case (valor > 500 && valor <= 2499):
-        bono = 50;
-        break;
+        return 50;
       case (valor > 2500 && valor <= 4999):
-        bono = 125;
-        break;
+        return 125;
       case (valor > 5000 && valor <= 9999):
-        bono = 250;
-        break;
+        return 250;
       case (valor > 10000 && valor <= 24999):
-        bono = 500;
-        break;
-      case (valor > 25000 && valor <= 99999):
-        bono = 1250;
-        break;
+        return 500;
       default:
-        bono = 5000;
-        break;
+        return 0;
     }
-
-    return bono;
   };
 
-
-
+  determinarPaquete = (valor) => {
+    switch (true) {
+      case (valor >= 100 && valor <= 499):
+        return 1;
+      case (valor >= 500 && valor <= 2499):
+        return 2;
+      case (valor >= 2500 && valor <= 4999):
+        return 3;
+      case (valor >= 5000 && valor <= 9999):
+        return 4;
+      case (valor >= 10000):
+        return 5;
+      default:
+        return 0;
+    }
+  }
 }
 
 export default AdminData

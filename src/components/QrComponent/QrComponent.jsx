@@ -210,20 +210,79 @@ const QrComponent = (props) => {
         }
     };
     const setRequestHandle = (opcion) => {
-        const qrData=new QrData(opcion)
+        const qrData = new QrData(opcion)
         qrData.setRequest()
         props.setIsVisible(false);
     }
     return (
         <section className={props.visible ? 'compQR' : 'none'}>
+            <div className="overlay"></div>
+            <div className="modal-content">
+                <div className="secqr1">
+                    <button className="close-modal" onClick={closeModal}><i class="bi bi-x-square-fill"></i></button>
+                </div>
+                <div className="secqr2">
+                    <p className="tituloQr">PAYMENT INFORMATION</p>
+                    <img className="qr" />
+                </div>
+                <div className="secqr3">
+                    <span>Wallet address</span>
+                    <div className="wallet">
+                        <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
+                        <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
+                    </div>
+
+                    <span>Price</span>
+                    <div className="select-container">
+                        <select className="select-box" value={opcion} onChange={handleChange} >
+                            {generarOpciones(props.op)}
+                        </select>
+                        <div className="icon-container">
+                            <i class="bi bi-caret-down-fill"></i>
+                        </div>
+                    </div>
+                </div>
+                <div className="secqr4">
+                    <div className="seccionPack">
+                        <p>Starter pack</p>
+                        <img src={props.img} alt="stp" />
+                    </div>
+                    <div className="seccionNota">
+                        <p>Once your transaction is completed, you will receive a notification to your registered email of approval.<br /> <br />
+
+                            <span>Important Note: Make sure to correctly send the transaction, verifying the exact amount and that the 
+                                Wallet is correct. Any sending error will result in the loss of funds.</span></p>
+                    </div>
+                </div>
+                <div className="secqr5">
+                    <button className="button" onClick={() => setRequestHandle(opcion)}>
+                        <svg
+                            height="24"
+                            width="24"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                fill="currentColor"
+                            ></path>
+                        </svg>
+                        <span>End</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+/*
             <div className="modalMain">
-                <div className="overlay"></div>
+                
 
                 <div className="modal-content">
 
                     <div className="seccion1-mc">
-                        <h2>Payment information</h2>
-                        <img className="qr" />
+
                     </div>
 
                     <div className="seccion2-mc">
@@ -233,21 +292,7 @@ const QrComponent = (props) => {
                                 <i class="bi bi-x-square-fill"></i>
                             </button>
 
-                            <span>Wallet address</span>
-                            <div className="wallet">
-                                <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
-                                <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
-                            </div>
-
-                            <span>Price</span>
-                            <div className="select-container">
-                                <select className="select-box" value={opcion} onChange={handleChange} >
-                                    {generarOpciones(props.op)}
-                                </select>
-                                <div className="icon-container">
-                                    <i class="bi bi-caret-down-fill"></i>
-                                </div>
-                            </div>
+                            
                         </div>
 
 
@@ -258,25 +303,9 @@ const QrComponent = (props) => {
                             </div>
 
                             <div className="seccion6-mc">
-                                <div className="seccion7-mc">
-                                    <p>Capital income will be verified and approved within 24 hours. <span>You will be notified once they have been approved.</span></p>
-                                </div>
+         
 
-                                <button className="button" onClick={() => setRequestHandle(opcion)}>
-                                    <svg
-                                        height="24"
-                                        width="24"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path
-                                            d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-                                            fill="currentColor"
-                                        ></path>
-                                    </svg>
-                                    <span>End</span>
-                                </button>
+
 
 
                             </div>
@@ -287,12 +316,6 @@ const QrComponent = (props) => {
                 </div>
 
             </div>
-        </section>
-    )
-}
-
-/*
-
 */
 
 export default QrComponent

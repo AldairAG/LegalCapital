@@ -96,7 +96,7 @@ const EditUser = (props) => {
 
     return (
         <section className={visible ? "editUser" : "none"}>
-            <div className="overlay"></div>
+            <div className="overlay2"></div>
             <div className="content">
                 <div className="s1">
                     <p className="nameA">Editar usuario</p>

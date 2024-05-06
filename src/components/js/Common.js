@@ -53,7 +53,6 @@ class Common {
 
     addToWallet = async (username,cantidad) => {
         try {
-            alert(username)
             const db = getDatabase(appFirebase);
             const usersRef = ref(db, "users");
             const snapshot = await get(usersRef);

@@ -59,7 +59,7 @@ class UserModel {
     this.bonoIgualacionSem=0
     this.bonoIngresoRes=0
     this.bonoRangoRes=0
-    this.firtsAdd=false
+    this.firstAdd=0
     this.activo=false
   }
 }
