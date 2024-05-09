@@ -5,6 +5,8 @@
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     margin:1% ;
     height: 800px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .seccionDividendos .divTitulo {
@@ -67,14 +69,13 @@
 
 .filtros .filtro2 {
     grid-area: filtro2;
-    display: flex;
-    align-items: center;
+    display: none;
+    flex-direction: column;
 }
 
 .filtro2 input {
-    width: 100px;
+    width: 180px;
     height: 40px;
-    margin-inline-start: 0.5rem;
     padding-inline: 5px;
     line-height: 1.25rem;
     border-radius: 5px;
@@ -92,7 +93,6 @@
     height: 40px;
     display: inline-flex;
     padding-inline: 5px;
-    margin-left: 0.5rem;
     margin-right: 0.5rem;
     transition-property: background-color, border-color, color, fill, stroke;
     font-size: 0.875rem;
@@ -143,4 +143,12 @@
     padding-right: 1rem;
     color: #374151;
     border-bottom: 1px solid rgba(0, 0, 0, 0.265);
+}
+
+@media(max-width:530px){
+    .seccionDividendos .filtros {
+        grid-template-areas:
+            "filtro1" 
+            "filtro2";
+    }
 }

@@ -7,28 +7,48 @@ import "./Dividendos.css"
 const Dividendos = (props) => {
     const [userModels, setUserModels] = useState([])
     const [find, setFind] = useState('');
-    const [filterConcept, setFilterConcept] = useState('');
+    const [filterConcept, setFilterConcept] = useState("All");
 
-    useEffect( () => {
-        switch (filterConcept) {
-            case '1':
+    const convertArrayOfObjectsToCSV = (array) => {
+        const data = [];
+    
+        // Agregar encabezados de columna
+        const headers = Object.keys(array[0]);
+        data.push(headers.map(header => `"${header}"`).join(',')); // Rodear los encabezados por comillas dobles
+    
+        // Agregar datos
+        array.forEach(obj => {
+            const row = [];
+            headers.forEach(header => {
+                row.push(`"${obj[header]}"`); // Rodear el valor con comillas dobles
+            });
+            data.push(row.join(',')); // Unir los valores con comas
+        });
+    
+        return data.join('\n');
+    }
+    
 
-                break;
-            case '2':
+    const downloadCSV = () => {
+        const csvData = convertArrayOfObjectsToCSV(userModels);
+        const filename = "datos.csv";
 
-                break;
-            case '3':
+        const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(csvData);
+        const link = document.createElement("a");
+        link.setAttribute("href", csvContent);
+        link.setAttribute("download", filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 
-                break;
-            case '4':
+    const handleDownloadClick = () => {
+        downloadCSV()
+    }
 
-                break;
-            case '5':
-
-                break;
-            default:
-                break;
-        }
+    useEffect(() => {
+        fetchData(filterConcept)
+        console.log(userModels)
     }, [filterConcept]);
 
     const manejarCambioInput = (event) => {
@@ -37,18 +57,24 @@ const Dividendos = (props) => {
     const manejarCambioSelect = (event) => {
         setFilterConcept(event.target.value);
     };
-    useEffect(() => {
-        fetchData()
-    }, []);
-    const fetchData = async () => {
+
+    const fetchData = async (concept) => {
         const db = getDatabase(appFirebase);
         const dbRef = ref(db, "history");
         const snapshot = await get(dbRef);
 
         if (snapshot.exists()) {
-            const historys = Object.values(snapshot.val());
-            const filteredHistorys = historys.filter(history => history.userName == props.userName);
-            setUserModels(filteredHistorys);
+            if (concept == "All") {
+                const historys = Object.values(snapshot.val());
+                const filteredHistorys = historys.filter(history => history.userName == props.userName);
+                setUserModels(filteredHistorys);
+            } else {
+                const historys = Object.values(snapshot.val());
+                const filteredHistorys = historys.filter(history => {
+                    return history.concepto === concept && history.userName === props.userName;
+                });
+                setUserModels(filteredHistorys);
+            }
         } else {
             alert("error");
         }
@@ -59,7 +85,7 @@ const Dividendos = (props) => {
             <div className="divTitulo">
                 <h2>Dividends</h2>
                 <div className="export">
-                    <button >
+                    <button onClick={handleDownloadClick} >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -85,9 +111,16 @@ const Dividendos = (props) => {
                 <div className="filtro1">
                     <span >Order by concept: </span>
                     <select name="tipo" id="tipo" value={filterConcept} onChange={(event) => manejarCambioSelect(event)} >
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
+                        <option value="All">All</option>
+                        <option value="Direct referral bonus">Direct referral bonus</option>
+                        <option value="fast track bonus">fast track bonus</option>
+                        <option value="Maintenance fee charge">Maintenance fee charge</option>
+                        <option value="Residual fee bonus">Residual fee bonus</option>
+                        <option value="Launch promotion">Launch promotion</option>
+                        <option value="Rank residual bonus">Rank residual bonus</option>
+                        <option value="Weekly earnings">Weekly earnings</option>
+                        <option value="Matching bonus">Matching bonus</option>
+
                     </select>
                 </div>
                 <div className="filtro2">
@@ -104,20 +137,20 @@ const Dividendos = (props) => {
             <div className="containTable">
                 <table>
                     <thead>
-                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                        <tr>
+                            <th>
                                 Date
                             </th>
-                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                            <th>
                                 Time
                             </th>
-                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                            <th>
                                 Amount
                             </th>
-                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                            <th>
                                 Type
                             </th>
-                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                            <th>
                                 Sponsor
                             </th>
                         </tr>

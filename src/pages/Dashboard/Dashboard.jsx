@@ -21,8 +21,8 @@ const Dashboard = () => {
 
     return (
         <div className="layout">
-            <div className="containDash">
-                <div className="sidebar"><Sidebar max={miniBarraLateral}/> </div>
+            <div className={miniBarraLateral ? "containDash" : "containDash"}>
+                <div className={miniBarraLateral ? "sidebar" : "sidebar2"}><Sidebar max={miniBarraLateral}/> </div>
                 <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
                 <div className="container">
                     <Aviso />

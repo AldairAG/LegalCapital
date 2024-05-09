@@ -193,7 +193,6 @@ body{
 }
 @media (max-width: 600px){
     .barra-lateral{
-        position: fixed;
         left: -250px;
     }
     .max-barra-lateral{
@@ -203,7 +202,7 @@ body{
         display: flex;
     }
     .barra-lateral .boton{
-        display: none;
+        display: flex;
     }
     .menu i:nth-child(2){
         display: none;

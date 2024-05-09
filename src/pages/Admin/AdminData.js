@@ -56,7 +56,7 @@ class AdminData {
       const bono = diferencia[this.determinarPaquete(userData.walletDiv)-2]
       userData.walletCom = userData.walletCom + bono
       set(dbRef, userData).then(() => {
-        commom.saveInHistory(userData.referredBy,bono,"Bono de referencia directa",userData.userName)
+        commom.saveInHistory(userData.referredBy,bono,"Direct referral bonus",userData.userName)
       })
     }
   }
