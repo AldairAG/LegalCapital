@@ -17,7 +17,7 @@ const SiderNav = () => {
                     <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-diagram-3" sp="My network" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-graph-up-arrow" sp="dividend" />
+                    <NavBtn lk="/Dashboard/dividend" ic="bi bi-graph-up-arrow" sp="dividend" />
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-person-vcard" sp="Withdrawals" />

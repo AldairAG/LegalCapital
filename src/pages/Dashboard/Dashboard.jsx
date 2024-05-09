@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Aviso from '../../components/Aviso/Aviso.jsx';
 import Header from "../../components/header/Header.jsx";
+import Dividendos from "../DashboardPages/Dividendos/Dividendos.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -29,6 +30,7 @@ const Dashboard = () => {
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />
                             <Route path="/Dashboard/packs" component={Page1} />
+                            <Route path="/Dashboard/dividend" component={Page2} />
                         </Switch>
                     </div>
                 </div>
@@ -47,6 +49,13 @@ const Dashboard = () => {
         return (
             <>
                 <Packs />
+            </>
+        );
+    }
+    function Page2() {
+        return (
+            <>
+                <Dividendos userName={userData.userName}/>
             </>
         );
     }
