@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Aviso from '../../components/Aviso/Aviso.jsx';
 import Header from "../../components/header/Header.jsx";
 import Dividendos from "../DashboardPages/Dividendos/Dividendos.jsx";
+import Red from "../DashboardPages/Red/Red.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -31,6 +32,7 @@ const Dashboard = () => {
                             <Route path="/Dashboard/home" component={Home} />
                             <Route path="/Dashboard/packs" component={Page1} />
                             <Route path="/Dashboard/dividend" component={Page2} />
+                            <Route path="/Dashboard/My-network" component={Page3} />
                         </Switch>
                     </div>
                 </div>
@@ -59,6 +61,12 @@ const Dashboard = () => {
             </>
         );
     }
-
+    function Page3() {
+        return (
+            <>
+                <Red userName={userData.userName}/>
+            </>
+        );
+    }
 }
 export default Dashboard;
