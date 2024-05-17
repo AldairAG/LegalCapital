@@ -48,7 +48,6 @@ const Dividendos = (props) => {
 
     useEffect(() => {
         fetchData(filterConcept)
-        console.log(userModels)
     }, [filterConcept]);
 
     const manejarCambioInput = (event) => {

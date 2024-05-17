@@ -1,4 +1,4 @@
-import "./Red.css"
+ import "./Red.css"
 import img1 from "../../../Assets/Images/Baners_jpg/image.png"
 import appFirebase from "../../../firebase-config";
 import { getDatabase, ref, get } from "firebase/database";
@@ -67,7 +67,7 @@ const Red = (props) => {
     return (
         <section className="seccionRed" >
             <div className="divTitulo">
-                <h2>My net:Genealogy</h2>
+                <h2>Genealogy</h2>
             </div>
             <div className="redComponent">
                 {isLoading ? (

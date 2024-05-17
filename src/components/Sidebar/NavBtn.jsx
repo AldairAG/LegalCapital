@@ -1,13 +1,24 @@
 import React from "react"
 import { Link } from "react-router-dom/cjs/react-router-dom.min"
+import "./Style/Sidebar.css"
 
-const NavBtn= (props) => {
+const NavBtn = (props) => {
+    if (!props.lk || props.lk.trim() === "") {
+        return (
+            <div>
+                <i className={props.ic}></i>
+                <span>{props.sp}</span>
+            </div>
+        );
+    }
+
     return (
         <Link to={props.lk}>
-            <i class={props.ic}></i>
+            <i className={props.ic}></i>
             <span>{props.sp}</span>
         </Link>
-    )
-}
+    );
+};
+
 
 export default NavBtn

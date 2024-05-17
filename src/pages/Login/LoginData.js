@@ -22,8 +22,11 @@ class LoginData {
       // Autenticación exitosa
       if (this.userRole === 'admin') {
         this.history.push('/admin');
-      } else {
+      } else if(this.userRole==="u"){
         this.history.push('/Dashboard/home');
+      }else {
+        this.setTextError('The username or password is incorrect.');
+        this.setDisplayError(true);
       }
     } catch (error) {
       // Error durante la autenticación

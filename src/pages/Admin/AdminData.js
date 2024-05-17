@@ -47,19 +47,43 @@ class AdminData {
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users/" + key);
 
-    if (userData.firstAdd == 0) {
-      this.bonoReferenciaDirecta(userData.referredBy, userData.walletDiv,userData.userName)
-      userData.firstAdd = this.determinarPaquete(userData.walletDiv)
+    if (userData.firtsAdd == 0) {
+      this.bonoReferenciaDirecta(userData.referredBy, userData.staterPack,userData.userName)
+      userData.firtsAdd = this.determinarPaquete(userData.staterPack)
       set(dbRef, userData)
-    } else if (this.determinarPaquete(userData.walletDiv) > userData.firstAdd) {
-      userData.firstAdd = this.determinarPaquete(userData.walletDiv)
-      const bono = diferencia[this.determinarPaquete(userData.walletDiv)-2]
-      userData.walletCom = userData.walletCom + bono
+    } else if (this.determinarPaquete(userData.staterPack) > userData.firtsAdd) {
+
+/*       if (Math.abs(variable1 - variable2) > 1) {
+        let diferencia = Math.abs(variable1 - variable2);
+
+      } */
+
+      userData.firtsAdd = this.determinarPaquete(userData.staterPack)
+      const bono = diferencia[this.determinarPaquete(userData.staterPack)-2]
+      commom.addToWalletCom(userData.referredBy,bono)
       set(dbRef, userData).then(() => {
         commom.saveInHistory(userData.referredBy,bono,"Direct referral bonus",userData.userName)
       })
     }
   }
+
+  bonoReferenciaDirecta = async (firebaseKey, cant,referido) => {
+    const commom = new Common()
+    const db = getDatabase(appFirebase);
+    const dbRef = ref(db, "users");
+    const snapshot = await get(dbRef);
+
+    if (snapshot.exists()) {
+      const users = Object.values(snapshot.val());
+      const userFind = users.find(user => user.userName === firebaseKey);
+      const bono = this.determinarBono(cant);
+      commom.addToWalletCom(userFind.userName, bono);
+      commom.saveInHistory(userFind.userName,bono,"Bono de referencia directa",referido)
+    } else {
+      console.log("Usuario no encontrado");
+    }
+
+  };
 
   aprobar = async (key) => {
     const commom =new Common()
@@ -67,20 +91,19 @@ class AdminData {
 
     const dbRef = ref(db, "users/" + key);
     const snapshot = await get(dbRef);
-
     try {
       if (snapshot.exists()) {
         const userData = snapshot.val();
         if (userData.validity === "") {
           userData.validity = this.obtenerFechaVencimiento();
         }
-        userData.walletDiv = userData.walletDiv + userData.request
+        userData.staterPack = userData.staterPack + userData.request
         const request=userData.request
         userData.request = 0
 
         set(dbRef, userData).then(() => {
           this.fetchData()
-          commom.saveInHistory(userData.referredBy,request,"Payment for starter package")
+          commom.saveInHistory(userData.referredBy,request,"Payment for starter package","")
           this.bonoReferenciaDirectaDiferencia(userData,key)
         }).catch(()=>{
           console.log("error")
@@ -126,25 +149,6 @@ class AdminData {
 
     return fechaDentroDe30Dias;
   }
-
-  bonoReferenciaDirecta = async (firebaseKey, cant,referido) => {
-    const commom = new Common()
-    const db = getDatabase(appFirebase);
-    const dbRef = ref(db, "users");
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      const users = Object.values(snapshot.val());
-      const userFind = users.find(user => user.userName === firebaseKey);
-
-      const bono = this.determinarBono(cant);
-      commom.addToWalletCom(userFind.userName, bono);
-      commom.saveInHistory(userFind.userName,bono,"Bono de referencia directa",referido)
-    } else {
-      console.log("Usuario no encontrado");
-    }
-
-  };
 
   determinarBono = (valor) => {
     switch (true) {

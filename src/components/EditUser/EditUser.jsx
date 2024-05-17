@@ -52,9 +52,9 @@ const EditUser = (props) => {
     }
 
     const actualizarPermiso = (indice, nuevoValor) => {
-        const nuevosPermisos = [...permisos]; // Hacemos una copia del array original
-        nuevosPermisos[indice] = nuevoValor; // Actualizamos el valor en la posición indicada
-        setPermisos(nuevosPermisos); // Actualizamos el estado con el nuevo array de permisos
+        const nuevosPermisos = [...permisos]; 
+        nuevosPermisos[indice] = nuevoValor; 
+        setPermisos(nuevosPermisos);
         console.log(permisos[0])
     };
 
@@ -73,16 +73,16 @@ const EditUser = (props) => {
                 currentUserData.userName = userName
                 currentUserData.firstName = firstName
                 currentUserData.lastName = lastName
-                currentUserData.rank = rank
+                currentUserData.rank = parseInt(rank, 10);
                 currentUserData.referredBy = referredBy
                 currentUserData.validity = validity
-                currentUserData.walletDiv = walletDiv
-                currentUserData.walletCom = walletCom
-                currentUserData.bonoRefDirect = bonoRefDirect
-                currentUserData.bonoFastTrack = bonoFastTrack
-                currentUserData.bonoIngresoRes = bonoIngresoRes
-                currentUserData.bonoRangoRes = bonoRangoRes
-                currentUserData.bonoIgualacion = bonoIgualacion
+                currentUserData.walletDiv = parseInt(walletDiv, 10);
+                currentUserData.walletCom = parseInt(walletCom, 10);
+                currentUserData.bonoRefDirect = parseInt(bonoRefDirect, 10);
+                currentUserData.bonoFastTrack = parseInt(bonoFastTrack, 10);
+                currentUserData.bonoIngresoRes = parseInt(bonoIngresoRes, 10);
+                currentUserData.bonoRangoRes = parseInt(bonoRangoRes, 10);
+                currentUserData.bonoIgualacion = parseInt(bonoIgualacion, 10);
 
                 try {
                     await set(ref(db, `users/${currentUserData.firebaseKey}`), currentUserData);

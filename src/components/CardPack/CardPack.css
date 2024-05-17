@@ -1,0 +1,40 @@
+.cardpack {
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: .4s ease-in-out;
+}
+
+.cardpack .cardpack-s1 {
+}
+
+.cardpack .cardpack-s2 {
+    margin-top: auto;
+    display: flex;
+}
+
+.cardpack .pcp1 {
+    color: #374151;
+    font-size: 18px;
+}
+
+.cardpack .pcp2 {
+    color: #1F2937;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 700;
+    text-align: left;
+}
+.cardpack .pcp3 {
+    color: #1F2937;
+    font-size: 2rem;
+    line-height: 1.7rem;
+    font-weight: 700;
+    text-align: right;
+    margin-inline-start: auto;
+}

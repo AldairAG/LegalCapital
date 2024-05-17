@@ -10,6 +10,8 @@ import Aviso from '../../components/Aviso/Aviso.jsx';
 import Header from "../../components/header/Header.jsx";
 import Dividendos from "../DashboardPages/Dividendos/Dividendos.jsx";
 import Red from "../DashboardPages/Red/Red.jsx";
+import MyRed from "../DashboardPages/MyRed/MyRed.jsx";
+import Mantenimiento from "../../components/Mantemiento/Mantenimiento.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -32,7 +34,9 @@ const Dashboard = () => {
                             <Route path="/Dashboard/home" component={Home} />
                             <Route path="/Dashboard/packs" component={Page1} />
                             <Route path="/Dashboard/dividend" component={Page2} />
-                            <Route path="/Dashboard/My-network" component={Page3} />
+                            <Route path="/Dashboard/My-net-genealogy" component={Page3} />
+                            <Route path="/Dashboard/My-net" component={Page4} />
+                            <Route path="/Dashboard/cooming-soon" component={Page5} />
                         </Switch>
                     </div>
                 </div>
@@ -65,6 +69,20 @@ const Dashboard = () => {
         return (
             <>
                 <Red userName={userData.userName}/>
+            </>
+        );
+    }
+    function Page4() {
+        return (
+            <>
+                <MyRed userName={userData.userName}/>
+            </>
+        );
+    }
+    function Page5() {
+        return (
+            <>
+                <Mantenimiento/>
             </>
         );
     }

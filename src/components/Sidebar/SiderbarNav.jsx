@@ -1,11 +1,18 @@
 import NavBtn from "./NavBtn"
 import LogoutButton from "../LogoutButton/LogoutButton"
+import { useState } from "react";
 
 const SiderNav = () => {
+    const [menuVisible, setMenuVisible] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuVisible(!menuVisible);
+    };
+
     return (
         <nav class="navegacion">
             <ul>
-                
+
                 <h4>Main menu</h4>
                 <hr />
                 <li>
@@ -14,26 +21,38 @@ const SiderNav = () => {
                 <li>
                     <NavBtn lk="/Dashboard/packs" ic="bi bi-boxes" sp="Products" />
                 </li>
+                <li onClick={toggleMenu}>
+                    <NavBtn lk="" ic="bi bi-diagram-3" sp="Net" />
+                    {menuVisible && (
+                        <ul>
+                            <li>
+                                <NavBtn lk="/Dashboard/My-net" ic="bi bi-boxes" sp="Products" />
+                            </li>
+                            <li>
+                                <NavBtn lk="/Dashboard/My-net-genealogy" ic="bi bi-boxes" sp="Products" />
+                            </li>
+                        </ul>
+                    )}
+                </li>
                 <li>
-                    <NavBtn lk="/Dashboard/My-network" ic="bi bi-diagram-3" sp="My network" />
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/dividend" ic="bi bi-graph-up-arrow" sp="dividend" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-person-vcard" sp="Withdrawals" />
+                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-person-vcard" sp="Withdrawals" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-bag" sp="E-comerce" />
+                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-bag" sp="E-comerce" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-archive" sp="Tools" />
+                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-archive" sp="Tools" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-exclamation-octagon" sp="Support" />
+                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-exclamation-octagon" sp="Support" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/comming-soon" ic="bi bi-person-gear" sp="Edit profile" />
+                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-person-gear" sp="Edit profile" />
                 </li>
             </ul>
         </nav>

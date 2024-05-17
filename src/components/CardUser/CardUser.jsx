@@ -1,6 +1,6 @@
 import "./CardUser.css"
 import React, { useState, useEffect } from 'react';
-import img0 from "../../Assets/Images/Logos/rangos/rank-0.png"
+import img0 from "../../Assets/Images/Logos/Logo_1pq.png"
 import img1 from "../../Assets/Images/Logos/rangos/rank-1.png"
 import img2 from "../../Assets/Images/Logos/rangos/rank-1.png"
 import img3 from "../../Assets/Images/Logos/rangos/Rank-3.png"
@@ -22,7 +22,7 @@ const CardUser = (props) => {
 
     useEffect(() => {
         calcularRango(props.userData.rank)
-        calcularPaquete(props.userData.walletDiv)
+        calcularPaquete(props.userData.staterPack)
         const cardUserData=new CardUserData(props.userData,setReferidos,setReferidosTotales)
     }, []);
 

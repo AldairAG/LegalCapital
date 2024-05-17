@@ -171,6 +171,16 @@ body{
 }
 
 
+.desplegable{
+    width: 100px;
+    white-space: nowrap;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 7px;
+    opacity: 1;
+    transition: opacity 0.5s ease,width 0.5s ease;
+}
+
 .barra-lateral .navegacion::-webkit-scrollbar{
     width: 5px;
 }

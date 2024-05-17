@@ -16,8 +16,9 @@
     background-color: rgb(245, 249, 252);
     margin-top: 5%;
     margin-bottom: 1%;
-    border: 2px solid black;
+    border: 3px solid rgb(207, 137, 17);
     border-radius: 50%;
+    background-color: #070d3b;
 }
 .userDetail .p0{
     font-size: 20px;
