@@ -78,7 +78,7 @@ class AdminData {
       const userFind = users.find(user => user.userName === firebaseKey);
       const bono = this.determinarBono(cant);
       commom.addToWalletCom(userFind.userName, bono);
-      commom.saveInHistory(userFind.userName,bono,"Bono de referencia directa",referido)
+      commom.saveInHistory(userFind.userName,bono,"Direct referral bonus",referido)
     } else {
       console.log("Usuario no encontrado");
     }

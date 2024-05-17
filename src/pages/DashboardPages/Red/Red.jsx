@@ -1,5 +1,5 @@
  import "./Red.css"
-import img1 from "../../../Assets/Images/Baners_jpg/image.png"
+import img1 from "../../../Assets/Images/Baners_jpg/suit.png"
 import appFirebase from "../../../firebase-config";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";

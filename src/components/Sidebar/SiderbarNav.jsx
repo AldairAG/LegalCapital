@@ -21,29 +21,27 @@ const SiderNav = () => {
                 <li>
                     <NavBtn lk="/Dashboard/packs" ic="bi bi-boxes" sp="Products" />
                 </li>
-                <li onClick={toggleMenu}>
+                <li>
+                    <NavBtn lk="/Dashboard/My-net" ic="bi bi-people" sp="My net" />
+                </li>
+                <li>
+                    <NavBtn lk="/Dashboard/My-net-genealogy" ic="bi bi-diagram-3" sp="Genealogy" />
+                </li>
+                {/*                 <li onClick={toggleMenu}>
                     <NavBtn lk="" ic="bi bi-diagram-3" sp="Net" />
                     {menuVisible && (
                         <ul>
-                            <li>
-                                <NavBtn lk="/Dashboard/My-net" ic="bi bi-boxes" sp="Products" />
-                            </li>
-                            <li>
-                                <NavBtn lk="/Dashboard/My-net-genealogy" ic="bi bi-boxes" sp="Products" />
-                            </li>
                         </ul>
                     )}
-                </li>
+                </li> */}
                 <li>
-                </li>
-                <li>
-                    <NavBtn lk="/Dashboard/dividend" ic="bi bi-graph-up-arrow" sp="dividend" />
+                    <NavBtn lk="/Dashboard/benefits" ic="bi bi-graph-up-arrow" sp="benefits" />
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-person-vcard" sp="Withdrawals" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-bag" sp="E-comerce" />
+                    <NavBtn lk="/Dashboard/E-comerce" ic="bi bi-bag" sp="E-comerce" />
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-archive" sp="Tools" />

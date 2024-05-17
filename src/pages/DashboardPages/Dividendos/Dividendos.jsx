@@ -150,7 +150,7 @@ const Dividendos = (props) => {
                                 Type
                             </th>
                             <th>
-                                Sponsor
+                                User
                             </th>
                         </tr>
                     </thead>

@@ -1,37 +1,30 @@
 import { useEffect, useState } from "react"
 import "./CardPack.css"
 const CardPack = (props) => {
-    const [paquete,setPaquete]=useState("")
+    const [paquete, setPaquete] = useState("")
 
     useEffect(() => {
         setPaquete(seleccionarOpcion(props.dato))
-      }, []); 
+    }, [props.dato]);
 
-    const seleccionarOpcion=(num)=> {
-        let resultado;
+    const seleccionarOpcion = (num) => {
         switch (true) {
-            case num>100 && num<500:
-                resultado = "BUILDER";
-                break;
-            case num<2500:
-                resultado = "BRONZE";
-                break;
-            case num<5000:
-                resultado = "SILVER";
-                break;
-            case num<10000:
-                resultado = "GOLD";
-                break;
-            case num>10000:
-                resultado = "PLATINUM";
-                break;
+            case num > 99 && num < 500:
+                return "BUILDER";
+            case num > 499 && num < 2500:
+                return "BRONZE";
+            case num > 2499 && num < 5000:
+                return "SILVER";
+            case num > 4999 && num < 10000:
+                return "GOLD";
+            case num >= 10000:
+                return "PLATINUM";
             default:
-                resultado = "No pack";
+                return "No pack";
         }
-        return resultado;
-    }
+    } 
 
-    return(
+    return (
         <section className="cardpack">
             <div className="cardpack-s1">
                 <p className="pcp1">YOUR PACKAGE</p>

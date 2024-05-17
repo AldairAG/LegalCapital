@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Mantenimiento.css"
+import img1 from "../../Assets/Images/Baners_jpg/mantenimiento.png"
 const Mantenimiento = () => {
 
     return (
@@ -26,6 +27,7 @@ const Mantenimiento = () => {
                         Estamos actualizando nuestro sitio web para brindarte una mejor experiencia. Disculpa las molestias mientras
                         trabajamos en las mejoras.
                     </p>
+                    <img src={img1} alt="mantenimiento" />
                 </div>
             </div>
         </div>

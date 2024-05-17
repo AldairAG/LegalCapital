@@ -107,6 +107,7 @@
 
 .seccionDividendos .containTable {
     overflow-x: auto;
+    margin-bottom: 20px;
 }
 
 .containTable table {

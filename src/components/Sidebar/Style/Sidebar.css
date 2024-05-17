@@ -104,11 +104,12 @@ body{
     background-color: var(--color-menu-hover);
     color: var(--color-menu-hover-texto);
 }
-.barra-lateral .navegacion i{
+.barra-lateral .navegacion a i{
     min-width: 50px;
     font-size: 40px;
     padding-left: 5px;
     color: white;
+    border-radius: 10px;
 }
 .barra-lateral h4{
     color: gray;

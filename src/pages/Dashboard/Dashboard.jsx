@@ -12,6 +12,7 @@ import Dividendos from "../DashboardPages/Dividendos/Dividendos.jsx";
 import Red from "../DashboardPages/Red/Red.jsx";
 import MyRed from "../DashboardPages/MyRed/MyRed.jsx";
 import Mantenimiento from "../../components/Mantemiento/Mantenimiento.jsx";
+import Ecomerce from "../../components/Ecomerce/Ecomerce.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -33,10 +34,11 @@ const Dashboard = () => {
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />
                             <Route path="/Dashboard/packs" component={Page1} />
-                            <Route path="/Dashboard/dividend" component={Page2} />
+                            <Route path="/Dashboard/benefits" component={Page2} />
                             <Route path="/Dashboard/My-net-genealogy" component={Page3} />
-                            <Route path="/Dashboard/My-net" component={Page4} />
+                            <Route path="/Dashboard/My-net" component={Page5} />
                             <Route path="/Dashboard/cooming-soon" component={Page5} />
+                            <Route path="/Dashboard/E-comerce" component={Ecomerce} />
                         </Switch>
                     </div>
                 </div>
