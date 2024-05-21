@@ -19,7 +19,9 @@
     line-height: 2rem;
     font-weight: 700;
 }
-
+.nivel{
+    margin-bottom: 30px;
+}
 .nivelCard {
     display: flex;
     flex-direction: column;
@@ -37,7 +39,10 @@
     background-color: #e9eaeb;
     align-items: center;
 }
-.nivelCard0-2{}
+.nivelCard0-2{
+    width: 100%;
+    margin-top: 2px;
+}
 
 
 .nivelCard1 {
@@ -97,6 +102,43 @@
     background-color:transparent ;
 }
 
-.myRedTabla{
-    
+.seccionMyRed .containTable {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.seccionMyRed table {
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.seccionMyRed table thead {
+    background-color: #F3F4F6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
+
+}
+
+.seccionMyRed table th {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.seccionMyRed table tbody {
+    border-top-width: 1px;
+    border-color: #E5E7EB;
+}
+
+.seccionMyRed table td {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #374151;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
 }

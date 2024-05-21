@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.fe270b33.css",
-    "main.js": "/static/js/main.2bc8f382.js",
+    "main.css": "/static/css/main.10855ec0.css",
+    "main.js": "/static/js/main.c88dd546.js",
     "static/media/ec1.png": "/static/media/ec1.d6c4bb3443b5037e6340.png",
     "static/media/ec3.png": "/static/media/ec3.fa50f9a453166830215d.png",
     "static/media/ec2.png": "/static/media/ec2.bd4b72792927e26573e2.png",
@@ -16,10 +16,10 @@
     "static/media/Rank-4.png": "/static/media/Rank-4.2c882b173e21a34f20f7.png",
     "static/media/Rank-6.png": "/static/media/Rank-6.0cfeb0c4567c691755e7.png",
     "static/media/Rank-5.png": "/static/media/Rank-5.1f46908c5afe5efc91ce.png",
-    "static/media/rank-1.png": "/static/media/rank-1.1f46908c5afe5efc91ce.png",
     "static/media/Rank-8.png": "/static/media/Rank-8.e3234e1ce151d95e61e3.png",
     "static/media/Rank-3.png": "/static/media/Rank-3.2360e3d232f0d189438d.png",
     "static/media/Rank-7.png": "/static/media/Rank-7.f5268433f530dc9537c9.png",
+    "static/media/Rank-1.png": "/static/media/Rank-1.6cea7685b9be44369842.png",
     "static/media/Rank-9.png": "/static/media/Rank-9.88cfdfc55832aa05393b.png",
     "static/media/mantenimiento.png": "/static/media/mantenimiento.52f7824e37fff68b181e.png",
     "static/media/Logo_1.png": "/static/media/Logo_1.aad1b99bbf59c450c9f4.png",
@@ -28,17 +28,18 @@
     "static/media/LeagueGothic-Regular.ttf": "/static/media/LeagueGothic-Regular.9a86844e5bf7d14acf69.ttf",
     "static/media/LeagueGothic-Condensed.ttf": "/static/media/LeagueGothic-Condensed.bf8e58a7b2122a9151f1.ttf",
     "static/media/Logo_1pq.png": "/static/media/Logo_1pq.97c7a4737b0ec0e161db.png",
+    "static/media/Rank-2.png": "/static/media/Rank-2.f63ea47233f4b58a37c7.png",
     "static/media/Logo_1l.png": "/static/media/Logo_1l.5aad6acc488ca0966307.png",
     "static/media/Logo_2.png": "/static/media/Logo_2.543f05730ba6d8dcee13.png",
     "static/media/usdt.png": "/static/media/usdt.176daf5b0e7615e72cd2.png",
     "static/media/advertencia.png": "/static/media/advertencia.1ac0ac0116bf86a11597.png",
     "static/media/retiro.png": "/static/media/retiro.92fd700228561bdec6fe.png",
     "index.html": "/index.html",
-    "main.fe270b33.css.map": "/static/css/main.fe270b33.css.map",
-    "main.2bc8f382.js.map": "/static/js/main.2bc8f382.js.map"
+    "main.10855ec0.css.map": "/static/css/main.10855ec0.css.map",
+    "main.c88dd546.js.map": "/static/js/main.c88dd546.js.map"
   },
   "entrypoints": [
-    "static/css/main.fe270b33.css",
-    "static/js/main.2bc8f382.js"
+    "static/css/main.10855ec0.css",
+    "static/js/main.c88dd546.js"
   ]
 }

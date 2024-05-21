@@ -7,7 +7,7 @@ import WelcomeEmail from "./WelcomeEmail"
 
 class RegisterData {
     constructor(userName, email, password, passwordConf, referredBy, textError,
-        setTextError, setMsjError, setbtnActive) {
+        setTextError, setMsjError, setbtnActive,msjError) {
         this.userName = userName;
         this.email = email;
         this.password = password;
@@ -17,6 +17,7 @@ class RegisterData {
         this.setbtnActive = setbtnActive;
         this.setTextError = setTextError;
         this.setMsjError = setMsjError;
+        this.msjError=msjError
         this.common = new Common();
         this.welcomeEmail = new WelcomeEmail(userName, email);
     }
@@ -95,10 +96,12 @@ class RegisterData {
             switch (error.code) {
                 case 'auth/email-already-in-use':
                     this.setTextError('The email address is already in use. Please choose another.');
+                    if (this.msjError) { this.setMsjError(false) }
                     this.setMsjError(true);
                     break;
                 case 'auth/invalid-email':
                     this.setTextError('The email address provided is invalid.');
+                    if (this.msjError) { this.setMsjError(false) }
                     this.setMsjError(true);
                     break;
                 case 'auth/too-many-requests':

@@ -40,34 +40,49 @@ class AdminData {
     }
   }
 
-  bonoReferenciaDirectaDiferencia= async (userData,key) =>{
+  sumNElements = (n) => {
+    const array = [10, 50, 125, 250, 500];
+    if (n > array.length) {
+      return null;
+    }
+
+    let sum = 0;
+    for (let i = 0; i < n; i++) {
+      sum += array[i];
+    }
+    return sum;
+  }
+
+  bonoReferenciaDirectaDiferencia = (userData, key) => {
     const commom = new Common()
-    const diferencia = [40, 75, 125, 250,0];
+    const diferencia = [40, 75, 125, 250, 0];
+    const diferencia1 = [10, 50, 125, 250, 500];
+    let suma = 0
 
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users/" + key);
+    const dif = Math.abs(userData.firtsAdd - this.determinarPaquete(userData.staterPack))
 
-    if (userData.firtsAdd == 0) {
-      this.bonoReferenciaDirecta(userData.referredBy, userData.staterPack,userData.userName)
+    if (userData.firtsAdd === 0) {
+      for (let index = 0; index < dif; index++) {
+        commom.addToWalletComRefDirect(userData.referredBy, diferencia1[index], userData.userName)
+        userData.firtsAdd = this.determinarPaquete(userData.staterPack)
+        set(dbRef, userData)
+      }
+    } else if (dif === 1) {
+      commom.addToWalletComRefDirect(userData.referredBy, diferencia[userData.firtsAdd - 1], userData.userName)
       userData.firtsAdd = this.determinarPaquete(userData.staterPack)
       set(dbRef, userData)
-    } else if (this.determinarPaquete(userData.staterPack) > userData.firtsAdd) {
-
-/*       if (Math.abs(variable1 - variable2) > 1) {
-        let diferencia = Math.abs(variable1 - variable2);
-
-      } */
-
+    } else if (dif > 1) {
+      suma = this.sumInRange(diferencia, userData.firtsAdd - 1, this.determinarPaquete(userData.staterPack) - 2)
+      commom.addToWalletComRefDirect(userData.referredBy, suma, userData.userName)
       userData.firtsAdd = this.determinarPaquete(userData.staterPack)
-      const bono = diferencia[this.determinarPaquete(userData.staterPack)-2]
-      commom.addToWalletCom(userData.referredBy,bono)
-      set(dbRef, userData).then(() => {
-        commom.saveInHistory(userData.referredBy,bono,"Direct referral bonus",userData.userName)
-      })
+      set(dbRef, userData)
     }
+
   }
 
-  bonoReferenciaDirecta = async (firebaseKey, cant,referido) => {
+  bonoReferenciaDirecta = async (firebaseKey, cant, referido) => {
     const commom = new Common()
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users");
@@ -77,8 +92,9 @@ class AdminData {
       const users = Object.values(snapshot.val());
       const userFind = users.find(user => user.userName === firebaseKey);
       const bono = this.determinarBono(cant);
+      userFind["bonoRefDirect"] = userFind["bonoRefDirect"] + bono
       commom.addToWalletCom(userFind.userName, bono);
-      commom.saveInHistory(userFind.userName,bono,"Direct referral bonus",referido)
+      commom.saveInHistory(userFind.userName, bono, "Direct referral bonus", referido)
     } else {
       console.log("Usuario no encontrado");
     }
@@ -86,7 +102,7 @@ class AdminData {
   };
 
   aprobar = async (key) => {
-    const commom =new Common()
+    const commom = new Common()
     const db = getDatabase(appFirebase);
 
     const dbRef = ref(db, "users/" + key);
@@ -98,14 +114,14 @@ class AdminData {
           userData.validity = this.obtenerFechaVencimiento();
         }
         userData.staterPack = userData.staterPack + userData.request
-        const request=userData.request
+        const request = userData.request
         userData.request = 0
 
         set(dbRef, userData).then(() => {
           this.fetchData()
-          commom.saveInHistory(userData.referredBy,request,"Payment for starter package","")
-          this.bonoReferenciaDirectaDiferencia(userData,key)
-        }).catch(()=>{
+          commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
+          this.bonoReferenciaDirectaDiferencia(userData, key)
+        }).catch(() => {
           console.log("error")
         })
       }
@@ -182,6 +198,19 @@ class AdminData {
       default:
         return 0;
     }
+  }
+  sumInRange(array, startIndex, endIndex) {
+    let sum = 0;
+
+    // Asegurarse de que los índices estén dentro de los límites del array
+    startIndex = Math.max(0, startIndex);
+    endIndex = Math.min(array.length - 1, endIndex);
+
+    for (let i = startIndex; i <= endIndex; i++) {
+      sum += array[i];
+    }
+
+    return sum;
   }
 }
 

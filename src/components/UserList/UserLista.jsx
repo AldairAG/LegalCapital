@@ -17,6 +17,7 @@ const UserLista = (props) => {
     const handleClick = (item) => {
         setVisible(true)
         setUserModel(item)
+        console.log(item)
         const arrayDeCadena = item.userPermisos.split("");
         setPermisos(arrayDeCadena)
     }

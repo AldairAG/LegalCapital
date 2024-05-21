@@ -14,8 +14,7 @@ const Login = () => {
     const [displayError, setDisplayError] = useState(false);
     const history = useHistory();
     const loginData = new LoginData(email, password,
-        setTextError, setDisplayError, history);
-    const username = 'pp';
+    setTextError, setDisplayError, history);
 
     const handleLogin = async (e) => {
         loginData.functAutentication(e)
@@ -48,7 +47,7 @@ const Login = () => {
                                 <i className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"}></i>
                             </button>
                         </div>
-                        <input type="submit" value="LogIn" onClick={(e) => handleLogin(e)} />
+                        <input type="submit" value="Login" onClick={(e) => handleLogin(e)} />
                         <Link to={`/recovery_password`}><p className="fyp">Forgot your password?</p></Link>
                     </form>
                 </div>

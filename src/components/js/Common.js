@@ -107,6 +107,35 @@ class Common {
         }
     };
 
+    addToWalletComRefDirect = async (username,cantidad,referido) => {
+        try {
+            const db = getDatabase(appFirebase);
+            const usersRef = ref(db, "users");
+            const snapshot = await get(usersRef);
+
+            if (snapshot.exists()) {
+                const users = Object.values(snapshot.val());
+                const usuarioEncontrado = users.find(user => user.userName === username);
+
+                if (usuarioEncontrado) {
+                    usuarioEncontrado.bonoRefDirect+=cantidad;
+                    usuarioEncontrado.walletCom += cantidad;
+
+                    const userRef = ref(db, `users/${usuarioEncontrado.firebaseKey}`);
+                    await set(userRef, usuarioEncontrado);
+                    this.saveInHistory(username, cantidad, "Direct referral bonus", referido)
+                    
+                } else {
+                    console.log(`No se encontró al usuario ${username}`);
+                }
+            } else {
+                console.log("No se encontraron usuarios en la base de datos");
+            }
+        } catch (error) {
+            console.error("Error al aumentar la cantidad en la wallet:", error);
+        }
+    };
+
     saveInHistory = async (userName,cantidad,concepto,emisor) => {
         const depositoModel=new DepositoModel()
         depositoModel.setDefaultValues()

@@ -1,34 +1,38 @@
 @import url("../../../Assets/colors/colors.css");
 
 .seccion-main {
-    width: 100%;
+    width: auto;
     height: 100%;
     background-color: #efefef;
     padding: 0;
     margin: 0;
     display: flex;
-    overflow-y: auto;
+    overflow-y: hidden;
+    
 }
 
 .dashboard {
     width: 100%;
     height: 100%;
     margin: 0;
-    grid-template-columns: repeat(12, 1fr) ;
-    grid-template-rows: 75px 150px 200px repeat(3,150px) 40rem;
+    grid-template-columns: repeat(6, 1fr) ;
+    grid-template-rows: 75px 200px repeat(4,150px) 40rem 250px;
     display: grid;
     grid-template-areas:
-    "sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0 sec0"
-    "sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1 sec1"
-    "sec2 sec2 sec2 sec2 sec3 sec3 sec3 sec3 sec4 sec4 sec4 sec4"
-    "sec5 sec5 sec5 sec5 sec5 sec5 sec6 sec6 sec6 sec6 sec6 sec6"
-    "sec7 sec7 sec7 sec7 sec8 sec8 sec8 sec8 sec9 sec9 sec9 sec9"
-    "sec10 sec10 sec10 sec10 sec11 sec11 sec11 sec11 sec12 sec12 sec12 sec12"
-    "sec13 sec13 sec13 sec13 sec13 sec13 sec13 sec13 sec13 sec14 sec14 sec14";
+    "sec0 sec0 sec0 sec0 sec0 sec0"
+    "sec1 sec1 sec2 sec2 sec3 sec3"
+    "sec4 sec4 sec4 sec5 sec5 sec5"
+    "sec6 sec6 sec7 sec7 sec8 sec8"
+    "sec9 sec9 sec9 sec10 sec10 sec10"
+    "sec12 sec12 sec12 sec12 sec12 sec12"
+    "sec13 sec13 sec13 sec13 sec13 sec13"
+    "sec14 sec14 sec14 sec14 sec14 sec14";
     justify-content: space-between;
     padding: 2%;
     padding-top: 0;
     gap: 15px;
+    overflow: hidden;
+    margin-bottom: 50px;
 }
 .item-grid{
     align-content: center;
@@ -40,13 +44,15 @@
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     align-items: center;
-    color: #DEB358;
 }
-.sec0 h1{
-    font-size: 40px;
+.sec0 span{
+    font-size: 1.5rem;
+    margin-inline-start: 10px;
+    font-weight: 700;
 }
 .sec0 i{
-    font-size: 40px;
+    font-size: 1.7rem;
+    color: var(--color-1);
 }
 .sec1{
     grid-area: sec1;
@@ -112,18 +118,16 @@
     background-color: #eee;
 }
 
-@media(max-width:1000px) {
+@media(max-width:900px) {
     .dashboard {
         grid-template-columns: auto;
-        grid-template-rows: 75px 150px repeat(3,200px) repeat(8,auto) 40rem;
+        grid-template-rows: 75px 200px repeat(4,150px) repeat(8,auto) 300px;
         grid-template-areas:
         "sec0"
         "sec1"
-
         "sec2"
         "sec3" 
         "sec4"
-
         "sec5"
         "sec6"
         "sec7" 
@@ -137,6 +141,25 @@
     }
 }
 
-@media(max-width:1300px) {
-
+@media(max-width:600px) {
+    .dashboard {
+        grid-template-columns: auto;
+        grid-template-rows: 75px 200px repeat(4,150px) repeat(8,auto) 400px;
+        grid-template-areas:
+        "sec0"
+        "sec1"
+        "sec2"
+        "sec3" 
+        "sec4"
+        "sec5"
+        "sec6"
+        "sec7" 
+        "sec8"
+        "sec9"
+        "sec10" 
+        "sec11" 
+        "sec12"
+        "sec13" 
+        "sec14";
+    }
 }

@@ -29,14 +29,14 @@ const Dashboard = () => {
                 <div className={miniBarraLateral ? "sidebar" : "sidebar2"}><Sidebar max={miniBarraLateral}/> </div>
                 <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
                 <div className="container">
-                    <Aviso />
+                    <Aviso val={userData["validity"]}/>
                     <div className="contentSeccion">
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />
                             <Route path="/Dashboard/packs" component={Page1} />
                             <Route path="/Dashboard/benefits" component={Page2} />
                             <Route path="/Dashboard/My-net-genealogy" component={Page3} />
-                            <Route path="/Dashboard/My-net" component={Page5} />
+                            <Route path="/Dashboard/My-net" component={Page4} />
                             <Route path="/Dashboard/cooming-soon" component={Page5} />
                             <Route path="/Dashboard/E-comerce" component={Ecomerce} />
                         </Switch>

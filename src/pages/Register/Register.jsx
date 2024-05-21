@@ -15,7 +15,7 @@ const Register = () => {
     const [btnActive, setbtnActive] = useState(false);
     const [msjError, setMsjError] = useState(false);
     const registerData = new RegisterData(userName, email, password, passwordConf, referredBy, textError,
-        setTextError, setMsjError, setbtnActive);
+        setTextError, setMsjError, setbtnActive,msjError);
     const { r } = useParams();
 
     useEffect(() => {
@@ -32,6 +32,8 @@ const Register = () => {
     };
 
     const handleClick = (e) => {
+        if (msjError) { setMsjError(false) }
+        setTextError("")
         registerData.valid(e)
     };
 

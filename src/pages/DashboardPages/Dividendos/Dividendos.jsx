@@ -28,7 +28,6 @@ const Dividendos = (props) => {
         return data.join('\n');
     }
     
-
     const downloadCSV = () => {
         const csvData = convertArrayOfObjectsToCSV(userModels);
         const filename = "datos.csv";
@@ -70,12 +69,11 @@ const Dividendos = (props) => {
             } else {
                 const historys = Object.values(snapshot.val());
                 const filteredHistorys = historys.filter(history => {
-                    return history.concepto === concept && history.userName === props.userName;
+                    return history.concepto == concept && history.userName === props.userName;
                 });
                 setUserModels(filteredHistorys);
             }
         } else {
-            alert("error");
         }
     }
 

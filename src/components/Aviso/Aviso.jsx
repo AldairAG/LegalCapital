@@ -1,14 +1,26 @@
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import "./Aviso.css"
 import React, { useState, useEffect } from 'react';
+import { userData } from "three/examples/jsm/nodes/Nodes.js";
+import { useHistory } from 'react-router-dom';
 
 const Aviso = (props) => {
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(true);
+    let location = useLocation();
+    const history = useHistory();
 
     useEffect(() => {
-        if (props.userData && props.userData.validity !== "" && props.userData.validity !== "unpaid") {
+        if (props.val !== "" && props.val !== "unpaid") {
             setVisible(false);
-          }
-      }, []);
+        }
+        if(location=="/Dashboard/packs"){
+            setVisible(false);
+        }
+      }, [props.val]);
+
+    const goProduct=()=>{
+        history.push('/Dashboard/packs');
+    }
 
     return (
         <div className={`aviso${visible ? '' : '-0'}`}>
@@ -30,7 +42,7 @@ const Aviso = (props) => {
                 </p>
             </div>
 
-            <button class="cta">
+            <button class="cta" onClick={goProduct}>
                 <span class="hover-underline-animation"> Shop now </span>
                 <svg
                     viewBox="0 0 46 16"

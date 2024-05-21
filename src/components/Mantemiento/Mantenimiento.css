@@ -46,10 +46,8 @@
 }
 
 .mantemiento-sec1 img {
-    width: 70rem;
-    height: 50rem;
-    color: #6B7280;
-
+    width: 100%;
+    height: 450px;
 }
 
 @media (min-width: 640px) {
