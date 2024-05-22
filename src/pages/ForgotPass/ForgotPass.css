@@ -60,7 +60,7 @@
     z-index: 2;
 }
 
-.submit {
+/* .submit {
     width: 100%;
     top: 60px;
     padding: 7px 0;
@@ -70,7 +70,7 @@
     position: absolute;
     background: black;
     color: white;
-}
+} */
 
 .next {
     width: 100%;
@@ -122,6 +122,33 @@
     position: relative;
     width: 100%;
     height: 50px;
+}
+.inputContainer .submit{
+    width: 100%;
+    top: 170px;
+    right: 0;
+    padding: 7px 0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    position: absolute;
+    background: black;
+    color: white;
+}
+.inputContainer2 .end{
+    width: 100%;
+    top: 170px;
+    right: 0;
+    padding: 7px 0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    position: absolute;
+    background: black;
+    color: white;
+}
+.error{
+    color: red;
 }
 .forget {
     width: 100%;
