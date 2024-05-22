@@ -1,7 +1,7 @@
 import "./CardUser.css"
 import React, { useState, useEffect } from 'react';
 import img0 from "../../Assets/Images/Logos/Logo_1pq.png"
-import img1 from "../../Assets/Images/Logos/rangos/Rank-1.png"
+import img1 from "../../Assets/Images/Logos/rangos/rank-1.png"
 import img2 from "../../Assets/Images/Logos/rangos/Rank-2.png"
 import img3 from "../../Assets/Images/Logos/rangos/Rank-3.png"
 import img4 from "../../Assets/Images/Logos/rangos/Rank-4.png"
@@ -177,22 +177,5 @@ const CardUser = (props) => {
         </section>
     )
 
-    {/* <img className='rangoImg' src={imgRango} alt="rango" />
-            <p className='p1'>{rango}</p>
-            <div className="datosUser">
-                
-                <p className='p2'>Paquete actual:{paquete}</p>
-            </div>
-
-            <div class="tablaRed">
-                <div className="datosRedes">
-                    <p className="titulo">Direct</p>
-                    <p className="datoRed">{referidos}</p>
-                </div>
-                <div className="datosRedes">
-                    <p className="titulo">Total network</p>
-                    <p className="datoRed">{referidosTotales}</p>
-                </div>
-            </div> */}
 }
 export default CardUser

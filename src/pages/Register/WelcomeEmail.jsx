@@ -1,26 +1,18 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import img1 from "../../Assets/Images/Logos/Logo_1.png"
 
 class WelcomeEmail {
-    constructor(userName, email) {
-        this.email = email;
-        this.userName = userName
+    constructor(email,code) {
+        this.code = code
+        this.email=email
     }
 
-    sendEmail = (e) => {
-        const templateParams = {
-            user_name: this.userName,
-            user_email: this.email,
-            message: 'Hola, bienvenido a LegalCapital'
-        };
-
-        emailjs.send("service_29h17gr", "template_ci96cck", {
-            from_name: this.email,
-            to_name: this.userName,
-            message: "'Hola, bienvenido a LegalCapital'",
+    sendEmail = () => {
+        emailjs.send("service_j1044t3", "template_20tw3vi", {
+            code: this.code,
+            from_name:this.email,
         },{
-            publicKey: 'mfhKxadOmeTx0rXBs',
+            publicKey: '0wCoAjcnZT2N0PVfE',
           })
             .then(
                 () => {

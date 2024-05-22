@@ -6,6 +6,7 @@
     align-items: center;
 }
 
+
 .form {
     display: flex;
     align-items: center;
@@ -38,7 +39,7 @@
     border: 1px solid rgb(48, 45, 45);
     background-color: rgb(255, 255, 255);
     padding: 10px;
-    color: white;
+    color: rgb(0, 0, 0);
     transition: .1s;
     position: absolute;
 }
@@ -71,6 +72,18 @@
     color: white;
 }
 
+.next {
+    width: 100%;
+    top: 150px;
+    padding: 7px 0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    position: absolute;
+    background: black;
+    color: white;
+}
+
 .login {
     width: 100%;
     color: black;
@@ -88,6 +101,28 @@
     transform: scale(1.1);
 }
 
+.Fp .p2{
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.fInput2 {
+    width: 100%;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid rgb(48, 45, 45);
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    transition: .1s;
+}
+.inputContainer2{
+    background-color: rgba(255, 0, 0, 0);
+    position: relative;
+    width: 100%;
+    height: 50px;
+}
 .forget {
     width: 100%;
     background-color: transparent;

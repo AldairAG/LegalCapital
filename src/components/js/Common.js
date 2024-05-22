@@ -34,6 +34,28 @@ class Common {
             alert("No se encontraron datos en la base de datos");
         }
     }
+    getUserDataOnly = async (email) => {
+        const db = getDatabase(appFirebase);
+        const dbRef = ref(db, "users/");
+        try {
+            const snapshot = await get(dbRef);
+            if (snapshot.exists()) {
+                const users = Object.values(snapshot.val());
+                const user = users.find(user => user.email === email);
+                if (user) {
+                    this.setUserModel(user);
+                } else {
+                    alert("No se encontró el usuario");
+                }
+                console.log(user); // Asegúrate de que este log esté en el lugar correcto
+            } else {
+                alert("No se encontraron datos en la base de datos");
+            }
+        } catch (error) {
+            console.error("Error fetching user data: ", error);
+            alert("Error fetching user data");
+        }
+    }
     getUserDataR = async () => {
         const db = getDatabase(appFirebase);
         const dbRef = ref(db, "users/");

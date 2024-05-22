@@ -37,7 +37,7 @@ const Admin = () => {
 
             </header>
             <div className="ops">
-                <button onClick={() => handleClick(1)}>Gestionar<br />admnistradores</button>
+                <button onClick={() => handleClick(1)}>Gestionar<br />historial</button>
                 <button onClick={() => handleClick(2)}>Gestionar<br />usuarios</button>
                 <button onClick={() => handleClick(3)}>Aprobar<br />pagos</button>
             </div>
@@ -57,7 +57,7 @@ const Admin = () => {
     function UserList() {
         return (
             <>
-                <UserLista />
+                <UserLista/>
             </>
         );
     }
