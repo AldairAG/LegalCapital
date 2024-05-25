@@ -1,6 +1,6 @@
 import appFirebase from "../../firebase-config";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, get,set,push} from "firebase/database";
+import { getDatabase, ref, get, set, push } from "firebase/database";
 import DepositoModel from "../../model/DepositoModel";
 
 class Common {
@@ -43,17 +43,15 @@ class Common {
                 const users = Object.values(snapshot.val());
                 const user = users.find(user => user.email === email);
                 if (user) {
-                    this.setUserModel(user);
+                    this.setUserData(user);
                 } else {
                     alert("No se encontró el usuario");
-                }
-                console.log(user); // Asegúrate de que este log esté en el lugar correcto
+                } // Asegúrate de que este log esté en el lugar correcto
             } else {
                 alert("No se encontraron datos en la base de datos");
             }
         } catch (error) {
             console.error("Error fetching user data: ", error);
-            alert("Error fetching user data");
         }
     }
     getUserDataR = async () => {
@@ -91,7 +89,7 @@ class Common {
         }
     }
 
-    addToWallet = async (username,cantidad) => {
+    addToWallet = async (username, cantidad) => {
         try {
             const db = getDatabase(appFirebase);
             const usersRef = ref(db, "users");
@@ -119,7 +117,17 @@ class Common {
         }
     };
 
-    addToWalletCom = async (username,cantidad) => {
+    editAnyUser = async (userData) => {
+        try {
+            const db = getDatabase(appFirebase);
+            const userRef = ref(db, `users/${userData.firebaseKey}`);
+            await set(userRef, userData);
+        } catch (error) {
+            console.error("Error al aumentar la cantidad en la wallet:", error);
+        }
+    };
+
+    addToWalletCom = async (username, cantidad) => {
         try {
             const db = getDatabase(appFirebase);
             const usersRef = ref(db, "users");
@@ -146,7 +154,7 @@ class Common {
         }
     };
 
-    addToWalletComRefDirect = async (username,cantidad,referido) => {
+    addToWalletComRefDirect = async (username, cantidad, referido) => {
         try {
             const db = getDatabase(appFirebase);
             const usersRef = ref(db, "users");
@@ -157,13 +165,13 @@ class Common {
                 const usuarioEncontrado = users.find(user => user.userName === username);
 
                 if (usuarioEncontrado) {
-                    usuarioEncontrado.bonoRefDirect+=cantidad;
+                    usuarioEncontrado.bonoRefDirect += cantidad;
                     usuarioEncontrado.walletCom += cantidad;
 
                     const userRef = ref(db, `users/${usuarioEncontrado.firebaseKey}`);
                     await set(userRef, usuarioEncontrado);
                     this.saveInHistory(username, cantidad, "Direct referral bonus", referido)
-                    
+
                 } else {
                     console.log(`No se encontró al usuario ${username}`);
                 }
@@ -175,20 +183,20 @@ class Common {
         }
     };
 
-    saveInHistory = async (userName,cantidad,concepto,emisor) => {
-        const depositoModel=new DepositoModel()
+    saveInHistory = async (userName, cantidad, concepto, emisor) => {
+        const depositoModel = new DepositoModel()
         depositoModel.setDefaultValues()
 
         const db = getDatabase(appFirebase);
         const newDocRef = push(ref(db, 'history/'));
 
-        depositoModel.userName=userName
-        depositoModel.cantidad=cantidad
-        depositoModel.concepto=concepto
-        depositoModel.firebaseKey=newDocRef.key;
-        depositoModel.hora=this.obtenerHora()
-        depositoModel.date=this.obtenerFecha()
-        depositoModel.emisor=emisor
+        depositoModel.userName = userName
+        depositoModel.cantidad = cantidad
+        depositoModel.concepto = concepto
+        depositoModel.firebaseKey = newDocRef.key;
+        depositoModel.hora = this.obtenerHora()
+        depositoModel.date = this.obtenerFecha()
+        depositoModel.emisor = emisor
         try {
             await set(newDocRef, depositoModel);
         } catch (error) {
@@ -201,13 +209,13 @@ class Common {
         const options = { timeZone: 'America/New_York', day: '2-digit', month: '2-digit', year: 'numeric' };
         return currentDate.toLocaleString('es-US', options);
     }
-    
+
     obtenerHora() {
         const currentDate = new Date();
         const options = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit' };
         return currentDate.toLocaleString('es-US', options);
     }
-    
+
 
     /*obtenerFecha() {
         const currentDate = new Date();

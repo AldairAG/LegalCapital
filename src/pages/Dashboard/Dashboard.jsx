@@ -13,6 +13,7 @@ import Red from "../DashboardPages/Red/Red.jsx";
 import MyRed from "../DashboardPages/MyRed/MyRed.jsx";
 import Mantenimiento from "../../components/Mantemiento/Mantenimiento.jsx";
 import Ecomerce from "../../components/Ecomerce/Ecomerce.jsx";
+import Support from "../DashboardPages/Support/Support.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -39,6 +40,7 @@ const Dashboard = () => {
                             <Route path="/Dashboard/My-net" component={Page4} />
                             <Route path="/Dashboard/cooming-soon" component={Page5} />
                             <Route path="/Dashboard/E-comerce" component={Ecomerce} />
+                            <Route path="/Dashboard/Support" component={Page6} />
                         </Switch>
                     </div>
                 </div>
@@ -78,6 +80,13 @@ const Dashboard = () => {
         return (
             <>
                 <MyRed userName={userData.userName}/>
+            </>
+        );
+    }
+    function Page6() {
+        return (
+            <>
+                <Support/>
             </>
         );
     }

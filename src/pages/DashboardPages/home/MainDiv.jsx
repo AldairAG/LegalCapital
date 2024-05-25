@@ -34,7 +34,7 @@ const MainDiv = (props) => {
     return (
         <div className="seccion-main">
             {isLoading ? (
-                <p>Loading...</p>
+                <div class="spinner"></div>
             ) : (
                 <section className='dashboard'>
                     <div className="sec0">
@@ -52,9 +52,8 @@ const MainDiv = (props) => {
                     <div className="item-grid sec9"><CardData dato={userData.bonoIgualacion.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="MATCHING BONUS" /></div>
                     <div className="item-grid sec10"><CardData dato={userData.bonoFastTrack.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="FASTRACK BONUS" /></div>
                     <div className="item-grid sec12"><CopiLink username={userData.userName}/></div>
-                    <div className="item-grid sec14"><CardUser userData={userData} /></div>
                     <div className="item-grid sec13"><img alt="promo" /></div>
-
+                    <div className="item-grid sec14"><CardUser userData={userData} /></div>
                 </section>
             )}
         </div>

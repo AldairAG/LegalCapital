@@ -1,19 +1,18 @@
 @import url("../../../Assets/colors/colors.css");
 
 .seccion-main {
-    width: auto;
     height: 100%;
+    width: 100%;
     background-color: #efefef;
     padding: 0;
     margin: 0;
     display: flex;
     overflow-y: hidden;
-    
 }
 
 .dashboard {
-    width: 100%;
     height: 100%;
+    width: 100%;
     margin: 0;
     grid-template-columns: repeat(6, 1fr) ;
     grid-template-rows: 75px 200px repeat(4,150px) 40rem 250px;
@@ -118,10 +117,10 @@
     background-color: #eee;
 }
 
-@media(max-width:900px) {
+@media(max-width:1000px) {
     .dashboard {
-        grid-template-columns: auto;
-        grid-template-rows: 75px 200px repeat(4,150px) repeat(8,auto) 300px;
+        grid-template-columns: 100%;
+        grid-template-rows: 75px repeat(12,150px) 400px;
         grid-template-areas:
         "sec0"
         "sec1"
@@ -133,31 +132,7 @@
         "sec7" 
         "sec8"
         "sec9"
-        "sec10" 
-        "sec11" 
-        "sec12"
-        "sec13" 
-        "sec14";
-    }
-}
-
-@media(max-width:600px) {
-    .dashboard {
-        grid-template-columns: auto;
-        grid-template-rows: 75px 200px repeat(4,150px) repeat(8,auto) 400px;
-        grid-template-areas:
-        "sec0"
-        "sec1"
-        "sec2"
-        "sec3" 
-        "sec4"
-        "sec5"
-        "sec6"
-        "sec7" 
-        "sec8"
-        "sec9"
-        "sec10" 
-        "sec11" 
+        "sec10"
         "sec12"
         "sec13" 
         "sec14";

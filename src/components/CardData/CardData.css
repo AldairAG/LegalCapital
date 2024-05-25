@@ -1,5 +1,4 @@
 .contain-data {
-  max-width: 100%;
   height: 100%;
   border-radius: 10px;
   background-color: #ffffff;
@@ -10,111 +9,36 @@
   transition: .4s ease-in-out;
 }
 
+.contain-data p {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: rgb(84, 75, 75);
+}
+.contain-data h3 {
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.contain-data .case2{
+  display: flex;
+  flex-direction: row;
+}
 .contain-data:hover {
   transform: scale(1.02);
   border: 3px solid rgb(236, 158, 15);
   box-shadow: none;
 }
-
-.contain-data .title {
-  display: flex;
-  align-items: center;
+.contain-data img {
+  line-height: 2rem;
+  margin-inline-start: 10px;
+  width: 30px;
+  height: 30px;
+  justify-self:center;
+  align-self: center;
 }
-
-.contain-data .title p {
-  margin-left: 0.5rem;
-  color: #374151;
-  font-size: 18px;
-}
-
-.contain-data .data {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.contain-data .data p {
-  margin-top: 1rem;
-  color: #1F2937;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 700;
-  text-align: left;
-
-}
-
-.contain-data .title .logo {
-  width: 25px;
-  content: url("../../Assets/Images/Logos/usdt.png");
-}
-
-.contain-data .title .percent {
-  margin-left: 0.5rem;
-  color: #02972f;
-  font-weight: 600;
-  display: flex;
-}
-
-.content2-btn {
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-inline-start: auto;
-}
-
-.Btn {
-  width: 150px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(15, 15, 15);
-  border: none;
-  color: white;
-  font-weight: 600;
-  gap: 10px;
-  cursor: pointer;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
-  position: relative;
-  overflow: hidden;
-  transition-duration: .3s;
-  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px;
-}
-
-.svgIcon {
-  width: 16px;
-}
-
-.svgIcon path {
-  fill: white;
-}
-
-.Btn::before {
-  width: 100%;
-  height: 130px;
-  position: absolute;
-  content: "";
-  background-color: rgb(239, 239, 239);
-  border-radius: 50%;
-  left: -100%;
-  top: 0;
-  transition-duration: .3s;
-  mix-blend-mode: difference;
-}
-
-.Btn:hover::before {
-  transition-duration: .3s;
-  transform: translate(100%, -50%);
-  border-radius: 0;
-}
-
-.Btn:active {
-  transform: translate(5px, 5px);
-  transition-duration: .3s;
-}
-
-
 .none {
   display: none;
 }

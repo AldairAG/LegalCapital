@@ -68,7 +68,6 @@ const CardUser = (props) => {
 
         const filteredUsers = users.filter(user => user.referredBy === userName);
         let totalCapital = filteredUsers.reduce((sum, user) => sum + user.staterPack, 0);
-        console.log(users)
         for (let user of filteredUsers) {
             const result = getCap(contador + 1, user.userName);
             totalCapital += result;

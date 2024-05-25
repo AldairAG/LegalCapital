@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import appFirebase from "../../firebase-config";
 import WelcomeEmail from "../Register/WelcomeEmail";
 import { useHistory, useLocation } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import Common from "../../components/js/Common"
+import ErrorDiv from "../../components/ErrorDiv/ErrorDiv";
+import img1 from "../../Assets/Images/Baners_jpg/palomita.png"
 const auth = getAuth(appFirebase)
 
 const ForgotPass = () => {
@@ -19,7 +21,8 @@ const ForgotPass = () => {
     const [error2, setError2] = useState("")
     const [pass, setPass] = useState("")
     const [pass2, setPass2] = useState("")
-    const [user,setUser]=useState([])
+    const [user, setUser] = useState([])
+    const [visible, setVisible] = useState(false)
 
     const sendCode = () => {
         const number = Math.floor(100000 + Math.random() * 900000);
@@ -28,12 +31,27 @@ const ForgotPass = () => {
         welcomeEmail.sendEmail()
     };
 
+    const returnLogin = () => {
+        history.push("/")
+    };
+
     const handlePasswordReset = async (e) => {
         e.preventDefault();
-        const common=new Common(setUser)
-        common.getUserDataR(email)
-        await signInWithEmailAndPassword(auth, email, user.password);
-        
+        try {
+            const common = new Common(setUser)
+            await common.getUserDataOnly(email)
+            const userCredential = await signInWithEmailAndPassword(auth, email, user.password);
+            const userCurrent = userCredential.user;
+            await updatePassword(userCurrent, pass);
+            const userData = user;
+            userData.password = pass
+            setUser(userData)
+            common.editAnyUser(user)
+            setEstado(estado+1)
+        } catch (error) {
+            console.log(`Error al cambiar la contraseña: ${error.message}`);
+        }
+
     };
 
     const handleChange = async () => {
@@ -101,16 +119,26 @@ const ForgotPass = () => {
                 <p className="p2">Chosse a new password</p>
                 <p className="error">{error2}</p>
                 <input placeholder="Confirm your email" value={pass2} type="password" class="fInput2 email" onChange={(e) => setPass2(e.target.value)} />
-                <input className="end" type="button" value="next" onClick={(e)=>handleVerify(e)} />
+                <input className="end" type="button" value="next" onClick={(e) => handleVerify(e)} />
             </div>
+        </form>,
 
+        <form class="form">
+            <img src={img} alt="logo" />
+            <p class="login">Your password has been restored</p>
+            <div class="inputContainer2">
+            <img className="img2" src={img1} alt="Correct" />
+
+                <input className="end" type="button" value="Return to login" onClick={ returnLogin} />
+            </div>
         </form>
     ]
 
 
     return (
         <section className="Fp">
-            {content[2]}
+            <ErrorDiv visible={visible} color={true} text={"The password has been changed"} />
+            {content[0]}
         </section>
     );
 

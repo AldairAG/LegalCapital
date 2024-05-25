@@ -13,15 +13,16 @@ const CopyLink = (props) => {
 
     return (
         <div className="contain-link">
-            <div className='header'>
-                <h3><i class="bi bi-person-fill-add"></i> Invitation Link:</h3>
+            <div className="sec1-cl">
+                <h4><i class="bi bi-person-fill-add"></i> Invite members</h4>
             </div>
-
-            <div className="link">
+            <div className="sec2-cl">
+                <button onClick={handleCopy} ><i class="bi bi-copy"></i> Copy invite link</button>
+                <p>Share this link with your friends to invite them to join.</p>
+            </div>
+            <div className="sec3-cl">
                 <input id='invitationLink' type="text" value={"https://legalcapital-corp.com/register/" + props.username} readOnly />
-                <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
             </div>
-
         </div>
     )
 }
