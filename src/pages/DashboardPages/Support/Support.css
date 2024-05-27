@@ -7,7 +7,7 @@
     display: grid;
     overflow-y: hidden;
     grid-template-columns: 1fr;
-    grid-template-rows: 75px 100px  240px 70px 200PX;
+    grid-template-rows: 75px 100px  180px 70px 200PX;
     grid-template-areas:
         "sec0-sp"
         "sec1-sp"
@@ -17,7 +17,7 @@
     padding: 2%;
     padding-top: 0;
     overflow: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
 }
 
 .support .sec0-sp {
@@ -63,10 +63,18 @@
     font-weight: bold;
     color: #333;
 }
-.support .sec2-sp input{
-    width: 50%;
-    height: 200px;
-    border-radius: 5px;
+.support .sec2-sp textarea{
+    width: 70%;
+    height: 300px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    border: 1px solid #393939;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none;
+    overflow-y: auto;    
+    line-height: 1.5;
 }
 
 .support .sec4-sp {
@@ -75,7 +83,6 @@
 }
 
 .support .sec4-sp .contenido{
-    grid-area: sec4-sp;
     display: flex;
     background-color:var(--color-main);
     padding: 2%;
@@ -155,4 +162,25 @@
 
 .support .btn2:active {
     transform: translateY(-1px);
+}
+
+@media(max-width:600px){
+
+    .support .sec4-sp .contenido{
+
+    }
+    
+    .support .sec4-sp p{
+        color: white;
+        width: 20.5rem;
+        text-align: center;
+        font-size:1.5rem ;
+        font-weight: 600;
+    }
+    .support .sec4-sp img{
+        content: url("../../../Assets/Images/Baners_jpg/soporte.png");
+        width: 100px;
+        height: 100px;
+    }
+
 }

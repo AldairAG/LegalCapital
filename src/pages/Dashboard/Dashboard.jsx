@@ -18,7 +18,7 @@ import Support from "../DashboardPages/Support/Support.jsx";
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
     const common = new Common(setUserData)
-    const [miniBarraLateral, setMiniBarraLateral] = useState(false);
+    const [miniBarraLateral, setMiniBarraLateral] = useState(true);
 
     useEffect(() => {
         common.getUserData()

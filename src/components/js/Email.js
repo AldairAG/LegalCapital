@@ -1,16 +1,16 @@
-import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 
-class WelcomeEmail {
-    constructor(email,code) {
-        this.code = code
-        this.email=email
+class Email{
+    constructor(destinatario,mensaje,plantilla){
+        this.destinatario=destinatario
+        this.mensaje=mensaje
+        this.plantilla=plantilla
     }
-
+    
     sendEmail = () => {
-        emailjs.send("service_033kgeg", "template_20tw3vi", {
-            code: this.code,
-            from_name:this.email,
+        emailjs.send("service_033kgeg", this.plantilla, {
+            code: this.mensaje,
+            from_name:this.plantilla,
         },{
             publicKey: '0wCoAjcnZT2N0PVfE',
           })
@@ -24,6 +24,8 @@ class WelcomeEmail {
             );
 
     };
-};
 
-export default WelcomeEmail;
+
+}
+
+export default Email

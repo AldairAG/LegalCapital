@@ -138,7 +138,7 @@ const ForgotPass = () => {
     return (
         <section className="Fp">
             <ErrorDiv visible={visible} color={true} text={"The password has been changed"} />
-            {content[0]}
+            {content[estado]}
         </section>
     );
 

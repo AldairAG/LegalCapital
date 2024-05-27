@@ -85,7 +85,7 @@ const CardUser = (props) => {
     const calcularRango = (numero) => {
         switch (numero) {
             case 1:
-                setRango("Zarifo Ejecutivo")
+                setRango("Zafiro Ejecutivo")
                 setImgRango(img1)
                 break
             case 2:
@@ -117,7 +117,7 @@ const CardUser = (props) => {
                 setImgRango(img8)
                 break;
             case 9:
-                setRango("Diamante Royal")
+                setRango("Presidente Royal")
                 setImgRango(img9)
                 break;
 
