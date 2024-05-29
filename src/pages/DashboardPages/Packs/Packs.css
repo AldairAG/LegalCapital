@@ -17,6 +17,7 @@
     grid-template-areas:
         "titulo titulo titulo titulo titulo"
         "sec1-p sec2-p sec3-p sec4-p sec5-p";
+    margin-bottom: 25px;
 }
 
 .containPacks .titulo{

@@ -45,6 +45,60 @@
     background-color: #efefef;
 }
 
+.contenido{
+    height: 100%;
+    width: 100%;
+    background-color: #efefef;
+    margin: 0;
+    display: grid;
+    padding: 2%;
+    padding-top: 0;
+    overflow: hidden;
+    margin-bottom: 70px;
+}
+.contenido .titulos{
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    align-items: center;
+}
+.contenido .titulos span {
+    font-size: 1.5rem;
+    margin-inline-start: 10px;
+    font-weight: 700;
+}
+
+.contenido .titulos i {
+    font-size: 1.7rem;
+    color: var(--color-1);
+}
+
+.contenido .textoG{
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 2rem;
+}
+
+.contenido .textoM{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #333;
+}
+.contenido .textoM2{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.contenido .textoM3{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #333;
+}
+
 @media (max-width: 600px) {
     .containDash {
         width: 100%;

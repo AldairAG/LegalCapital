@@ -1,19 +1,21 @@
 import emailjs from '@emailjs/browser';
 
-class Email{
-    constructor(destinatario,mensaje,plantilla){
-        this.destinatario=destinatario
-        this.mensaje=mensaje
-        this.plantilla=plantilla
+class Email {
+    constructor(destinatario, plantilla) {
+        this.destinatario = destinatario
+        this.plantilla = plantilla
     }
-    
-    sendEmail = () => {
+
+    sendEmailSupport = (motivo,userName,mensaje) => {
         emailjs.send("service_033kgeg", this.plantilla, {
-            code: this.mensaje,
-            from_name:this.plantilla,
-        },{
+            from_name: this.destinatario,
+            Motivo: motivo,
+            UserName: userName,
+            Mensaje: mensaje,
+            reply_to: this.destinatario,
+        }, {
             publicKey: '0wCoAjcnZT2N0PVfE',
-          })
+        })
             .then(
                 () => {
                     console.log('SUCCESS!');

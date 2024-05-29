@@ -50,7 +50,7 @@ const SiderNav = () => {
                     <NavBtn lk="/Dashboard/Support" ic="bi bi-exclamation-octagon" sp="Support" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/cooming-soon" ic="bi bi-person-gear" sp="Edit profile" />
+                    <NavBtn lk="/Dashboard/Profile" ic="bi bi-person-gear" sp="Edit profile" />
                 </li>
             </ul>
         </nav>

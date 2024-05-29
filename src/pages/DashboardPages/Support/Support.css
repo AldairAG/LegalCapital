@@ -1,4 +1,5 @@
 @import url("../../../Assets/colors/colors.css");
+
 .support {
     height: 100%;
     width: 100%;
@@ -7,7 +8,7 @@
     display: grid;
     overflow-y: hidden;
     grid-template-columns: 1fr;
-    grid-template-rows: 75px 100px  180px 70px 200PX;
+    grid-template-rows: 75px 100px 230px 70px 200PX;
     grid-template-areas:
         "sec0-sp"
         "sec1-sp"
@@ -51,29 +52,31 @@
 
 .support .sec2-sp {
     grid-area: sec2-sp;
+    display: grid;
+    
 }
 
 .support .sec3-sp {
     grid-area: sec3-sp;
 }
 
-.support .sec2-sp p{
+.support .sec2-sp p {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
     color: #333;
 }
-.support .sec2-sp textarea{
-    width: 70%;
-    height: 300px;
+
+.support .sec2-sp textarea {
+    width: 50%;
+    height: 80%;
     padding: 10px;
     font-size: 16px;
-    font-family: inherit;
     border: 1px solid #393939;
     border-radius: 4px;
     box-sizing: border-box;
     resize: none;
-    overflow-y: auto;    
+    overflow-y: auto;
     line-height: 1.5;
 }
 
@@ -82,22 +85,23 @@
     display: flex;
 }
 
-.support .sec4-sp .contenido{
+.support .sec4-sp .contenido {
     display: flex;
-    background-color:var(--color-main);
+    background-color: var(--color-main);
     padding: 2%;
     align-items: center;
     border-radius: 5px;
 }
 
-.support .sec4-sp p{
+.support .sec4-sp p {
     color: white;
     width: 20.5rem;
     text-align: center;
-    font-size:1.5rem ;
+    font-size: 1.5rem;
     font-weight: 600;
 }
-.support .sec4-sp img{
+
+.support .sec4-sp img {
     content: url("../../../Assets/Images/Baners_jpg/soporte.png");
     width: 100px;
     height: 100px;
@@ -109,7 +113,7 @@
     width: 100%;
 }
 
-.custom-select {
+.support .sec1-sp .custom-select {
     display: inline-block;
     width: 100%;
     padding: 10px 15px;
@@ -164,23 +168,50 @@
     transform: translateY(-1px);
 }
 
-@media(max-width:600px){
+@media(max-width:600px) {
 
-    .support .sec4-sp .contenido{
-
+    .support {
+        grid-template-columns: 98%;
+        grid-template-rows: 75px 100px 230px 70px 200PX;
+        grid-template-areas:
+            "sec0-sp"
+            "sec1-sp"
+            "sec2-sp"
+            "sec3-sp"
+            "sec4-sp";
     }
-    
-    .support .sec4-sp p{
+
+    .support .sec1-sp {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .support .sec2-sp textarea {
+        width: 100%;
+    }
+
+    .support .sec4-sp .contenido {
+        width: 100%;
+    }
+
+    .support .sec4-sp p {
         color: white;
-        width: 20.5rem;
         text-align: center;
-        font-size:1.5rem ;
+        font-size: 1.5rem;
         font-weight: 600;
     }
-    .support .sec4-sp img{
+
+    .support .sec4-sp img {
         content: url("../../../Assets/Images/Baners_jpg/soporte.png");
         width: 100px;
         height: 100px;
+        margin-inline-start: auto;
     }
 
+}
+
+@media(max-width:1000px) {
+    .support .sec2-sp textarea {
+        width: 100%;
+    }
 }

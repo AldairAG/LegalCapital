@@ -1,0 +1,11 @@
+.TextInput{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.TextInput input{
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 5px;
+}
