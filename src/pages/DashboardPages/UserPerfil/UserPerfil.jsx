@@ -2,11 +2,20 @@ import { useState, useEffect } from "react"
 import TextInput from "../../../components/TextInput/TextInput"
 import "./UserPerfil.css"
 import Common from "../../../components/js/Common"
+import AlertMsg from "../../../components/AlertMsg/AlertMsg.jsx"
 const UserPerfil = () => {
     const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
+    const [name, setName] = useState("")
+    const [wallet, setWallet] = useState("")
+    const [apellidio, setApellido] = useState("")
+    const [telefono, setTelefono] = useState("")
+
     const [userData, setUserData] = useState([]);
     const [fetchCounter, setFetchCounter] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [visible, setVisible] = useState(false);
+    const [msj, setMsj] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -14,16 +23,32 @@ const UserPerfil = () => {
             await common.getUserData();
             setFetchCounter(fetchCounter + 1);
         };
-
+        
+        const asingData=()=>{
+            setApellido(userData.apellidio)
+            setName(userData.name)
+            setEmail(userData.email)
+            setUser(userData.user)
+            setTelefono(userData.telefono)
+            setWallet(userData.walletAddress)
+            setUser(userData.userName)
+        }
         if (fetchCounter < 2) {
             fetchData();
         } else {
+            asingData()
             setIsLoading(false);
         }
     }, [fetchCounter]);
 
+    const save=()=>{
+        setVisible(true)
+        setMsj("changes made successfully")
+    }
+
     return (
         <div>
+            <AlertMsg visible={visible} texto={msj}/>
             {isLoading ? (
                 <div class="spinner"></div>
             ) : (
@@ -41,15 +66,16 @@ const UserPerfil = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="sec2-up">
+                    <div className="sec2-up" >
                         <div className="dtp0 textoM3"><p>Personal data</p></div>
-                        <div className="dtp1"><TextInput ti={"Username"} value={email} setValue={setEmail} /></div>
+                        <div className="dtp1"><TextInput ti={"Username"} value={user} setValue={setUser} /></div>
                         <div className="dtp2"><TextInput ti={"E-mail"} value={email} setValue={setEmail} /></div>
-                        <div className="dtp3"><TextInput ti={"Name"} value={email} setValue={setEmail} /></div>
-                        <div className="dtp4"><TextInput ti={"Surname"} value={email} setValue={setEmail} /></div>
-                        <div className="dtp5"><TextInput ti={"Phone"} value={email} setValue={setEmail} /></div>
-                        <div className="dtp6"><TextInput ti={"Country"} value={email} setValue={setEmail} /></div>
-                        <div className="dtp7"><TextInput ti={"USDT Wallet"} value={email} setValue={setEmail} /></div>
+                        <div className="dtp3"><TextInput ti={"Name"} value={name} setValue={setName} /></div>
+                        <div className="dtp4"><TextInput ti={"Surname"} value={apellidio} setValue={setApellido} /></div>
+                        <div className="dtp5"><TextInput ti={"Phone"} value={telefono} setValue={setTelefono} /></div>
+                        <div className="dtp6"></div>
+                        <div className="dtp7"><TextInput ti={"USDT Wallet"} value={wallet} setValue={setWallet} /></div>
+                        <div className="dtp8"><button onClick={save} className="btnSave"><span class="button_top"> Save</span></button></div>
                     </div>
                     <div className="sec3-up"></div>
                 </section >

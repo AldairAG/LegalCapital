@@ -8,4 +8,11 @@
     border-radius: 5px;
     font-size: 1.2rem;
     padding: 5px;
+    border: 0.5px solid #9b9b9b;
+}
+
+.TextInput input:focus {
+    border-color: #0011ff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
 }

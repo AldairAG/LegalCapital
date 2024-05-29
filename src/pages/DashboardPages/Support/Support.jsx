@@ -6,9 +6,9 @@ const Support = (props) => {
     const [motivo, setMotivo] = useState("Soporte General")
     const [mensaje, setMensaje] = useState("")
 
-    const sendEmail=()=>{
-        const email=new Email(props.email,"template_zkw75fr")
-        email.sendEmailSupport(motivo,props.userName,mensaje)
+    const sendEmail = () => {
+        const email = new Email(props.email, "template_zkw75fr")
+        email.sendEmailSupport(motivo, props.userName, mensaje)
     }
 
 
@@ -36,8 +36,7 @@ const Support = (props) => {
                 <textarea value={mensaje} onChange={(e) => setMensaje(e.target.value)} placeholder="Write your problem here" />
             </div>
             <div className="sec3-sp">
-            <button class="btn2" onClick={sendEmail}>Send</button>
-
+                <button class="btn2" onClick={sendEmail}>Send</button>
             </div>
             <div className="sec4-sp">
                 <div className="contenido">
@@ -48,4 +47,5 @@ const Support = (props) => {
         </section>
     )
 }
+
 export default Support
