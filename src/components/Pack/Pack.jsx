@@ -1,4 +1,5 @@
 import "./Pack.css"
+import sombra from "../../Assets/Images/Baners_jpg/sombra.png"
 const Pack = (props) => {
 
     function visibleClick() {
@@ -8,11 +9,15 @@ const Pack = (props) => {
     }
 
     return (
-        <div class="card">
+        <div class="CardPacks">
             <div className="imgPack">
-                <img src={props.img} alt="imgpack" />
+                <img src={props.img} className="img1" alt="imgpack" />
+                <img src={sombra} className="img2" alt="sombra" />
             </div>
-            <button onClick={visibleClick} class="btn1">Buy</button>
+            <div className="porcentaje">
+                <p>Profit of up to {props.porcent}% monthly</p>
+                <button onClick={visibleClick} className="boton1"><span class="button_top"> Buy</span></button>
+            </div>
         </div>
     )
 }

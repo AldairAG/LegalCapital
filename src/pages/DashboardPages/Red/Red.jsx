@@ -46,10 +46,8 @@ const Red = (props) => {
         if(filteredUsers.length === 0){
             return
         }
-        console.log(filteredUsers)
         if(filteredUsers.length < 1){
             final=true
-            console.log(filteredUsers)
         }
         for (const user of filteredUsers) {
             items.push(

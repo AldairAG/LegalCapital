@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f132db65.css",
-    "main.js": "/static/js/main.b34c585b.js",
+    "main.css": "/static/css/main.c6df65eb.css",
+    "main.js": "/static/js/main.65200268.js",
     "static/media/ec1.png": "/static/media/ec1.d6c4bb3443b5037e6340.png",
     "static/media/ec3.png": "/static/media/ec3.fa50f9a453166830215d.png",
     "static/media/ec2.png": "/static/media/ec2.bd4b72792927e26573e2.png",
@@ -27,7 +27,9 @@
     "static/media/LeagueGothic-Italic.ttf": "/static/media/LeagueGothic-Italic.745833118c77b4dcc587.ttf",
     "static/media/soporte.png": "/static/media/soporte.ec6eb134f2299517114b.png",
     "static/media/LeagueGothic-Regular.ttf": "/static/media/LeagueGothic-Regular.9a86844e5bf7d14acf69.ttf",
+    "static/media/sombra.png": "/static/media/sombra.a7e4f55609e5e3720124.png",
     "static/media/LeagueGothic-Condensed.ttf": "/static/media/LeagueGothic-Condensed.bf8e58a7b2122a9151f1.ttf",
+    "static/media/user.png": "/static/media/user.2a6deb903f5eccd27ae8.png",
     "static/media/Logo_1pq.png": "/static/media/Logo_1pq.97c7a4737b0ec0e161db.png",
     "static/media/Rank-2.png": "/static/media/Rank-2.f63ea47233f4b58a37c7.png",
     "static/media/Logo_1l.png": "/static/media/Logo_1l.5aad6acc488ca0966307.png",
@@ -37,11 +39,11 @@
     "static/media/advertencia.png": "/static/media/advertencia.1ac0ac0116bf86a11597.png",
     "static/media/retiro.png": "/static/media/retiro.92fd700228561bdec6fe.png",
     "index.html": "/index.html",
-    "main.f132db65.css.map": "/static/css/main.f132db65.css.map",
-    "main.b34c585b.js.map": "/static/js/main.b34c585b.js.map"
+    "main.c6df65eb.css.map": "/static/css/main.c6df65eb.css.map",
+    "main.65200268.js.map": "/static/js/main.65200268.js.map"
   },
   "entrypoints": [
-    "static/css/main.f132db65.css",
-    "static/js/main.b34c585b.js"
+    "static/css/main.c6df65eb.css",
+    "static/js/main.65200268.js"
   ]
 }

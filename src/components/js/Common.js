@@ -7,16 +7,13 @@ class Common {
     constructor(setUserData) {
         this.setUserData = setUserData
     }
-
     isNullOrEmpty(value) {
         return value === null || value === undefined || value === '' || value === ' ';
     }
-
     getCurrentUser = () => {
         const auth = getAuth();
         return auth.currentUser
     };
-
     getUserData = async () => {
         const db = getDatabase(appFirebase);
         const dbRef = ref(db, "users/");
@@ -123,7 +120,7 @@ class Common {
             const userRef = ref(db, `users/${userData.firebaseKey}`);
             await set(userRef, userData);
         } catch (error) {
-            console.error("Error al aumentar la cantidad en la wallet:", error);
+            console.error("Error", error);
         }
     };
 

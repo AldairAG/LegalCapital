@@ -1,74 +1,66 @@
-.Packs {
-    width: 100%-200px;
-    height: 100%;
-    background-color: var(--secundary-color-l);
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.containPacks {
-    width: 100%;
-    height: auto;
-    margin: 0;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 100px 1fr;
+.Packs{
     display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 75px repeat(2,500px);
     grid-template-areas:
-        "titulo titulo titulo titulo titulo"
-        "sec1-p sec2-p sec3-p sec4-p sec5-p";
-    margin-bottom: 25px;
+        "sec0-pa sec0-pa sec0-pa"
+        "sec1-pa sec2-pa sec3-pa"
+        "sec4-pa sec5-pa sec6-pa";
+        row-gap: 45px;
 }
 
-.containPacks .titulo{
-    grid-area: titulo;
-    padding: 2%;
-    padding-top: 1%;
-    font-family: 'Courier New', Courier, monospace;
+.centrado{
     display: flex;
-}
-h1{
-    font-size: 40px;
-    margin-right: 10px;
-}
-i{
-    font-size: 40px;
-}
-.seccion1-p{
-    grid-area: sec1-p;
-    display: flex;
-    padding: 5%;
-    padding-top: 0;
     justify-content: center;
+    align-items: center;
 }
 
-.seccion2-p {
-    grid-area: sec2-p;
-    display: flex;
-    padding: 5%;
-    padding-top: 0;
-    justify-content: center;
+.sec0-pa{
+    grid-area: sec0-pa;
+    border-bottom: 1px solid #333;
+}
+.sec1-pa{
+    grid-area: sec1-pa;
+}
+.sec2-pa{
+    grid-area: sec2-pa;
+}
+.sec3-pa{
+    grid-area: sec3-pa;
+}
+.sec4-pa{
+    grid-area: sec4-pa;
+}
+.sec5-pa{
+    grid-area: sec5-pa;
+}
+.sec6-pa{
+    grid-area: sec6-pa;
 }
 
-.seccion3-p {
-    grid-area: sec3-p;
-    display: flex;
-    padding: 0;
-    justify-content: center;
+@media(max-width:1250px){
+    .Packs{
+        grid-template-columns: repeat(2,50%);
+        grid-template-rows: 75px repeat(3,500px);
+        grid-template-areas:
+            "sec0-pa sec0-pa"
+            "sec1-pa sec2-pa" 
+            "sec3-pa sec4-pa"
+            "sec5-pa sec6-pa";
+    }
 }
 
-.seccion4-p {
-    grid-area: sec4-p;
-    display: flex;
-    padding: 5%;
-    padding-top: 0;
-    justify-content: center;
-}
-
-.seccion5-p {
-    grid-area: sec5-p;
-    display: flex;
-    padding: 5%;
-    padding-top: 0;
-    justify-content: center;
+@media(max-width:750px){
+    .Packs{
+        grid-template-columns: 100%;
+        grid-template-rows: 75px repeat(5,500px);
+        grid-template-areas:
+            "sec0-pa"
+            "sec1-pa"
+            "sec2-pa" 
+            "sec3-pa"
+            "sec4-pa"
+            "sec5-pa"
+            "sec6-pa";
+    }
 }

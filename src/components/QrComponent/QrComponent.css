@@ -2,218 +2,143 @@
 
 .compQR {
     width: 100%;
-    margin-top: 5%;
     z-index: 101;
+    position: fixed;
+    left: 50%;
+    top: 50%;
 }
 
 .none {
     display: none;
 }
 
-
 .modal-content {
-    width: 1000PX;
-    height: 550PX;
+    width: 40%;
     position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
-    background: #f1f1f1;
-    border-radius: 10px;
     display: grid;
-    grid-template-columns: 450px auto;
-    grid-template-rows: 50px repeat(3, 150px) 50px;
-    grid-template-areas:
-        "secqr1 secqr1"
-        "secqr2 secqr3"
-        "secqr2 secqr4"
-        "secqr2 secqr4"
-        "secqr5 secqr5";
-}
-
-.secqr1 {
-    grid-area: secqr1;
-    display: flex;
-    flex-direction: row-reverse;
-    padding-inline: 1%;
-    padding-top: 1%;
-}
-.secqr2 {
-    grid-area: secqr2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2%;
-}
-.secqr3 {
-    grid-area: secqr3;
-    padding: 2%;
-}
-.secqr4 {
-    grid-area: secqr4;
-}
-.secqr5 {
-    grid-area: secqr5;
-    display: flex;
-    flex-direction: row-reverse;
-    padding-inline: 1%;
-}
-
-.secqr1 .close-modal{
-    background: transparent;
-    border: none;
-}
-
-.secqr2 .qr {
-    width: 90%;
-    border-radius: 10px;
-    content: url("../../Assets/Images/qr/qrms.png");
-    border: 2px solid black;
-}
-.secqr2 p {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 18px;
-}
-
-.secqr3 input {
-    width: 100%;
-    padding: 2%;
-    border-radius: 10px;
-}
-
-.secqr3 .wallet {
-    width: 100%;
-    display: flex;
-    margin-bottom: 2%;
-}
-
-.secqr3 .wallet input {
-    border-radius: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.secqr3 .wallet i {
-    font-size: 15px;
-}
-
-.secqr3 .wallet button {
-    width: 5%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    margin-inline-start: -1%;
-}
-
-.secqr3 .select-container {
-    width: 100%;
-    display: flex;
-    position: relative;
-    margin-inline-end: auto;
-    min-width: 250px;
-    height: 40px;
-}
-
-.secqr3 .select-box {
-    appearance: none;
-    width: 100%;
-    padding: 1%;
-    padding-inline: 2%;
-    color: rgb(0, 0, 0);
-    background-color: transparent;
-    font-size: 20px;
-    border-radius: 10px;
-}
-
-.secqr3 .select-container .icon-container {
-    width: 5%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    z-index: -1;
-    border: 2px solid black;
-    margin-inline-start: -5%;
-}
-
-.secqr3 .icon-container i {
-    font-size: 20px;
-}
-
-.secqr4{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
     grid-template-areas: 
-    "seccionPack nota";
-    gap: 10px;
-    padding: 2%;
+    "sec1-qr sec2-qr";
 }
-.seccionPack{
-    display: flex;
-    flex-direction: column;
-    border: 3px solid black;
+
+.sec1-qr{
+    padding: 15px;
     border-radius: 10px;
-    grid-area: seccionPack;
-    justify-content: center;
-    align-items: center;
+    background: #f1f1f1;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 400px 75px 150px 75px;
+    grid-template-areas: 
+    "s1-qr"
+    "s2-qr"
+    "s3-qr"
+    "s4-qr"
+    "s5-qr";
+    grid-area: sec1-qr;
 }
-.seccionPack p{
-    font-size: 25px;
-    font-weight: bold;
-    text-align: center;
+.sec2-qr{
+    background-color: #f1f1f1;
+    grid-area: sec2-qr;
+
+}
+.sec1-qr p{
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
     margin-bottom: 10px;
 }
-.seccionPack img{
-    width: 60%;
-}
 
-.seccionNota{
+.s1-qr{
+    grid-area: s1-qr;
+}
+.s2-qr{
+    grid-area: s2-qr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.s2-qr img{
+    width: 22rem;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.s3-qr{
+    grid-area: s3-qr;
     display: flex;
     flex-direction: column;
-    grid-area: nota;
 }
-.seccionNota p{
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 2%;
+.s3-qr .wallet{
+    width: 100%;
+    display: flex;
 }
-.seccionNota span{
-    font-weight: bold;
+.s3-qr .wallet input{
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 10px 0px 10px 10px;
+    border: 0.5px solid #ccc;
+    font-weight: 600;
+}
+.s3-qr .wallet input:focus {
+    border-color: #0011ff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+.s3-qr button{
+    width: 10%;
+    background-color: ghostwhite;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-inline-start: -7PX;
+    padding: 2px;
+    border: 0.5px solid #9b9b9b;
+}
+.s4-qr{
+    grid-area: s4-qr;
+}
+.s4-qr .amount{
+    display: flex;
+    width: 100%;
+}
+.s4-qr select{
+    width: 100%;
+    -webkit-appearance: none; 
+    -moz-appearance: none;    
+    appearance: none;     
+    background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><polygon fill="black" points="0,0 20,0 10,10"/></svg>') no-repeat right 10px center;
+    background-color: white;
+    background-size: 10px;
+    border: 0.5px solid #ccc;
+    padding: 10px 40px 10px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.s4-qr select option {
+    padding: 10px;
+    background-color: white;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
 }
 
-.secqr5 .button {
-    align-self: center;
-    width: 15%;
-    height: 20px;
-    display: flex;
+.s5-qr{
+    display: grid;
+    grid-template-columns: repeat(2,45%);
+    grid-template-rows: auto;
+    grid-area: "finish close";
+    gap: 15px;
+    justify-content: center;
     align-items: center;
-    font-family: inherit;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 17px;
-    padding: 0.8em 1.3em 0.8em 0.9em;
-    color: white;
-    background: black;
-    border: none;
-    letter-spacing: 0.05em;
-    border-radius: 16px;
 }
-.secqr5 .button svg {
-    margin-right: 3px;
-    transform: rotate(30deg);
-    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+
+.s5-qr .close{
+    grid-area: close;
 }
-.secqr5 .button span {
-    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-}
-.secqr5 .button:hover svg {
-    transform: translateX(5px) rotate(90deg);
-}
-.secqr5 .button:hover span {
-    transform: translateX(7px);
+.s5-qr .finish{
+    grid-area: finish;
 }
 
 

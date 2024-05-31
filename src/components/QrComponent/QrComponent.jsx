@@ -1,6 +1,7 @@
 import "./QrComponent.css"
 import React, { useState } from 'react';
 import QrData from "./QrData";
+import qr from "../../Assets/Images/qr/qrms.png"
 
 const QrComponent = (props) => {
     const [opcion, setOpcion] = useState(0);
@@ -213,11 +214,46 @@ const QrComponent = (props) => {
         qrData.setRequest()
         props.setIsVisible(false);
     }
+
     return (
         <section className={props.visible ? 'compQR' : 'none'}>
             <div className="overlay"></div>
             <div className="modal-content">
-                <div className="secqr1">
+                <div className="sec1-qr">
+                    <div className="s1-qr">
+                        <p className="textoM3">Complete the payment</p>
+                    </div>
+                    <div className="s2-qr">
+                        <img src={qr} alt="qr" />
+                    </div>
+                    <div className="s3-qr">
+                        <p >Wallet address to pay</p>
+                        <div className="wallet">
+                            <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
+                            <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
+                        </div>
+                    </div>
+                    <div className="s4-qr">
+                        <p>Amount</p>
+                        <div className="amount">
+                            <select className="select-box" value={opcion} onChange={handleChange} >
+                                {generarOpciones(props.op)}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="s5-qr">
+                        <button className="boton3" onClick={closeModal}><span>Close</span></button>
+                        <button className="boton2">Finish payment</button>
+                    </div>
+                </div>
+                <div className="sec2-qr"></div>
+            </div>
+        </section>
+    )
+}
+
+/*
+ <div className="secqr1">
                     <button className="close-modal" onClick={closeModal}><i class="bi bi-x-square-fill"></i></button>
                 </div>
                 <div className="secqr2">
@@ -248,73 +284,15 @@ const QrComponent = (props) => {
                     </div>
                     <div className="seccionNota">
                         <p>Once your transaction is completed, you will receive a notification to your registered email of approval.<br /> <br />
-
-                            <span>Important Note: Make sure to correctly send the transaction, verifying the exact amount and that the 
+                            <span>Important Note: Make sure to correctly send the transaction, verifying the exact amount and that the
                                 Wallet is correct. Any sending error will result in the loss of funds.</span></p>
                     </div>
                 </div>
                 <div className="secqr5">
-                    <button className="button" onClick={() => setRequestHandle(opcion)}>
-                        <svg
-                            height="24"
-                            width="24"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path
-                                d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-                                fill="currentColor"
-                            ></path>
-                        </svg>
-                        <span>End</span>
+                    <button className="boton1" onClick={() => setRequestHandle(opcion)}>
+                        <span  class="button_top">End</span>
                     </button>
-                </div>
-            </div>
-        </section>
-    )
-}
-
-/*
-            <div className="modalMain">
-                
-
-                <div className="modal-content">
-
-                    <div className="seccion1-mc">
-
-                    </div>
-
-                    <div className="seccion2-mc">
-                        <div className="seccion3-mc">
-
-                            <button className="close-modal" onClick={closeModal}>
-                                <i class="bi bi-x-square-fill"></i>
-                            </button>
-
-                            
-                        </div>
-
-
-                        <div className="seccion4-mc">
-                            <div className="seccion5-mc">
-                                <p>Starter pack</p>
-                                <img src={props.img} alt="stp" />
-                            </div>
-
-                            <div className="seccion6-mc">
-         
-
-
-
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
+                </div>  
 */
 
 export default QrComponent

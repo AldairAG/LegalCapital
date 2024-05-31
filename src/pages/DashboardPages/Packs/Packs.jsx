@@ -15,21 +15,17 @@ const Packs = () => {
     const [img, setImg] = useState("");
 
     return (
-        <section className='Packs'>
-            <Aviso />
+        <section className='contenido Packs'>
             <QrComponent visible={isVisible} setIsVisible={setIsVisible} op={opc} img={img}/>
-            <div className="containPacks">
-                <div className="titulo">
-                    <h1>STARTER PACKS</h1>
-                    <i class="bi bi-boxes"></i>
-                </div>
-                <div className="seccion1-p"><Pack img={img1} setImg={setImg} setOpc={setOpc} op={1} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
-                <div className="seccion2-p"><Pack img={img2} setImg={setImg} setOpc={setOpc} op={2} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
-                <div className="seccion3-p"><Pack img={img3} setImg={setImg} setOpc={setOpc} op={3} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
-                <div className="seccion4-p"><Pack img={img4} setImg={setImg} setOpc={setOpc} op={4} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
-                <div className="seccion5-p"><Pack img={img5} setImg={setImg} setOpc={setOpc} op={5} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
+            <div className="titulos sec0-pa">
+                <i className="bi bi-boxes"></i>
+                <span>Starter packs</span>
             </div>
-
+            <div className="sec1-pa centrado"><Pack img={img1} setImg={setImg} porcent={5} setOpc={setOpc} op={1} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
+            <div className="sec2-pa centrado"><Pack img={img2} setImg={setImg} porcent={6} setOpc={setOpc} op={2} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
+            <div className="sec3-pa centrado"><Pack img={img3} setImg={setImg} porcent={7} setOpc={setOpc} op={3} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
+            <div className="sec4-pa centrado"><Pack img={img4} setImg={setImg} porcent={8} setOpc={setOpc} op={4} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
+            <div className="sec5-pa centrado"><Pack img={img5} setImg={setImg} porcent={9} setOpc={setOpc} op={5} isVisible={isVisible} setIsVisible={setIsVisible}/></div>
         </section>
     )
 }

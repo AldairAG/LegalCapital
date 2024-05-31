@@ -25,12 +25,11 @@ const UserPerfil = () => {
         };
         
         const asingData=()=>{
-            setApellido(userData.apellidio)
-            setName(userData.name)
+            setApellido(userData.lastName)
+            setName(userData.firstName)
             setEmail(userData.email)
-            setUser(userData.user)
-            setTelefono(userData.telefono)
-            setWallet(userData.walletAddress)
+            setTelefono(userData.phoneNumber)
+            setWallet(userData.usdtAddress)
             setUser(userData.userName)
         }
         if (fetchCounter < 2) {
@@ -42,13 +41,28 @@ const UserPerfil = () => {
     }, [fetchCounter]);
 
     const save=()=>{
-        setVisible(true)
-        setMsj("changes made successfully")
+        try {
+            editarUser()
+            setVisible(true)
+            setMsj("changes made successfully")
+        } catch (error) {
+            
+        }
+    }
+
+    const editarUser=()=>{
+        const common =new Common()
+        const user=userData
+        user.firstName=name
+        user.lastName=apellidio
+        user.usdtAddress=wallet
+        user.phoneNumber=telefono
+        common.editAnyUser(user)
     }
 
     return (
         <div>
-            <AlertMsg visible={visible} texto={msj}/>
+            <AlertMsg visible={visible} setVisible={setVisible} texto={msj}/>
             {isLoading ? (
                 <div class="spinner"></div>
             ) : (
