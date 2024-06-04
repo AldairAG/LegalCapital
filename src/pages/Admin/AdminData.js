@@ -98,7 +98,6 @@ class AdminData {
     } else {
       console.log("Usuario no encontrado");
     }
-
   };
 
   aprobar = async (key) => {
@@ -120,13 +119,12 @@ class AdminData {
         set(dbRef, userData).then(() => {
           this.fetchData()
           commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
-          this.bonoReferenciaDirectaDiferencia(userData, key)
+          //this.bonoReferenciaDirectaDiferencia(userData, key)
         }).catch(() => {
           console.log("error")
         })
       }
     } catch (error) {
-
     }
   }
 

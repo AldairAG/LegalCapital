@@ -15,7 +15,7 @@ const Pack = (props) => {
                 <img src={sombra} className="img2" alt="sombra" />
             </div>
             <div className="porcentaje">
-                <p>Profit of up to {props.porcent}% monthly</p>
+                <p>Profit up to {props.porcent+"%"} monthly</p>
                 <button onClick={visibleClick} className="boton1"><span class="button_top"> Buy</span></button>
             </div>
         </div>

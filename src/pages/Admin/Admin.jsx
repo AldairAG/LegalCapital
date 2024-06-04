@@ -44,7 +44,7 @@ const Admin = () => {
             <div className="linkC">
                 <CopyLink username={"Administrador"} />
             </div>
-            <div className="contenido">
+            <div className="contenido-A">
                 
                 <Switch>
                     <Route path="/admin/gestionar-ususarios" component={UserList} />

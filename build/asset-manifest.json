@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c6df65eb.css",
-    "main.js": "/static/js/main.65200268.js",
+    "main.css": "/static/css/main.15a24d3b.css",
+    "main.js": "/static/js/main.d696d00a.js",
     "static/media/ec1.png": "/static/media/ec1.d6c4bb3443b5037e6340.png",
     "static/media/ec3.png": "/static/media/ec3.fa50f9a453166830215d.png",
     "static/media/ec2.png": "/static/media/ec2.bd4b72792927e26573e2.png",
@@ -33,17 +33,21 @@
     "static/media/Logo_1pq.png": "/static/media/Logo_1pq.97c7a4737b0ec0e161db.png",
     "static/media/Rank-2.png": "/static/media/Rank-2.f63ea47233f4b58a37c7.png",
     "static/media/Logo_1l.png": "/static/media/Logo_1l.5aad6acc488ca0966307.png",
+    "static/media/qrfi.png": "/static/media/qrfi.a3a5952f59aa711ce35d.png",
     "static/media/Logo_2.png": "/static/media/Logo_2.543f05730ba6d8dcee13.png",
+    "static/media/advertecniafi.png": "/static/media/advertecniafi.3e4f3cd828621285251d.png",
     "static/media/palomita.png": "/static/media/palomita.fb7d7091878e7ed26d5d.png",
     "static/media/usdt.png": "/static/media/usdt.176daf5b0e7615e72cd2.png",
     "static/media/advertencia.png": "/static/media/advertencia.1ac0ac0116bf86a11597.png",
+    "static/media/Gold.png": "/static/media/Gold.e3667339027380a45909.png",
     "static/media/retiro.png": "/static/media/retiro.92fd700228561bdec6fe.png",
+    "static/media/copyfi.png": "/static/media/copyfi.fb756952b94b39a8efd3.png",
     "index.html": "/index.html",
-    "main.c6df65eb.css.map": "/static/css/main.c6df65eb.css.map",
-    "main.65200268.js.map": "/static/js/main.65200268.js.map"
+    "main.15a24d3b.css.map": "/static/css/main.15a24d3b.css.map",
+    "main.d696d00a.js.map": "/static/js/main.d696d00a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c6df65eb.css",
-    "static/js/main.65200268.js"
+    "static/css/main.15a24d3b.css",
+    "static/js/main.d696d00a.js"
   ]
 }

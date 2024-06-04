@@ -3,7 +3,7 @@ class UserModel {
   constructor(userName, lastName, firstName, email, password, referredBy, country, phoneNumber, validity, rank,
     admissionDate, usdtAddress, firebaseKey, rol,
     walletDiv, walletCom, bonoRefDirect, bonoFastTrack, bonoIgualacion,bonoIgualacionSem, bonoIngresoRes, bonoRangoRes,
-    firtsAdd, activo,request,userPermisos,staterPack,retiros) {
+    firtsAdd, activo,request,userPermisos,staterPack,retiros,intComp) {
 
     this.firstName = firstName;
     this.lastName = lastName;
@@ -34,6 +34,7 @@ class UserModel {
     this.activo=activo
     this.userPermisos=userPermisos
     this.staterPack=staterPack
+    this.intComp=intComp
   }
 
   setDefaultValues() {
@@ -66,6 +67,7 @@ class UserModel {
     this.activo=false
     this.staterPack=0 
     this.retiros=0
+    this.intComp="00"
   }
 }
 export default UserModel

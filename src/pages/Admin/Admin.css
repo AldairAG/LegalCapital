@@ -63,7 +63,7 @@ header .cs{
     grid-area: link;
     padding: 2%;
 }
-.contenido{
+.contenido-A{
     grid-area: contenido;
 }
 .tabla{
@@ -186,10 +186,8 @@ header .cs{
 .refresh:hover {
     background: rgba(170, 170, 170, 0.224);
     transition: 0.5s;
-  }
+}
   
-
-
 @media(max-width:850px){
     .encabezado{
         align-items: start;

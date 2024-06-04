@@ -53,10 +53,9 @@ const EditUser = (props) => {
     }
 
     const actualizarPermiso = (indice, nuevoValor) => {
-        const nuevosPermisos = [...permisos]; // Hacemos una copia del array original
-        nuevosPermisos[indice] = nuevoValor; // Actualizamos el valor en la posición indicada
-        setPermisos(nuevosPermisos); // Actualizamos el estado con el nuevo array de permisos
-        console.log(permisos[0])
+        const nuevosPermisos = [...permisos];
+        nuevosPermisos[indice] = nuevoValor;
+        setPermisos(nuevosPermisos);
     };
 
     const setData = async () => {

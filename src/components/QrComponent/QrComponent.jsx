@@ -2,6 +2,10 @@ import "./QrComponent.css"
 import React, { useState } from 'react';
 import QrData from "./QrData";
 import qr from "../../Assets/Images/qr/qrms.png"
+import img1 from "../../Assets/flaticons/qrfi.png"
+import img2 from "../../Assets/flaticons/copyfi.png"
+import img3 from "../../Assets/flaticons/advertecniafi.png"
+
 
 const QrComponent = (props) => {
     const [opcion, setOpcion] = useState(0);
@@ -243,10 +247,38 @@ const QrComponent = (props) => {
                     </div>
                     <div className="s5-qr">
                         <button className="boton3" onClick={closeModal}><span>Close</span></button>
-                        <button className="boton2">Finish payment</button>
+                        <button className="boton2" onClick={() => setRequestHandle(opcion)}>Finish payment</button>
                     </div>
                 </div>
-                <div className="sec2-qr"></div>
+                <div className="sec2-qr">
+                    <div className="s6-qr"><p className="textoM3">How to make a deposit?</p></div>
+                    <div className="s7-qr">
+                        <img src={img1} className="imgSec2-qr" alt="qric" />
+                        <p>Scan the Qr code with your payment app</p>
+                    </div>
+                    <div className="s8-qr">
+                        <img src={img2} className="imgSec2-qr" alt="qric" />
+                        <p>Copy the USDTT address and
+                            amount to pay, then paste them
+                            into your payment app
+                        </p>
+                    </div>
+                    <div className="s9-qr">
+                        <img src={img3} className="imgSec2-qr" alt="qric" />
+                        <p>Transfer only Tether USD TRC20
+                            token (USDTT). Transferring
+                            other currency will result in the
+                            toss of funds
+                        </p>
+                    </div>
+                    <div className="s10-qr">
+                        <img src={img3} className="imgSec2-qr" alt="qric" />
+                        <p>
+                            Make sure to correctly send the transaction, verifying the exact amount and that the Wallet is correct. 
+                            Any sending error will result in the loss of funds.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
     )

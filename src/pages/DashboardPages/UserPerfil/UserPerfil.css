@@ -3,7 +3,7 @@
 .userPerfil {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 75px 180px 600px 500px;
+    grid-template-rows: 75px 180px 600px 280px;
     grid-template-areas:
         "sec0-up"
         "sec1-up"
@@ -117,36 +117,55 @@
     left: 20px;
 }
 
-.btnSave {
-    /* Variables */
-    --button_radius: 0.75em;
-    --button_color: #e8e8e8;
-    --button_outline_color: #000000;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    border-radius: var(--button_radius);
-    background: var(--button_outline_color);
+.sec3-up{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px 75px 75px 75px; 
+    grid-template-areas: 
+    "s30-up s30-up"
+    "s31-up s31-up"
+    "s32-up s33-up"
+    "s34-up s34-up";
+    padding: 10px;
+    display: none;
 }
 
-.button_top {
+.s30-up{
+    display: flex;
+    align-content: center;
+    border-bottom: 1px solid #e5e5e5;
+    grid-area: s30-up;
+}
+.s31-up{
+    grid-area: s31-up;
+    background-color: rgba(135, 207, 235, 0.443);
+    padding: 5px;
+    border-radius: 5px;
     display: block;
-    box-sizing: border-box;
-    border: 2px solid var(--button_outline_color);
-    border-radius: var(--button_radius);
-    padding: 0.75em 1.5em;
-    background: var(--button_color);
-    color: var(--button_outline_color);
-    transform: translateY(-0.2em);
-    transition: transform 0.1s ease;
 }
-
-.btnSave:hover .button_top {
-    /* Pull the button upwards when hovered */
-    transform: translateY(-0.33em);
+.s31-up p{
+    color: rgb(23, 23, 137);
 }
-
-.btnSave:active .button_top {
-    /* Push the button downwards when pressed */
-    transform: translateY(0);
+.s32-up{
+    grid-area: s32-up;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.s32-up p{
+    height: 10px;
+    color:#575757;
+}
+.s33-up{
+    grid-area: s33-up;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.s33-up p{
+    height: 10px;
+    color:#575757;
+}
+.s34-up{
+    grid-area: s34-up;
 }
