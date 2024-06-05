@@ -27,8 +27,6 @@ class Common {
             } else {
                 alert("No se encontró el usuario");
             }
-        } else {
-            alert("No se encontraron datos en la base de datos");
         }
     }
     getUserDataOnly = async (email) => {

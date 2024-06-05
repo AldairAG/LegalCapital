@@ -95,7 +95,7 @@ const Dashboard = () => {
     function Page7() {
         return (
             <>
-                <UserPerfil/>
+                <UserPerfil keyF={userData.firebaseKey}/>
             </>
         );
     }

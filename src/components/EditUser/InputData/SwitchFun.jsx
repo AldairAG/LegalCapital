@@ -5,7 +5,7 @@ const SwitchFun = (props) => {
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
-        if (props.permiso == "1") {
+        if (props.permiso === "1") {
             setIsChecked(true);
         } else {
             setIsChecked(false);

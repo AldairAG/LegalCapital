@@ -9,10 +9,6 @@
 }
 
 .containDash {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
     grid-template-columns: auto 1fr;
     grid-template-rows: 100px auto;
     display: grid;
