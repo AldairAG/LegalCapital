@@ -53,52 +53,23 @@ class AdminData {
     return sum;
   }
 
-  bonoReferenciaDirectaDiferencia = (userData, key) => {
+  bonoReferenciaDirecta=(userData,key)=>{
     const commom = new Common()
-    const diferencia = [40, 75, 125, 250, 0];
-    const diferencia1 = [10, 50, 125, 250, 500];
-    let suma = 0
-
-    const db = getDatabase(appFirebase);
-    const dbRef = ref(db, "users/" + key);
-    const dif = Math.abs(userData.firtsAdd - this.determinarPaquete(userData.staterPack))
-
-    if (userData.firtsAdd === 0) {
-      for (let index = 0; index < dif; index++) {
-        commom.addToWalletComRefDirect(userData.referredBy, diferencia1[index], userData.userName)
-        userData.firtsAdd = this.determinarPaquete(userData.staterPack)
-        set(dbRef, userData)
-      }
-    } else if (dif === 1) {
-      commom.addToWalletComRefDirect(userData.referredBy, diferencia[userData.firtsAdd - 1], userData.userName)
-      userData.firtsAdd = this.determinarPaquete(userData.staterPack)
-      set(dbRef, userData)
-    } else if (dif > 1) {
-      suma = this.sumInRange(diferencia, userData.firtsAdd - 1, this.determinarPaquete(userData.staterPack) - 2)
-      commom.addToWalletComRefDirect(userData.referredBy, suma, userData.userName)
-      userData.firtsAdd = this.determinarPaquete(userData.staterPack)
-      set(dbRef, userData)
+    const bono=[10,40,75,125,250]
+    const st=this.determinarPaquete(userData['staterPack'])
+    const fa=userData['firtsAdd']
+    const dif=Math.abs(fa-st)
+    console.log(st)
+    console.log(fa)
+    console.log(dif)
+    for (let i = fa-1; i == dif; i++) {
+      console.log(i)
+      console.log(bono[i])
     }
-
+    userData["firtsAdd"]=st
+    commom.editAnyUser(userData)
+    
   }
-
-  bonoReferenciaDirecta = async (firebaseKey, cant, referido) => {
-    const commom = new Common()
-    const db = getDatabase(appFirebase);
-    const dbRef = ref(db, "users");
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      const users = Object.values(snapshot.val());
-      const userFind = users.find(user => user.userName === firebaseKey);
-      const bono = this.determinarBono(cant);
-      userFind["bonoRefDirect"] = userFind["bonoRefDirect"] + bono
-      commom.addToWalletCom(userFind.userName, bono);
-      commom.saveInHistory(userFind.userName, bono, "Direct referral bonus", referido)
-    } else {
-      console.log("Usuario no encontrado");
-    }
-  };
 
   aprobar = async (key) => {
     const commom = new Common()
@@ -118,8 +89,8 @@ class AdminData {
 
         set(dbRef, userData).then(() => {
           this.fetchData()
-          commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
-          //this.bonoReferenciaDirectaDiferencia(userData, key)
+          //commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
+          this.bonoReferenciaDirecta(userData,key)
         }).catch(() => {
           console.log("error")
         })
@@ -163,23 +134,6 @@ class AdminData {
 
     return fechaDentroDe30Dias;
   }
-
-  determinarBono = (valor) => {
-    switch (true) {
-      case (valor >= 100 && valor <= 499):
-        return 10;
-      case (valor > 500 && valor <= 2499):
-        return 50;
-      case (valor > 2500 && valor <= 4999):
-        return 125;
-      case (valor > 5000 && valor <= 9999):
-        return 250;
-      case (valor > 10000 && valor <= 24999):
-        return 500;
-      default:
-        return 0;
-    }
-  };
 
   determinarPaquete = (valor) => {
     switch (true) {
