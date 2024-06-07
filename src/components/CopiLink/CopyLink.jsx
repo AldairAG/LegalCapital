@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./CopyLink.css"
-
+import AlertMsg from "../AlertMsg/AlertMsg"
 
 const CopyLink = (props) => {
+    const [visible, setVisible] = useState(false);
+    const [msj, setMsj] = useState("");
 
     const handleCopy = () => {
         const inputElement = document.getElementById("invitationLink");
         inputElement.select();
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
+        setVisible(true);
+        setMsj("Invitation link copied");
     };
 
     return (
         <div className="contain-link">
+            <AlertMsg visible={visible} setVisible={setVisible} texto={msj} />
             <div className="sec1-cl">
                 <h4><i class="bi bi-person-fill-add"></i> Invite members</h4>
             </div>

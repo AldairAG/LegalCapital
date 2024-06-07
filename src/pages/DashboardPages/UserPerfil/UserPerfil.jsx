@@ -59,7 +59,6 @@ const UserPerfil = (props) => {
             editarUser();
             setVisible(true);
             setMsj("Changes made successfully");
-            window.location.reload();
         } catch (error) {
             console.error("Error saving data: ", error);
         }
@@ -110,7 +109,7 @@ const UserPerfil = (props) => {
                         <div className="dtp4"><TextInput ti={"Surname"} value={apellido} setValue={setApellido} /></div>
                         <div className="dtp5"><TextInput ti={"Phone"} value={telefono} setValue={setTelefono} /></div>
                         <div className="dtp6"></div>
-                        <div className="dtp7"><TextInput ti={"USDT Wallet"} value={wallet} setValue={setWallet} /></div>
+                        <div className="dtp7"><TextInput ti={"USDT Wallet(TRC20)"} value={wallet} setValue={setWallet} /></div>
                         <div className="dtp8"><button onClick={save} className="boton1"><span className="button_top">Save</span></button></div>
                     </div>
                     <div className="sec3-up">

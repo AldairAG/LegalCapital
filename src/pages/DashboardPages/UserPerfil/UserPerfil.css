@@ -2,6 +2,7 @@
 
 .userPerfil {
     display: grid;
+    height: a;
     grid-template-columns: 100%;
     grid-template-rows: 75px 180px 600px 280px;
     grid-template-areas:
@@ -117,54 +118,112 @@
     left: 20px;
 }
 
-.sec3-up{
+.sec3-up {
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 50px 75px 75px 75px; 
-    grid-template-areas: 
-    "s30-up s30-up"
-    "s31-up s31-up"
-    "s32-up s33-up"
-    "s34-up s34-up";
+    grid-template-rows: 50px 75px 75px 75px;
+    grid-template-areas:
+        "s30-up s30-up"
+        "s31-up s31-up"
+        "s32-up s33-up"
+        "s34-up s34-up";
     padding: 10px;
 }
 
-.s30-up{
+.s30-up {
     display: flex;
     align-content: center;
     border-bottom: 1px solid #e5e5e5;
     grid-area: s30-up;
 }
-.s31-up{
+
+.s31-up {
     grid-area: s31-up;
     background-color: rgba(135, 207, 235, 0.443);
     padding: 5px;
     border-radius: 5px;
     display: block;
 }
-.s31-up p{
+
+.s31-up p {
     color: rgb(23, 23, 137);
 }
-.s32-up{
+
+.s32-up {
     grid-area: s32-up;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.s32-up p{
+
+.s32-up p {
     height: 10px;
-    color:#575757;
+    color: #575757;
 }
-.s33-up{
+
+.s33-up {
     grid-area: s33-up;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.s33-up p{
+
+.s33-up p {
     height: 10px;
-    color:#575757;
+    color: #575757;
 }
-.s34-up{
+
+.s34-up {
     grid-area: s34-up;
+}
+
+@media(max-width:1100px) {
+    .userPerfil {
+        grid-template-rows: 75px 180px 600px 350px;
+        grid-template-areas:
+            "sec0-up"
+            "sec1-up"
+            "sec2-up"
+            "sec3-up";
+        padding-bottom: 30px;
+    }
+
+    .sec3-up {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50px 75px 75px 75px 75px;
+        grid-template-areas:
+            "s30-up s30-up"
+            "s31-up s31-up"
+            "s32-up s32-up"
+            "s33-up s33-up"
+            "s34-up s34-up";
+    }
+}
+
+@media(max-width:700px) {
+    .userPerfil {
+        grid-template-columns: 100%;
+        grid-template-rows: 75px 180px 600px 500px;
+        grid-template-areas:
+            "sec0-up"
+            "sec1-up"
+            "sec2-up"
+            "sec3-up";
+    }
+
+    .sec3-up {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50px auto 100px 100px 75px;
+        grid-template-areas:
+            "s30-up s30-up"
+            "s31-up s31-up"
+            "s32-up s32-up"
+            "s33-up s33-up"
+            "s34-up s34-up";
+    }
+
+    .s32-up p,
+    .s33-up p {
+        margin-bottom: 10px;
+    }
 }

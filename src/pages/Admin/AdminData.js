@@ -53,22 +53,22 @@ class AdminData {
     return sum;
   }
 
-  bonoReferenciaDirecta=(userData,key)=>{
+  bonoReferenciaDirecta=async (userData)=>{
     const commom = new Common()
     const bono=[10,40,75,125,250]
     const st=this.determinarPaquete(userData['staterPack'])
-    const fa=userData['firtsAdd']
-    const dif=Math.abs(fa-st)
-    console.log(st)
-    console.log(fa)
-    console.log(dif)
-    for (let i = fa-1; i == dif; i++) {
-      console.log(i)
-      console.log(bono[i])
+    let fa=userData['firtsAdd']
+
+    while (fa!=st) {
+      const patrocinadorData=await commom.getUserDataByName(userData.referredBy)
+      patrocinadorData["bonoRefDirect"]=patrocinadorData["bonoRefDirect"]+bono[fa]
+      patrocinadorData["walletCom"]=patrocinadorData["walletCom"]+bono[fa]
+      commom.editAnyUser(patrocinadorData)
+      commom.saveInHistory(userData.referredBy, bono[fa], "direct referral bonus", userData.userName)
+      fa++
     }
     userData["firtsAdd"]=st
     commom.editAnyUser(userData)
-    
   }
 
   aprobar = async (key) => {
@@ -89,8 +89,8 @@ class AdminData {
 
         set(dbRef, userData).then(() => {
           this.fetchData()
-          //commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
-          this.bonoReferenciaDirecta(userData,key)
+          commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
+          this.bonoReferenciaDirecta(userData)
         }).catch(() => {
           console.log("error")
         })

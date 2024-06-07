@@ -1,0 +1,65 @@
+.Retiros{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 75px 100%;
+    grid-template-areas:
+    "titulo-re"
+    "contenido-re";
+}
+.titulo-re{
+    grid-area: titulo-re;
+    border-bottom: 1px solid #333;
+}
+.contenido-re{
+    padding: 15px;
+    gap: 10px;
+    width: 1500px;
+    justify-self: center;
+    grid-area: contenido-re;
+    display: grid;
+    grid-template-columns: repeat(2,35%) calc(30% - 15px);
+    grid-template-rows: 30px 200px repeat(3,100px);
+    grid-template-areas: 
+    "s0-re s0-re notas-re"
+    "s1-re s2-re notas-re"
+    "s3-re s3-re notas-re"
+    "s4-re s4-re notas-re"
+    "s5-re s5-re notas-re";
+    background-color: rgb(255, 255, 255);
+    margin-top: 20px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+}
+
+.se0-re{
+    grid-area: s0-re;
+}
+.se0-re p{
+    font-size: 20px;
+    color: #717171;
+    font-weight: 600;
+}
+.se1-re{
+    grid-area: s1-re;
+}
+.se2-re{
+    grid-area: s2-re;
+}
+.se3-re{
+    grid-area: s3-re;
+}
+.se4-re{
+    grid-area: s4-re;
+}
+.se5-re{
+    grid-area: s5-re;
+}
+.notas-re{
+    grid-area: notas-re;
+}
+
+
+
+
+
+

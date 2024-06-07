@@ -15,6 +15,7 @@ import Mantenimiento from "../../components/Mantemiento/Mantenimiento.jsx";
 import Ecomerce from "../../components/Ecomerce/Ecomerce.jsx";
 import Support from "../DashboardPages/Support/Support.jsx";
 import UserPerfil from "../DashboardPages/UserPerfil/UserPerfil.jsx";
+import Retiros from "../DashboardPages/Retiros/Retiros.jsx";
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -43,6 +44,7 @@ const Dashboard = () => {
                             <Route path="/Dashboard/E-comerce" component={Ecomerce} />
                             <Route path="/Dashboard/Support" component={Page6} />
                             <Route path="/Dashboard/Profile" component={Page7} />
+                            <Route path="/Dashboard/withdrawals" component={Page8} />
                         </Switch>
                     </div>
                 </div>
@@ -103,6 +105,13 @@ const Dashboard = () => {
         return (
             <>
                 <Mantenimiento/>
+            </>
+        );
+    }
+    function Page8() {
+        return (
+            <>
+                <Retiros walletCom={userData.walletCom} walletDiv={userData.walletDiv}/>
             </>
         );
     }
