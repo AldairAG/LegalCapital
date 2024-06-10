@@ -29,8 +29,6 @@ const UserPerfil = (props) => {
                 setUserData(data);
             } else {
                 console.log("No such document!");
-                console.log(props.keyF);
-
             }
         });
 

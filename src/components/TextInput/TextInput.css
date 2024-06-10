@@ -23,5 +23,10 @@
     padding: 5px;
     color: white;
     border: 0.5px solid #9b9b9b;
-    background-color: #0011ff88;
+}
+
+.blockTextInput input:focus {
+    border-color: #0011ff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
 }

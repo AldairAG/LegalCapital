@@ -2,51 +2,24 @@ import "./MyRed.css"
 import appFirebase from "../../../firebase-config";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
-import { RGBA_ASTC_10x10_Format } from "three";
 
 const MyRed = (props) => {
     const [users, setUsers] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const [tablaVisible, setTableVisible] = useState(false);
     const [fetchCounter, setFetchCounter] = useState(0);
-    const [t1, setT1] = useState(false)
-    const [t2, setT2] = useState(false)
-    const [t3, setT3] = useState(false)
-    const [t4, setT4] = useState(false)
-    const [t5, setT5] = useState(false)
-    const [t6, setT6] = useState(false)
-    const [t7, setT7] = useState(false)
+    const [arrayOfFlay, setArrayOfFlay] = useState([false, false, false, false, false, false, false])
 
     const toggleTabla = () => {
         setTableVisible(!tablaVisible)
-    }; 
+    };
 
     const handleClick = (level) => {
-        switch (level) {
-            case 1:
-                setT1(!t1)
-                break;
-            case 2:
-                setT2(!t2)
-                break;
-            case 3:
-                setT3(!t3)
-                break;
-            case 4:
-                setT4(!t4)
-                break;
-            case 5:
-                setT5(!t5)
-                break;
-            case 6:
-                setT6(!t6)
-                break;
-            case 7:
-                setT7(!t7)
-                break;
-            default:
-                console.log("Nivel no válido");
-        }
+        setArrayOfFlay(prevState => {
+            const newState = [...prevState];
+            newState[level] = !newState[level];
+            return newState;
+        });
     }
 
     useEffect(() => {
@@ -97,30 +70,39 @@ const MyRed = (props) => {
         return { usersInLevel, sumaTotal }
     }
 
-/*     const useDynamicHooks = (numHooks) => {
-        const hooks = Array.from({ length: numHooks }, () => useState(null));
-    
-        const getHookState = (index) => {
-            if (index >= 0 && index < numHooks) {
-                return hooks[index];
-            } else {
-                console.error(`Índice de hook fuera de rango: ${index}`);
-                return [null, () => {}]; // Devuelve un estado vacío y una función sin acción
-            }
-        };
-    
-        return getHookState;
-    }; */
+    const calcularRango = (numero) => {
+        switch (numero) {
+            case 1:
+                return "Zafiro Ejecutivo"
+            case 2:
+                return("Ruby Ejecutivo")
+            case 3:
+                return("Esmeralda Ejecutivo")
+            case 4:
+                return("Ejecutivo Diamante")
+            case 5:
+                return("Diamante Azul")
+            case 6:
+                return("Diamante Negro")
+            case 7:
+                return("Diamante Royal")
+            case 8:
+                return("Diamante Corona")
+            case 9:
+                return("Presidente Royal")
+            default:
+                return("No Rank")
+        }
+    }
 
     const mostrarResultados = () => {
         const items = [];
-        //const getHookState = useDynamicHooks(7);
 
         for (let i = 0; i < 7; i++) {
-           
+
             let { usersInLevel, sumaTotal } = generador(users, props.userName, i + 1)
             items.push(
-                <div className="nivelCard" onClick={toggleTabla} key={i}>
+                <div className="nivelCard" onClick={() => handleClick(i + 1)} key={i}>
                     <div className="nivelCard0-1">
                         <div className="nivelCard1">
                             <div className="nivelCard-2"><span>{i + 1}</span></div>
@@ -157,8 +139,8 @@ const MyRed = (props) => {
                         </button>
                     </div>
                     <div className="nivelCard0-2">
-                        {tablaVisible && (
-                            <div className="myRedTable">
+                        {arrayOfFlay[i + 1] && (
+                            <div className="containTable">
                                 <table>
                                     <thead>
                                         <tr>
@@ -167,6 +149,9 @@ const MyRed = (props) => {
                                             </th>
                                             <th>
                                                 Name
+                                            </th>
+                                            <th>
+                                                registration date
                                             </th>
                                             <th>
                                                 Country
@@ -187,11 +172,12 @@ const MyRed = (props) => {
                                             usersInLevel.map((item) => (
                                                 <tr key={item.userName}>
                                                     <td className="p-4 align-middle">{item.userName}</td>
-                                                    <td className="p-4 align-middle">{item.firtsName}</td>
+                                                    <td className="p-4 align-middle">{item.firstName + " " + item.lastName}</td>
+                                                    <td className="p-4 align-middle">{item.admissionDate}</td>
                                                     <td className="p-4 align-middle">{item.Country}</td>
                                                     <td className="p-4 align-middle">{item.referredBy}</td>
                                                     <td className="p-4 align-middle">{item.staterPack}</td>
-                                                    <td className="p-4 align-middle">{item.rank}</td>
+                                                    <td className="p-4 align-middle">{calcularRango(item.rank)}</td>
                                                 </tr>
                                             ))
                                         ) : (

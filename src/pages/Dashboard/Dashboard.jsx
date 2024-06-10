@@ -111,7 +111,7 @@ const Dashboard = () => {
     function Page8() {
         return (
             <>
-                <Retiros walletCom={userData.walletCom} walletDiv={userData.walletDiv}/>
+                <Retiros keyF={userData.firebaseKey}/>
             </>
         );
     }
