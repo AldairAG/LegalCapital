@@ -8,6 +8,7 @@ import LogoutButton from '../../../components/LogoutButton/LogoutButton.jsx';
 import UserLista from '../../../components/UserList/UserLista.jsx';
 import { useHistory } from 'react-router-dom';
 import Retiros from "../Retiros/Retiros.jsx"
+import EditarUsuario from '../EditarUsuario/EditarUsuario.jsx';
 
 const Admin = () => {
     const [userModels, setUserModels] = useState([]);
@@ -49,6 +50,7 @@ const Admin = () => {
                 <Switch>
                     <Route path="/admin/gestionar-ususarios" component={UserList} />
                     <Route path="/admin/gestionar-retiros" component={Retiros} />
+                    <Route path="/admin/editar-usuario/:r?" component={EditarUsuario} />
                     <Route path="/admin" component={Tabla} />
                 </Switch>
             </div>

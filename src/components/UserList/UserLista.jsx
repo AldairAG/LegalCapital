@@ -5,6 +5,8 @@ import "firebase/auth"
 import EditUser from '../../components/EditUser/EditUser.jsx';
 import "./UserLista.css"
 import { getAuth } from "firebase/auth"
+import { useHistory } from 'react-router-dom';
+
 
 
 const UserLista = (props) => {
@@ -13,12 +15,11 @@ const UserLista = (props) => {
     const [visible, setVisible] = useState(false);
     const [userModel, setUserModel] = useState([]);
     const [permisos, setPermisos] = useState([]);
+    const history = useHistory();
+
 
     const handleClick=(item)=>{
-        setVisible(true)
-        setUserModel(item)
-        const arrayDeCadena = item.userPermisos.split("");
-        setPermisos(arrayDeCadena)
+        history.push('/admin/editar-usuario/:r?');
     }
 
     const fetchData = async () => {
@@ -66,7 +67,6 @@ const UserLista = (props) => {
 
     return (
         <section className="tabla U">
-            <EditUser user={userModel} visible={visible} setVisible={setVisible} permisos={permisos}/>
             <div className="encabezado">
                 <h2>Usuarios</h2>
                 <div className="buscador">
