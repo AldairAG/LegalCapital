@@ -63,6 +63,7 @@ class AdminData {
       const patrocinadorData=await commom.getUserDataByName(userData.referredBy)
       patrocinadorData["bonoRefDirect"]=patrocinadorData["bonoRefDirect"]+bono[fa]
       patrocinadorData["walletCom"]=patrocinadorData["walletCom"]+bono[fa]
+      patrocinadorData["walletTotal"]=patrocinadorData["walletTotal"]+bono[fa]
       commom.editAnyUser(patrocinadorData)
       commom.saveInHistory(userData.referredBy, bono[fa], "direct referral bonus", userData.userName)
       fa++

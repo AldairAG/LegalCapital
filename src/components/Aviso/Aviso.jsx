@@ -3,62 +3,47 @@ import "./Aviso.css"
 import React, { useState, useEffect } from 'react';
 import { userData } from "three/examples/jsm/nodes/Nodes.js";
 import { useHistory } from 'react-router-dom';
+import img1 from "../../Assets/Images/Baners_jpg/advertencia.png"
 
 const Aviso = (props) => {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     let location = useLocation();
     const history = useHistory();
 
     useEffect(() => {
-        if (props.val !== "" && props.val !== "unpaid") {
-            setVisible(false);
+        if (props.val === "" || props.val === "unpaid") {
+            setVisible(true);
+        } else {
+            setVisible(false)
         }
-        if(location=="/Dashboard/packs"){
-            setVisible(false);
-        }
-      }, [props.val]);
+    }, [props.val]);
 
-    const goProduct=()=>{
+    const goProduct = () => {
         history.push('/Dashboard/packs');
     }
 
     return (
-        <div className={`aviso${visible ? '' : '-0'}`}>
-            <div className="aviso1">
-                <img alt="advertencia" />
-                <p>
-                    <h2>Legal Capital Corp</h2><h3>Oficina Virtual</h3>
-                    <br />
-                    <span>Su cuenta aún no está activa</span>
-                    <br />
-                    <br />
-                    Todavía no hemos identificado la confirmación de pago de un paquete de incio.
-                    <br />
-                    <br />
-                    Si ya ha elegido un paquete de inicio, pruebe recargar la pagina. Si realizó el pago, el acceso a la oficina será completamente liberado tan pronto como se confirme.
-                    <br />
-                    <br />
-                    Si aún no ha realizado un pedido de activación, haga clic en el botón de abajo:
-                </p>
-            </div>
-
-            <button class="cta" onClick={goProduct}>
-                <span class="hover-underline-animation"> Shop now </span>
-                <svg
-                    viewBox="0 0 46 16"
-                    height="10"
-                    width="30"
-                    xmlns="http://www.w3.org/2000/svg"
-                    id="arrow-horizontal">
-                    <path
-                        transform="translate(30)"
-                        d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
-                        data-name="Path 10"
-                        id="Path_10"></path>
-                </svg>
-            </button>
-
-        </div>
+        visible && (
+            <section className={location.pathname === '/Dashboard/packs' ? 'none' : 'Aviso'}>
+              <div className="overlay-av"></div>
+              <div className="avisoContent">
+                <div className="sec0-ev">
+                  <img src={img1} alt="signo" />
+                </div>
+                <div className="sec1-ev">
+                  <p>Monthly maintenance payment has not been covered</p>
+                </div>
+                <div className="sec2-ev">
+                  <p>You do not have enough balance to pay the monthly maintenance (25 USDT). Certain functions have been suspended until payment is made again.</p>
+                </div>
+                <div className="sec3-ev">
+                  <button onClick={goProduct}>
+                    <p>Buy starter packs</p>
+                  </button>
+                </div>
+              </div>
+            </section>
+          )
     )
 }
 export default Aviso

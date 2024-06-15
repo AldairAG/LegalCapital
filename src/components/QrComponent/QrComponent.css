@@ -29,12 +29,13 @@
     background: #f1f1f1;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 30px 300px 90px 90px 100px;
+    grid-template-rows: 30px 300px 90px 90px 25px 100px;
     grid-template-areas:
         "s1-qr"
         "s2-qr"
         "s3-qr"
         "s4-qr"
+        "s11-qr"
         "s5-qr";
     grid-area: sec1-qr;
 }
@@ -138,6 +139,7 @@
     grid-template-rows: auto;
     grid-area: "finish close";
     gap: 15px;
+    grid-area: s5-qr;
     justify-content: center;
     align-items: center;
 }
@@ -148,6 +150,13 @@
 
 .s5-qr .finish {
     grid-area: finish;
+}
+.s11-qr {
+    grid-area: s11-qr;
+    
+}
+.s11-qr p{
+    color: rgb(201, 83, 83);
 }
 
 .sec2-qr {

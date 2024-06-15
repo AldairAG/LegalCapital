@@ -56,10 +56,13 @@ const Retiros = () => {
     }
 
     const handleCopy = () => {
-        const inputElement = document.getElementById("wallet");
-        inputElement.select();
+        const inputElement = document.getElementById("wallets");
+        const range = document.createRange();
+        range.selectNode(inputElement);
+        window.getSelection().removeAllRanges();  // Clear any existing selections
+        window.getSelection().addRange(range);
         document.execCommand('copy');
-        window.getSelection().removeAllRanges();
+        window.getSelection().removeAllRanges();  // Unselect after copying
     };
 
     return (
@@ -86,7 +89,7 @@ const Retiros = () => {
                                 <div className="sec4-rea">
                                     <p >Wallet address to pay:</p>
                                     <div className="wallet">
-                                        <span>TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM</span>
+                                        <span id="wallets">{item.usdtAddress}</span>
                                         <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
                                     </div>
                                 </div>

@@ -111,6 +111,7 @@ const Retiros = (props) => {
         }else if(wallet===2){
             updatedUser.walletCom = updatedUser.walletCom - monto
         }
+        updatedUser.retiros=updatedUser.retiros + Number(monto)
         common.editAnyUser(updatedUser)
     }
 

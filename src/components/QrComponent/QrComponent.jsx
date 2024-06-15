@@ -249,6 +249,9 @@ const QrComponent = (props) => {
                         <button className="boton3" onClick={closeModal}><span>Close</span></button>
                         <button className="boton2" onClick={() => setRequestHandle(opcion)}>Finish payment</button>
                     </div>
+                    <div className="s11-qr">
+                        <p>Press the button "Finish payment" to complete the request</p>
+                    </div>
                 </div>
                 <div className="sec2-qr">
                     <div className="s6-qr"><p className="textoM3">How to make a deposit?</p></div>
@@ -274,7 +277,7 @@ const QrComponent = (props) => {
                     <div className="s10-qr">
                         <img src={img3} className="imgSec2-qr" alt="qric" />
                         <p>
-                            Make sure to correctly send the transaction, verifying the exact amount and that the Wallet is correct. 
+                            Make sure to correctly send the transaction, verifying the exact amount and that the Wallet is correct.
                             Any sending error will result in the loss of funds.
                         </p>
                     </div>

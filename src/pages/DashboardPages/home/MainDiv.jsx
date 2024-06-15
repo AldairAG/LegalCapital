@@ -41,7 +41,7 @@ const MainDiv = (props) => {
                         <i className="bi bi-bank"></i>
                         <span>Dashboard</span>
                     </div>
-                    <div className="item-grid sec1"><CardData dato={(userData.walletDiv + userData.walletCom).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="TOTAL EARNINGS" /></div>
+                    <div className="item-grid sec1"><CardData dato={userData.walletTotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="TOTAL EARNINGS" /></div>
                     <div className="item-grid sec2"><CardData dato={userData.retiros.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="TOTAL WITHDRAWALS" /></div>
                     <div className="item-grid sec3"><CardPack dato={userData.staterPack} /></div>
                     <div className="item-grid sec4"><CardData dato={userData.walletDiv.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="DIVIDEND WALLET" /></div>

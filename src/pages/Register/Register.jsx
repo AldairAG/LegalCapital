@@ -37,6 +37,17 @@ const Register = () => {
         registerData.valid(e)
     };
 
+    const handleChange = (e) => {
+        const newValue = e.target.value;
+        const sanitizedValue = newValue.replace(/\s/g, "");
+        setUserName(sanitizedValue);
+    };
+
+    const handleBlur = () => {
+        setUserName(userName.replace(/\s/g, ""));
+    };
+
+
     return (
         <div className="register-seccion">
             <ErrorDiv visible={msjError} text={textError} />
@@ -45,7 +56,7 @@ const Register = () => {
                 <h2>Sing up</h2>
                 <h4>Enter your username, email and password to register</h4>
                 <span>Username:</span>
-                <input type="text" placeholder="Enter your Username" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                <input type="text" placeholder="Enter your Username" value={userName} onChange={handleChange} onBlur={handleBlur}/>
                 <span>Email:</span>
                 <input type="email" placeholder="Enter your E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <span>Password</span>
