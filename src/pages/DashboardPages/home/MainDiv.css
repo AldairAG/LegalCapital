@@ -103,6 +103,12 @@
 .sec14{
     grid-area: sec14;
 }
+.sec15{
+    grid-area: sec15;
+    padding: 0;
+    margin:-2% ;
+    border: none;
+}
 
 ::-webkit-scrollbar {
     width: 10px;

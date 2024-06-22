@@ -108,8 +108,10 @@ const Retiros = (props) => {
         updatedUser.requestRetiro = floatValue
         if (wallet === 1) {
             updatedUser.walletDiv = updatedUser.walletDiv - monto
+            common.saveInHistory(updatedUser.userName,monto,"dividend wallet withdrawal","")
         }else if(wallet===2){
             updatedUser.walletCom = updatedUser.walletCom - monto
+            common.saveInHistory(updatedUser.userName,monto,"commission wallet withdrawal","")
         }
         updatedUser.retiros=updatedUser.retiros + Number(monto)
         common.editAnyUser(updatedUser)

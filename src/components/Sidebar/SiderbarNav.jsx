@@ -27,13 +27,6 @@ const SiderNav = () => {
                 <li>
                     <NavBtn lk="/Dashboard/My-net-genealogy" ic="bi bi-diagram-3" sp="Genealogy" />
                 </li>
-                {/*                 <li onClick={toggleMenu}>
-                    <NavBtn lk="" ic="bi bi-diagram-3" sp="Net" />
-                    {menuVisible && (
-                        <ul>
-                        </ul>
-                    )}
-                </li> */}
                 <li>
                     <NavBtn lk="/Dashboard/benefits" ic="bi bi-graph-up-arrow" sp="benefits" />
                 </li>

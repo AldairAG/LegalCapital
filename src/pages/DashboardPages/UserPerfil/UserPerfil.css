@@ -2,7 +2,6 @@
 
 .userPerfil {
     display: grid;
-    height: a;
     grid-template-columns: 100%;
     grid-template-rows: 75px 180px 600px 280px;
     grid-template-areas:
@@ -59,9 +58,15 @@
 .dtp1 {
     grid-area: dtp1;
 }
+.dtp1 input{
+    color: #575757;
+}
 
 .dtp2 {
     grid-area: dtp2;
+}
+.dtp2 input{
+    color: #575757;
 }
 
 .dtp3 {

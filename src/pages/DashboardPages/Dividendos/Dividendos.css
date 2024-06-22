@@ -1,26 +1,183 @@
+@import url("../../../Assets/colors/colors.css");
+
 .seccionDividendos {
-    padding: 1.5rem;
-    background-color: #ffffff;
+    padding: 15px;
+    width: calc(100vw-200px);
+    height: 100vh;
     border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    margin:1% ;
-    height: 800px;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
+    display: grid;
+    grid-template-rows: 50px auto;
+    grid-template-areas:
+        "sec1-div"
+        "sec4-div";
+    gap: 0;
+    overflow-x: auto;
 }
 
-.seccionDividendos .divTitulo {
+.sec1-div {
+    grid-area: sec1-div;
     display: flex;
-    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+.sec1-div h2 {
+    margin-inline-start: 10px;
+}
+
+.sec1-div i {
+    font-size: 1.7rem;
+    color: var(--color-1);
+}
+
+.sec2-div {
+    grid-area: sec2-div;
+    display: grid;
+    margin-bottom: 1rem;
     justify-content: space-between;
     align-items: center;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: 75px;
+    grid-template-areas:
+        "filtro1 filtro2";
+    background-color: #ffffff;
 }
 
-.seccionDividendos .divTitulo h2 {
-    font-size: 1.5rem;
-    line-height: 2rem;
+.sec2-div .filtro1 {
+    grid-area: filtro1;
+    height: 75px;
+}
+
+.sec2-div .filtro2 {
+    height: 75px;
+    grid-area: filtro2;
+    align-items: center;
+    display: flex;
+    color: #333;
+    font-size: 18px;
+}
+
+.filtro2 button {
+    background-color: transparent;
+    border: none;
+}
+
+.filtro2 button:hover {
+    background-color: #e6e6e6;
+    border-radius: 7px;
+}
+
+.filtro2 button:active {
+    background-color: e6e6e6;
+    transform: scale(0.95);
+}
+
+.filtro2 button i {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.filtro2 input {
+    width: 180px;
+    height: 40px;
+    padding-inline: 5px;
+    line-height: 1.25rem;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 0.875rem;
+}
+
+.sec2-div span {
+    font-size: 1rem;
+    line-height: 1.25rem;
     font-weight: 700;
 }
+
+.sec2-div select {
+    height: 40px;
+    display: inline-flex;
+    padding-inline: 5px;
+    margin-right: 0.5rem;
+    transition-property: background-color, border-color, color, fill, stroke;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.sec3-div {
+    overflow-y: auto;
+    grid-area: sec3-div;
+    background-color: #ffffff;
+    max-height: 700px;
+}
+
+.sec3-div table {
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.sec3-div table thead {
+    background-color: #F3F4F6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
+
+}
+
+.sec3-div table th {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.sec3-div table tbody {
+    width: 100%;
+    border-top-width: 1px;
+    border-color: #E5E7EB;
+    overflow: auto;
+}
+
+.sec3-div table td {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #374151;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
+}
+.sec4-div {
+    background-color: #ffffff;
+    padding: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+@media(max-width:530px) {
+    .sec2-div {
+        grid-template-areas:
+            "filtro1"
+            "filtro2";
+    }
+    .seccionDividendos{
+        width: 100%;
+    }
+}
+
+
+
+
+
+
 
 .seccionDividendos .divTitulo .export {
     display: flex;
@@ -50,106 +207,4 @@
 .seccionDividendos .divTitulo button:hover {
     background-color: black;
     color: #ffffff;
-}
-
-.seccionDividendos .filtros {
-    display: grid;
-    margin-bottom: 1rem;
-    justify-content: space-between;
-    align-items: center;
-    grid-template-columns: repeat(3, 300px);
-    grid-template-rows: 75px;
-    grid-template-areas:
-        "filtro1 filtro2";
-}
-
-.filtros .filtro1 {
-    grid-area: filtro1;
-}
-
-.filtros .filtro2 {
-    grid-area: filtro2;
-    display: none;
-    flex-direction: column;
-}
-
-.filtro2 input {
-    width: 180px;
-    height: 40px;
-    padding-inline: 5px;
-    line-height: 1.25rem;
-    border-radius: 5px;
-    border: 1px solid black;
-    font-size: 0.875rem;
-}
-
-.filtros span {
-    font-size: 1rem;
-    line-height: 1.25rem;
-    font-weight: 700;
-}
-
-.filtros select {
-    height: 40px;
-    display: inline-flex;
-    padding-inline: 5px;
-    margin-right: 0.5rem;
-    transition-property: background-color, border-color, color, fill, stroke;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 500;
-    white-space: nowrap;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border-width: 1px;
-}
-
-.seccionDividendos .containTable {
-    overflow-x: auto;
-    margin-bottom: 20px;
-}
-
-.containTable table {
-    text-align: left;
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-.containTable table thead {
-    background-color: #F3F4F6;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
-
-}
-
-.containTable table th {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    color: #374151;
-    font-weight: 500;
-}
-
-.containTable table tbody {
-    border-top-width: 1px;
-    border-color: #E5E7EB;
-}
-
-.containTable table td {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    color: #374151;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
-}
-
-@media(max-width:530px){
-    .seccionDividendos .filtros {
-        grid-template-areas:
-            "filtro1" 
-            "filtro2";
-    }
 }

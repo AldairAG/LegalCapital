@@ -7,8 +7,6 @@ import "./UserLista.css"
 import { getAuth } from "firebase/auth"
 import { useHistory } from 'react-router-dom';
 
-
-
 const UserLista = (props) => {
     const [userModels, setUserModels] = useState([]);
     const [textFind, setTextFind] = useState("");
@@ -19,7 +17,7 @@ const UserLista = (props) => {
 
 
     const handleClick=(item)=>{
-        history.push('/admin/editar-usuario/:r?');
+        history.push('/admin/editar-usuario/'+item.firebaseKey);
     }
 
     const fetchData = async () => {

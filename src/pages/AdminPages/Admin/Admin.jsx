@@ -50,7 +50,7 @@ const Admin = () => {
                 <Switch>
                     <Route path="/admin/gestionar-ususarios" component={UserList} />
                     <Route path="/admin/gestionar-retiros" component={Retiros} />
-                    <Route path="/admin/editar-usuario/:r?" component={EditarUsuario} />
+                    <Route path="/admin/editar-usuario/:fk?" component={EditarUsuario} />
                     <Route path="/admin" component={Tabla} />
                 </Switch>
             </div>

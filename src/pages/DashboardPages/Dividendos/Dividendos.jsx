@@ -8,14 +8,16 @@ const Dividendos = (props) => {
     const [userModels, setUserModels] = useState([])
     const [find, setFind] = useState('');
     const [filterConcept, setFilterConcept] = useState("All");
+    const [paginaMaxima, setPaginaMaxima] = useState(0)
+    const [paginaActual, setPaginaActual] = useState(1)
 
     const convertArrayOfObjectsToCSV = (array) => {
         const data = [];
-    
+
         // Agregar encabezados de columna
         const headers = Object.keys(array[0]);
         data.push(headers.map(header => `"${header}"`).join(',')); // Rodear los encabezados por comillas dobles
-    
+
         // Agregar datos
         array.forEach(obj => {
             const row = [];
@@ -24,10 +26,10 @@ const Dividendos = (props) => {
             });
             data.push(row.join(',')); // Unir los valores con comas
         });
-    
+
         return data.join('\n');
     }
-    
+
     const downloadCSV = () => {
         const csvData = convertArrayOfObjectsToCSV(userModels);
         const filename = "datos.csv";
@@ -56,7 +58,11 @@ const Dividendos = (props) => {
         setFilterConcept(event.target.value);
     };
 
-    const fetchData = async (concept) => {
+    useEffect(() => {
+        fetchData("All", paginaActual);
+    }, [paginaActual]);
+
+    const fetchData = async (concept, pagina) => {
         const db = getDatabase(appFirebase);
         const dbRef = ref(db, "history");
         const snapshot = await get(dbRef);
@@ -65,46 +71,37 @@ const Dividendos = (props) => {
             if (concept == "All") {
                 const historys = Object.values(snapshot.val());
                 const filteredHistorys = historys.filter(history => history.userName == props.userName);
-                setUserModels(filteredHistorys);
-            } else {
-                const historys = Object.values(snapshot.val());
-                const filteredHistorys = historys.filter(history => {
-                    return history.concepto == concept && history.userName === props.userName;
-                });
-                setUserModels(filteredHistorys);
+
+                const startIndex = (pagina - 1) * 25;
+                const endIndex = startIndex + 25;
+                const limitedHistorys = filteredHistorys.slice(startIndex, endIndex);
+
+                setUserModels(limitedHistorys);
+                setPaginaMaxima(Math.ceil(filteredHistorys.length / 25));
             }
         } else {
+            console.log("No data available");
+        }
+    }
+
+    const handleNextPage = () => {
+        if (paginaActual < paginaMaxima) {
+            setPaginaActual(paginaActual + 1);
+        }
+    }
+
+    const handlePrevPage = () => {
+        if (paginaActual > 1) {
+            setPaginaActual(paginaActual - 1);
         }
     }
 
     return (
         <section className="seccionDividendos">
-            <div className="divTitulo">
-                <h2>Dividends</h2>
-                <div className="export">
-                    <button onClick={handleDownloadClick} >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="h-5 w-5 mr-2"
-                        >
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" x2="12" y1="15" y2="3"></line>
-                        </svg>
-                        Export
-                    </button>
-                </div>
-            </div>
+            <div className="sec1-div"><i className="bi bi-graph-up-arrow"></i><h2>Dividends</h2></div>
 
-            <div className="filtros">
+            <div className="sec4-div">
+                            <div className="sec2-div">
                 <div className="filtro1">
                     <span >Order by concept: </span>
                     <select name="tipo" id="tipo" value={filterConcept} onChange={(event) => manejarCambioSelect(event)} >
@@ -113,25 +110,18 @@ const Dividendos = (props) => {
                         <option value="fast track bonus">fast track bonus</option>
                         <option value="Maintenance fee charge">Maintenance fee charge</option>
                         <option value="Residual fee bonus">Residual fee bonus</option>
-                        <option value="Launch promotion">Launch promotion</option>
                         <option value="Rank residual bonus">Rank residual bonus</option>
                         <option value="Weekly earnings">Weekly earnings</option>
                         <option value="Matching bonus">Matching bonus</option>
-
                     </select>
                 </div>
                 <div className="filtro2">
-                    <span >Find by Sponsor: </span>
-                    <input
-                        type="text"
-                        value={find}
-                        onChange={manejarCambioInput}
-                        placeholder="username"
-                    />
+                    <button onClick={handlePrevPage}><i class="bi bi-arrow-left-short"></i></button>
+                    <p>Page: {paginaActual}/{paginaMaxima}</p>
+                    <button onClick={handleNextPage}><i class="bi bi-arrow-right-short"></i></button>
                 </div>
             </div>
-
-            <div className="containTable">
+            <div className="sec3-div">
                 <table>
                     <thead>
                         <tr>
@@ -165,8 +155,8 @@ const Dividendos = (props) => {
                     </tbody>
                 </table>
             </div>
+            </div>
         </section>
     )
-
 }
 export default Dividendos

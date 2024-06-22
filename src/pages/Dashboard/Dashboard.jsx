@@ -1,3 +1,4 @@
+import Anuncio from '../../components/Anuncio/Anuncio';
 import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar"
 import "./Dashboard.css"
@@ -16,6 +17,8 @@ import Ecomerce from "../../components/Ecomerce/Ecomerce.jsx";
 import Support from "../DashboardPages/Support/Support.jsx";
 import UserPerfil from "../DashboardPages/UserPerfil/UserPerfil.jsx";
 import Retiros from "../DashboardPages/Retiros/Retiros.jsx";
+import Tools from "../DashboardPages/Tools/Tools.jsx";
+import Anuncio2 from '../../components/Anuncio2/Anuncio2.jsx';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -33,6 +36,8 @@ const Dashboard = () => {
                 <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
                 <div className="container">
                     <Aviso val={userData["validity"]}/>
+                    <Anuncio/>
+                    <Anuncio2/>
                     <div className="contentSeccion">
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />
@@ -55,14 +60,14 @@ const Dashboard = () => {
     function Home() {
         return (
             <>
-                <MainDiv userData={userData} />
+                <MainDiv userData={userData}/>
             </>
         );
     }
     function Page1() {
         return (
             <>
-                <Packs />
+                <Packs/>
             </>
         );
     }
@@ -104,7 +109,7 @@ const Dashboard = () => {
     function Page5() {
         return (
             <>
-                <Mantenimiento/>
+                <Tools/>
             </>
         );
     }

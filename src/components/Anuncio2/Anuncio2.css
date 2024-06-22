@@ -1,0 +1,136 @@
+.Anuncio2{
+    z-index: 101;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+}
+
+.anuncio2-content{
+    z-index: 101;
+    position: fixed;
+    top:0;
+    width: 320px;
+    height: 600px;
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: 20px 50px 50px 90px 270px 50px;
+    grid-template-areas: 
+    "sec0-anu2"
+    "sec1-anu2"
+    "sec2-anu2"
+    "sec3-anu2"
+    "sec4-anu2"
+    "sec5-anu2";
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto;
+    animation: desplazar 1s ease-in-out;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.sec0-anu2{
+    display: flex;
+    grid-area: sec0-anu2;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+.sec1-anu2{
+    display: flex;
+    grid-area: sec1-anu2;
+    text-align: justify;
+    align-items: center;
+}
+.anuncio2-content span{
+    color: rgb(205, 141, 31);
+    font-weight: 600;
+}
+
+.sec2-anu2{
+    display: flex;
+    grid-area: sec2-anu2;
+    color: #333;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.sec3-anu2{
+    grid-area: sec3-anu2;
+    display: flex;
+    flex-direction: column;
+}
+
+.sec3-anu2 img{
+    width: 300px;
+    height: 60px;
+}
+.sec4-anu2{
+    grid-area: sec4-anu2;
+    display: flex;
+    flex-direction: column;
+}
+.sec4-anu2 img{
+    height: 200px;
+}
+
+.sec5-anu2{
+    grid-area: sec5-anu2;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 5px;
+}
+.sec5-anu2 button{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: white;
+    transition: 0.5s;
+}
+.sec5-anu2 button:hover{
+    transform: scale(1.1);
+    color: white;
+    background-color: black;
+}
+
+
+
+
+.anuncio-content::-webkit-scrollbar {
+    width: 0px;
+    height: 1px;
+}
+
+.anuncio-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.anuncio-content::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.anuncio-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@keyframes desplazar {
+    0% {
+      transform: translateY(-100%);
+      /* Posición inicial: desplazado hacia arriba */
+    }
+  
+    100% {
+      transform: translateY(0);
+      /* Posición final: no desplazado */
+    }
+  }

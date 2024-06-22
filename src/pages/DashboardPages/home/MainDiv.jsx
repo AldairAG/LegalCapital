@@ -28,9 +28,6 @@ const MainDiv = (props) => {
         }
     }, [fetchCounter]);
 
-    useEffect(() => {
-    }, [props.userData]);
-
     return (
         <div className="seccion-main">
             {isLoading ? (
