@@ -14,8 +14,8 @@ const CardData = (props) => {
             <div className="case">
                 <p class="text-sm text-muted-foreground">{props.titulo}</p>
                 <div className="case2">
-                    <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {props.dato}</h3>
                     <img src={img1} alt="logo_usdt" />
+                    <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">{props.dato} USDT</h3>
                 </div>
             </div>
         </section>

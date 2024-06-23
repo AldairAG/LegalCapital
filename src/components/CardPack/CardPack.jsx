@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import "./CardPack.css"
+import img1 from "../../Assets/Images/Logos/usdt.png"
 const CardPack = (props) => {
     const [paquete, setPaquete] = useState("")
 
@@ -22,7 +23,7 @@ const CardPack = (props) => {
             default:
                 return "No pack";
         }
-    } 
+    }
 
     return (
         <section className="cardpack">
@@ -31,7 +32,10 @@ const CardPack = (props) => {
                 <p className="pcp2">{paquete}</p>
             </div>
             <div className="cardpack-s2">
-                <p className="pcp3">{props.dato.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p>
+                <div className="cardpack-s3">
+                    <img src={img1} alt="logo_usdt" />
+                    <p className="pcp3">{props.dato.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p>
+                </div>
                 <p className="pcp1">TOTAL CAPITAL</p>
             </div>
         </section>

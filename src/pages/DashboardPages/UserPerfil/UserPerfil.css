@@ -115,13 +115,43 @@
     height: 95px;
     padding: 5px;
     position: absolute;
-    content: url("../../../Assets/Images/Baners_jpg/user.png");
     background-color: rgb(255, 255, 255);
     border-radius: 50px;
     z-index: 1;
     top: 35px;
     left: 20px;
 }
+.sec1-up .uih {
+    width: 95px;
+    height: 95px;
+    position: absolute;
+    top: 35px;
+    left: 20px;
+    background-color: black;
+    z-index: 2;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0%;
+}
+.sec1-up .uih:hover {
+    opacity: 30%;
+}
+.sec1-up button{
+    position: absolute;
+    top: 100px;
+    left: 90px;
+    z-index: 2;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid #b0b0b0;
+}
+
 
 .sec3-up {
     display: grid;

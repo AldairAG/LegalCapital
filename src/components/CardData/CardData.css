@@ -33,11 +33,11 @@
 }
 .contain-data img {
   line-height: 2rem;
-  margin-inline-start: 10px;
   width: 30px;
   height: 30px;
   justify-self:center;
   align-self: center;
+  margin-inline-end: 10px;
 }
 .none {
   display: none;

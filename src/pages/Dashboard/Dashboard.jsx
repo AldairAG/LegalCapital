@@ -36,8 +36,7 @@ const Dashboard = () => {
                 <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
                 <div className="container">
                     <Aviso val={userData["validity"]}/>
-                    <Anuncio/>
-                    <Anuncio2/>
+                    {/*<Anuncio/>*/}
                     <div className="contentSeccion">
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />

@@ -261,7 +261,7 @@ const QrComponent = (props) => {
                     </div>
                     <div className="s8-qr">
                         <img src={img2} className="imgSec2-qr" alt="qric" />
-                        <p>Copy the USDTT address and
+                        <p>Copy the USDT address and
                             amount to pay, then paste them
                             into your payment app
                         </p>
@@ -269,7 +269,7 @@ const QrComponent = (props) => {
                     <div className="s9-qr">
                         <img src={img3} className="imgSec2-qr" alt="qric" />
                         <p>Transfer only Tether USD TRC20
-                            token (USDTT). Transferring
+                            token (USDT). Transferring
                             other currency will result in the
                             toss of funds
                         </p>

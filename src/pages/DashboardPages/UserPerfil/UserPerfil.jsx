@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import TextInput from "../../../components/TextInput/TextInput"
 import "./UserPerfil.css"
 import Common from "../../../components/js/Common"
 import AlertMsg from "../../../components/AlertMsg/AlertMsg.jsx"
 import SwitchFun from "../../../components/EditUser/InputData/SwitchFun.jsx"
 import { getDatabase, ref, onValue } from 'firebase/database';
+import img1 from "../../../Assets/Images/Baners_jpg/user.png"
+import UploadImg from "../../../components/uploadImg/UploadImg.jsx"
+
 const UserPerfil = (props) => {
     const [email, setEmail] = useState("");
     const [user, setUser] = useState("");
@@ -16,12 +19,13 @@ const UserPerfil = (props) => {
     const [userData, setUserData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [visible, setVisible] = useState(false);
+    const [visiblePic, setVisiblePic] = useState(false);
     const [msj, setMsj] = useState("");
     const [interesCompuesto, setInteresCompuesto] = useState(["0", "0"]);
 
     useEffect(() => {
         const db = getDatabase();
-        const userRef = ref(db, 'users/'+props.keyF);  // Reemplaza 'USER_ID' con el ID del usuario
+        const userRef = ref(db, 'users/' + props.keyF);  // Reemplaza 'USER_ID' con el ID del usuario
 
         const unsubscribe = onValue(userRef, (snapshot) => {
             const data = snapshot.val();
@@ -79,9 +83,14 @@ const UserPerfil = (props) => {
         common.editAnyUser(updatedUser);
     };
 
+    const activarSelectorImg=()=>{
+        setVisiblePic(true)
+    }
+
     return (
         <div>
             <AlertMsg visible={visible} setVisible={setVisible} texto={msj} />
+            <UploadImg visible={visiblePic} setVisible={setVisiblePic} userName={userData.userName}/>
             {isLoading ? (
                 <div className="spinner"></div>
             ) : (
@@ -91,7 +100,9 @@ const UserPerfil = (props) => {
                         <span>Profile</span>
                     </div>
                     <div className="sec1-up">
-                        <img className="userImg" alt="userImg" />
+                        <div onClick={activarSelectorImg} className="uih"><i className="bi bi-pencil"></i></div>
+                        <img className="userImg" src={img1} alt="user" />
+                        <button onClick={activarSelectorImg}><i className="bi bi-pencil-square"></i></button>
                         <div className="userInfo">
                             <div className="infos">
                                 <p className="textoG">{user}</p>

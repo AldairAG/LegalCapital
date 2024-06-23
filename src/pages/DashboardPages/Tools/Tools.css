@@ -33,3 +33,13 @@
 .sec2-to{
     grid-area: sec2-to;
 }
+
+@media(max-width:1000px){
+    .Tools{
+        grid-template-columns: 100%;
+        grid-template-rows: 50px 550px;
+        grid-template-areas: 
+        "sec0-to sec0-to"
+        "sec1-to sec2-to";
+    }
+}

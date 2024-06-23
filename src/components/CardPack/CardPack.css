@@ -37,9 +37,17 @@
     margin-inline-start: 10px;
 }
 .cardpack .pcp3 {
-    margin-top: 5px;
-    color: #1F2937;
+    color: #333;
     font-size: 2.25rem;
     line-height: 1.7rem;
-    font-weight: 700;    
+    font-weight: 700;
+}
+.cardpack-s3{
+    display: flex;
+    align-items: center;
+}
+.cardpack-s3 img{
+    width: 30px;
+    height: 30px;
+    margin-inline-end: 10px;
 }

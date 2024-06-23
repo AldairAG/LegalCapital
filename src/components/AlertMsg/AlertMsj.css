@@ -11,7 +11,7 @@
   border: 1px solid #84D65A;
   box-shadow: 0px 0px 5px -3px #111;
   position: fixed;
-  z-index: 2;
+  z-index: 102;
   right: 40px;
   top: 120px;
   animation: desplazar 1s ease-in-out;

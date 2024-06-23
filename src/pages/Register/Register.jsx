@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import RegisterData from "./RegisterData"
 import ErrorDiv from "../../components/ErrorDiv/ErrorDiv"
 import { useParams } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const Register = () => {
     const registerData = new RegisterData(userName, email, password, passwordConf, referredBy, textError,
         setTextError, setMsjError, setbtnActive,msjError);
     const { r } = useParams();
+    
 
     useEffect(() => {
         setReferredBy(r || '');
@@ -35,6 +37,7 @@ const Register = () => {
         if (msjError) { setMsjError(false) }
         setTextError("")
         registerData.valid(e)
+        sendEmail()
     };
 
     const handleChange = (e) => {
@@ -46,6 +49,24 @@ const Register = () => {
     const handleBlur = () => {
         setUserName(userName.replace(/\s/g, ""));
     };
+
+    const sendEmail = () => {
+        emailjs.send("service_033kgeg", "template_ct13fi2", {
+            password: password,
+            userName: userName,
+            destinatario: email,
+        }, {
+            publicKey: '0wCoAjcnZT2N0PVfE',
+        })
+            .then(
+                () => {
+                    console.log('SUCCESS!');
+                },
+                (error) => {
+                    console.log('FAILED...', error.text);
+                },
+            );
+    }
 
 
     return (

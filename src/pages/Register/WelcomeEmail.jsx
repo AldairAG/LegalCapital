@@ -22,7 +22,6 @@ class WelcomeEmail {
                     console.log('FAILED...', error.text);
                 },
             );
-
     };
 };
 

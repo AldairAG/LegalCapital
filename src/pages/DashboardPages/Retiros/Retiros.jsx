@@ -6,8 +6,10 @@ import { useState } from "react"
 import { useEffect } from "react"
 import AlertMsg from "../../../components/AlertMsg/AlertMsg"
 import AlertMsgError from "../../../components/AlertMsg/AlertMsgError"
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, get } from 'firebase/database';
 import Common from "../../../components/js/Common"
+import appFirebase from "../../../firebase-config";
+import { div } from "three/examples/jsm/nodes/Nodes.js"
 
 const Retiros = (props) => {
     const [opc1, setOpc1] = useState(true)
@@ -17,12 +19,15 @@ const Retiros = (props) => {
     const [visibleError, setVisibleError] = useState(false)
     const [textoMsj, setTextoMsj] = useState("")
     const [userData, setUserData] = useState({});
+    const [historial, setHistorial] = useState([]);
     const [wallet, setWallet] = useState("")
     const [isLoading, setIsLoading] = useState(true);
+    const [paginaMaxima, setPaginaMaxima] = useState(0)
+    const [paginaActual, setPaginaActual] = useState(1)
 
     useEffect(() => {
         const db = getDatabase();
-        const userRef = ref(db, 'users/' + props.keyF);  // Reemplaza 'USER_ID' con el ID del usuario
+        const userRef = ref(db, 'users/' + props.keyF);
 
         const unsubscribe = onValue(userRef, (snapshot) => {
             const data = snapshot.val();
@@ -39,9 +44,13 @@ const Retiros = (props) => {
     useEffect(() => {
         if (Object.keys(userData).length > 0) {
             setWallet(userData.usdtAddress)
-            setIsLoading(false)
         }
+        fetchHistorial()
     }, [userData]);
+
+    useEffect(() => {
+        fetchHistorial(paginaActual)
+    }, [paginaActual]);
 
     const handleChangeOpc = (opc) => {
         if (opc === 1) {
@@ -82,7 +91,7 @@ const Retiros = (props) => {
                 setVisibleError(true)
                 setTextoMsj("After withdrawing you need to have at least 25 USDT remaining")
             } else {
-                sendRequest(cantidad,1)
+                sendRequest(cantidad, 1)
                 setVisibleMsg(true)
                 setTextoMsj("Request submitted successfully")
             }
@@ -94,7 +103,7 @@ const Retiros = (props) => {
                 setVisibleError(true)
                 setTextoMsj("The minimum withdrawal amount is 50 USDT")
             } else {
-                sendRequest(cantidad,2)
+                sendRequest(cantidad, 2)
                 setVisibleMsg(true)
                 setTextoMsj("Request submitted successfully")
             }
@@ -108,13 +117,47 @@ const Retiros = (props) => {
         updatedUser.requestRetiro = floatValue
         if (wallet === 1) {
             updatedUser.walletDiv = updatedUser.walletDiv - monto
-            common.saveInHistory(updatedUser.userName,monto,"dividend wallet withdrawal","")
-        }else if(wallet===2){
+            common.saveInHistory(updatedUser.userName, monto, "dividend wallet withdrawal", "Dividend    wallet")
+        } else if (wallet === 2) {
             updatedUser.walletCom = updatedUser.walletCom - monto
-            common.saveInHistory(updatedUser.userName,monto,"commission wallet withdrawal","")
+            common.saveInHistory(updatedUser.userName, monto, "commission wallet withdrawal", "Commission wallet")
         }
-        updatedUser.retiros=updatedUser.retiros + Number(monto)
+        updatedUser.retiros = updatedUser.retiros + Number(monto)
         common.editAnyUser(updatedUser)
+        fetchHistorial()
+    }
+
+    const handleNextPage = () => {
+        if (paginaActual < paginaMaxima) {
+            setPaginaActual(paginaActual + 1);
+        }
+    }
+
+    const handlePrevPage = () => {
+        if (paginaActual > 1) {
+            setPaginaActual(paginaActual - 1);
+        }
+    }
+
+    const fetchHistorial = async (pagina) => {
+        const db = getDatabase(appFirebase);
+        const dbRef = ref(db, "history");
+        const snapshot = await get(dbRef);
+
+        if (snapshot.exists()) {
+            const historys = Object.values(snapshot.val());
+            const filteredHistorys = historys.filter(history => history.userName == userData.userName).reverse();
+
+            /*const startIndex = (pagina - 1) * 25;
+            const endIndex = startIndex + 25;
+            const limitedHistorys = filteredHistorys.slice(startIndex, endIndex);*/
+            setHistorial(filteredHistorys);
+            //setPaginaMaxima(Math.ceil(filteredHistorys.length / 25));
+
+        } else {
+            console.log("No data available");
+        }
+        setIsLoading(false)
     }
 
     return (
@@ -125,53 +168,80 @@ const Retiros = (props) => {
                 <i className="bi bi-person-gear"></i>
                 <span>Retiros</span>
             </div>
-            {isLoading ? (
-                <div className="spinner"></div>
-            ) : (
-                <div className="contenido-re">
-                    <div className="se0-re"><p>Select your wallet</p></div>
-                    <div className="se1-re">
-                        <section className={opc1 ? "contain-data seleccionado" : "contain-data"} onClick={() => handleChangeOpc(1)}>
-                            <div className="case">
-                                <p class="text-sm text-muted-foreground">Dividend wallet</p>
-                                <div className="case2">
-                                    <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {userData.walletDiv}</h3>
-                                    <img src={img1} alt="logo_usdt" />
-                                </div>
+            <div className="contenido-re">
+                <div className="se0-re"><p>Select your wallet</p></div>
+                <div className="se1-re">
+                    <section className={opc1 ? "contain-data seleccionado" : "contain-data"} onClick={() => handleChangeOpc(1)}>
+                        <div className="case">
+                            <p class="text-sm text-muted-foreground">Dividend wallet</p>
+                            <div className="case2">
+                                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {userData.walletDiv}</h3>
+                                <img src={img1} alt="logo_usdt" />
                             </div>
-                        </section>
-                    </div>
-                    <div className="se2-re">
-                        <section className={opc2 ? "contain-data seleccionado" : "contain-data"} onClick={() => handleChangeOpc(2)}>
-                            <div className="case">
-                                <p>Comission wallet</p>
-                                <div className="case2">
-                                    <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {userData.walletCom}</h3>
-                                    <img src={img1} alt="logo_usdt" />
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div className="se3-re">
-                        <TextInput ti={"Wallet address"} block={false} value={userData.usdtAddress} setValue={setWallet} />
-                    </div>
-                    <div className="se4-re">
-                        <TextInput ti={"Amount to withdraw(USDT)"} value={cantidad} setValue={setCantidad} />
-                    </div>
-                    <div className="se5-re">
-                        <button className="boton4" onClick={handleValidacion}><span>Request withdrawal</span></button>
-                    </div>
-                    <div className="notas-re">
-                        <p className="textoM2">Important notes:</p>
-                        <p className="textoM"><li>You need to have your TRC20 wallet address registered. If you don't have it yet,<Link to="Profile" className="link"> click here</Link></li></p>
-                        <p className="textoM"><li>To request withdrawal of dividends or commissions, a <span>minimum amount of 50 USDT is required.</span></li></p>
-                        <p className="textoM"><li>All requests will be approved only <span>Monday through Friday</span> starting at 12:00 a.m. (Miami time).</li></p>
-                        <p className="textoM"><li>Withdrawal <span>cost of 5% </span>for the total amount requested (Administrative expenses).</li></p>
-                        <p className="textoM"><li>When a withdrawal is requested the dividend wallet <span>must have at least 25 USDT</span>.</li></p>
-                    </div>
+                        </div>
+                    </section>
                 </div>
-            )}
-        </section>
+                <div className="se2-re">
+                    <section className={opc2 ? "contain-data seleccionado" : "contain-data"} onClick={() => handleChangeOpc(2)}>
+                        <div className="case">
+                            <p>Comission wallet</p>
+                            <div className="case2">
+                                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {userData.walletCom}</h3>
+                                <img src={img1} alt="logo_usdt" />
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div className="se3-re">
+                    <TextInput ti={"Wallet address"} block={false} value={userData.usdtAddress} setValue={setWallet} />
+                </div>
+                <div className="se4-re">
+                    <TextInput ti={"Amount to withdraw(USDT)"} value={cantidad} setValue={setCantidad} />
+                </div>
+                <div className="se5-re">
+                    <button className="boton4" onClick={handleValidacion}><span>Request withdrawal</span></button>
+                </div>
+                <div className="notas-re">
+                    <p className="textoM2">Important notes:</p>
+                    <p className="textoM"><li>You need to have your TRC20 wallet address registered. If you don't have it yet,<Link to="Profile" className="link"> click here</Link></li></p>
+                    <p className="textoM"><li>To request withdrawal of dividends or commissions, a <span>minimum amount of 50 USDT is required.</span></li></p>
+                    <p className="textoM"><li>All requests will be approved only <span>Monday through Friday</span> starting at 12:00 a.m. (Miami time).</li></p>
+                    <p className="textoM"><li>Withdrawal <span>cost of 5% </span>for the total amount requested (Administrative expenses).</li></p>
+                    <p className="textoM"><li>When a withdrawal is requested the dividend wallet <span>must have at least 25 USDT</span>.</li></p>
+                </div>
+            </div>
+
+            <div className="historial-re">
+                <div className="sec1-hre">
+                    <h2><i class="bi bi-clock-history"></i> History</h2>
+                    {/*                     <div className="filtro2">
+                        <button onClick={handlePrevPage}><i class="bi bi-arrow-left-short"></i></button>
+                        <p>Page: {paginaActual}/{paginaMaxima}</p>
+                        <button onClick={handleNextPage}><i class="bi bi-arrow-right-short"></i></button>
+                    </div> */}
+                </div>
+                <div className="sec2-hre">
+                    {isLoading ? (
+                        <div className="spinner"></div>
+                    ) : (
+                        historial.length === 0 ? (
+                            <p className="aviso-hre">You have not yet made a withdrawal</p>
+                        ) : (
+                            historial.map((item, index) => (
+                                <div>
+                                    <div className="cardHistorial" key={index}>
+                                        <p>{item.date}</p>
+                                        <p className="hora">{item.hora}</p>
+                                        <p className="cantidad">{item.cantidad} USDT</p>
+                                        <p>{item.emisor}</p>
+                                    </div>
+                                </div>
+                            ))
+                        )
+                    )}
+                </div>
+            </div>
+        </section >
     )
 }
 
