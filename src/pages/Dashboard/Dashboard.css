@@ -5,16 +5,18 @@
     height: 100vh;
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .containDash {
     grid-template-columns: auto 1fr;
-    grid-template-rows: 100px auto;
+    grid-template-rows: 100px auto 50px;
     display: grid;
     grid-template-areas:
         "sec1 sec2"
-        "sec1 sec3";
+        "sec1 sec3"
+        "sec1 sec4";
+        background-color: #070d3b;
 }
 
 .cabeza {
@@ -28,20 +30,19 @@
 .sidebar {
     display: flex;
     grid-area: sec1;
+    background: #070d3b;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
-    overflow: auto;
-    padding-bottom: 5%;
+    overflow: hidden;
     grid-area: sec3;
     background-color: #efefef;
 }
 
-.contenido{
+.contenido {
     height: 100%;
     width: 100%;
     background-color: #efefef;
@@ -52,11 +53,25 @@
     overflow: hidden;
     margin-bottom: 70px;
 }
-.contenido .titulos{
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: sec4;
+    font-size: 15px;
+    font-weight: 600;
+    color: #606060;
+    background-color: #efefef;
+
+}
+
+.contenido .titulos {
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     align-items: center;
 }
+
 .contenido .titulos span {
     font-size: 1.5rem;
     margin-inline-start: 10px;
@@ -68,26 +83,27 @@
     color: var(--color-1);
 }
 
-.contenido .textoG{
+.contenido .textoG {
     font-size: 1.2rem;
     font-weight: 700;
     line-height: 2rem;
 }
 
-.contenido .textoM{
+.contenido .textoM {
     display: block;
     margin-bottom: 10px;
     font-weight: 500;
     color: #333;
 }
-.contenido .textoM2{
+
+.contenido .textoM2 {
     display: block;
     margin-bottom: 10px;
     font-weight: 600;
     color: #333;
 }
 
-.contenido .textoM3{
+.contenido .textoM3 {
     display: block;
     margin-bottom: 10px;
     font-weight: 600;
@@ -108,26 +124,30 @@
     background: var(--button_outline_color);
 }
 
-.boton2{
+.boton2 {
     height: 50px;
-    background:url("../../Assets/Images/Baners_jpg/Gold.png");
+    background: url("../../Assets/Images/Baners_jpg/Gold.png");
     color: white;
     font-size: 1.2rem;
     border-radius: 5px;
     transition: 0.3s ease-in-out;
 }
-.boton2:hover{
+
+.boton2:hover {
     scale: 1.1;
 }
-.boton3{
+
+.boton3 {
     height: 50px;
     font-size: 1.2rem;
     border-radius: 5px;
     transition: 0.3s ease-in-out;
 }
-.boton3:hover{
+
+.boton3:hover {
     scale: 1.1;
 }
+
 .button_top {
     display: block;
     box-sizing: border-box;
@@ -149,7 +169,8 @@
     /* Push the button downwards when pressed */
     transform: translateY(0);
 }
-.boton4{
+
+.boton4 {
     height: 50px;
     width: 300px;
     background-color: white;
@@ -159,7 +180,8 @@
     color: #333;
     font-size: 20px;
 }
-.boton4:hover{
+
+.boton4:hover {
     scale: 1.1;
     border: 2px solid #333;
     background-image: url("../../Assets/Images/Baners_jpg/Gold.png");
@@ -167,41 +189,48 @@
 }
 
 ::-webkit-scrollbar {
-    width: 3px; /* Ancho de la scrollbar vertical */
-    height: 3px; /* Altura de la scrollbar horizontal */
+    width: 3px;
+    /* Ancho de la scrollbar vertical */
+    height: 3px;
+    /* Altura de la scrollbar horizontal */
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color del track */
+    background: #f1f1f1;
+    /* Color del track */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888; /* Color del thumb */
-    border-radius: 4px; /* Redondear el thumb */
+    background: #888;
+    /* Color del thumb */
+    border-radius: 4px;
+    /* Redondear el thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color del thumb cuando se pasa el cursor sobre él */
+    background: #555;
+    /* Color del thumb cuando se pasa el cursor sobre él */
 }
 
 
 @media (max-width: 600px) {
     .containDash {
         width: 100%;
-        height: 100%;
         margin: 0;
         padding: 0;
         grid-template-columns: auto 1fr;
-        grid-template-rows: 100px auto;
+        grid-template-rows: 100px auto 50px;
         display: grid;
         grid-template-areas:
             "sec1 sec2"
-            "sec1 sec3";
+            "sec1 sec3"
+            "sec1 sec4";
     }
 
     .sidebar {
         display: flex;
         grid-area: sec1;
         width: 0;
+        background-color: #070d3b;
     }
 }

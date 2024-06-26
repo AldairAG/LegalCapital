@@ -117,10 +117,10 @@ const Retiros = (props) => {
         updatedUser.requestRetiro = floatValue
         if (wallet === 1) {
             updatedUser.walletDiv = updatedUser.walletDiv - monto
-            common.saveInHistory(updatedUser.userName, monto, "dividend wallet withdrawal", "Dividend    wallet")
+            common.saveInHistory(updatedUser.userName, -monto, "dividend wallet withdrawl", "Dividend wallet")
         } else if (wallet === 2) {
             updatedUser.walletCom = updatedUser.walletCom - monto
-            common.saveInHistory(updatedUser.userName, monto, "commission wallet withdrawal", "Commission wallet")
+            common.saveInHistory(updatedUser.userName, -monto, "commission wallet withdrawl", "Commission wallet")
         }
         updatedUser.retiros = updatedUser.retiros + Number(monto)
         common.editAnyUser(updatedUser)
@@ -146,7 +146,10 @@ const Retiros = (props) => {
 
         if (snapshot.exists()) {
             const historys = Object.values(snapshot.val());
-            const filteredHistorys = historys.filter(history => history.userName == userData.userName).reverse();
+            const filteredHistorys = historys.filter(history => 
+                history.userName === userData.userName && (history.concepto && history.concepto.toLowerCase().includes('withdrawl'))
+            ).reverse();
+            
 
             /*const startIndex = (pagina - 1) * 25;
             const endIndex = startIndex + 25;
@@ -175,7 +178,7 @@ const Retiros = (props) => {
                         <div className="case">
                             <p class="text-sm text-muted-foreground">Dividend wallet</p>
                             <div className="case2">
-                                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {userData.walletDiv}</h3>
+                                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {(userData.walletDiv || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}</h3>
                                 <img src={img1} alt="logo_usdt" />
                             </div>
                         </div>
@@ -186,7 +189,7 @@ const Retiros = (props) => {
                         <div className="case">
                             <p>Comission wallet</p>
                             <div className="case2">
-                                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {userData.walletCom}</h3>
+                                <h3>$ {(userData.walletCom || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}</h3>
                                 <img src={img1} alt="logo_usdt" />
                             </div>
                         </div>

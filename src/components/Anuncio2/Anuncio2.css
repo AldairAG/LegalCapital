@@ -16,7 +16,7 @@
     position: fixed;
     top:0;
     width: 320px;
-    height: 600px;
+    height: 400px;
     background-color: aliceblue;
     display: grid;
     grid-template-columns: 300px;
@@ -35,74 +35,6 @@
     gap: 10px;
     overflow: hidden;
 }
-
-.sec0-anu2{
-    display: flex;
-    grid-area: sec0-anu2;
-    font-weight: 600;
-    font-size: 18px;
-    text-align: center;
-}
-.sec1-anu2{
-    display: flex;
-    grid-area: sec1-anu2;
-    text-align: justify;
-    align-items: center;
-}
-.anuncio2-content span{
-    color: rgb(205, 141, 31);
-    font-weight: 600;
-}
-
-.sec2-anu2{
-    display: flex;
-    grid-area: sec2-anu2;
-    color: #333;
-    font-size: 19px;
-    font-weight: 600;
-}
-
-.sec3-anu2{
-    grid-area: sec3-anu2;
-    display: flex;
-    flex-direction: column;
-}
-
-.sec3-anu2 img{
-    width: 300px;
-    height: 60px;
-}
-.sec4-anu2{
-    grid-area: sec4-anu2;
-    display: flex;
-    flex-direction: column;
-}
-.sec4-anu2 img{
-    height: 200px;
-}
-
-.sec5-anu2{
-    grid-area: sec5-anu2;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    padding: 5px;
-}
-.sec5-anu2 button{
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    font-size: 20px;
-    background-color: white;
-    transition: 0.5s;
-}
-.sec5-anu2 button:hover{
-    transform: scale(1.1);
-    color: white;
-    background-color: black;
-}
-
-
 
 
 .anuncio-content::-webkit-scrollbar {

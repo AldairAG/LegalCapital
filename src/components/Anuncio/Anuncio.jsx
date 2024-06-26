@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Anuncio.css"
 import img1 from "../../Assets/Images/Logos/Logo_2.png"
 const Anuncio = () => {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
 
     const handleClick=()=>{
         setVisible(false)

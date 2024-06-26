@@ -36,7 +36,8 @@ const Dashboard = () => {
                 <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
                 <div className="container">
                     <Aviso val={userData["validity"]}/>
-                    {/*<Anuncio/>*/}
+                    <Anuncio/>
+                    <Anuncio2 val={userData["validity"]}/>
                     <div className="contentSeccion">
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />
@@ -52,6 +53,7 @@ const Dashboard = () => {
                         </Switch>
                     </div>
                 </div>
+                <div className='footer'><p>© 2024 Legal Capital Corp.</p></div>
             </div>
         </div>
     )

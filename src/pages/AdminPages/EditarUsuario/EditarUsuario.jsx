@@ -7,6 +7,7 @@ import SwitchFun from "../../../components/EditUser/InputData/SwitchFun.jsx"
 import AlertMsg from "../../../components/AlertMsg/AlertMsg.jsx";
 import Common from "../../../components/js/Common";
 import { useHistory } from 'react-router-dom';
+import { div } from "three/examples/jsm/nodes/Nodes.js";
 
 const EditarUsuario=()=>{
     const [userData,setUserData]=useState("")
@@ -27,6 +28,7 @@ const EditarUsuario=()=>{
     const [visible,setVisible]=useState(false)
     const [msj,setMsj]=useState("")
     const history = useHistory();
+    const [visibleAlert,setVisibleAlert]=useState(true)
 
     useEffect(() => {
         const db = getDatabase();
@@ -110,10 +112,27 @@ const EditarUsuario=()=>{
     const regresar = () => {
         history.push('/admin/gestionar-ususarios');
     }
-
+    const close = () => {
+        setVisibleAlert(false)
+    }
+    const open = () => {
+        setVisibleAlert(true)
+    }
     return(
         <section className="EditarUsuario">
             <AlertMsg visible={visible} setVisible={setVisible} texto={msj} />
+            {visibleAlert &&(
+                <section className="deleteSection">
+                    <div className="overlay-ads"></div>
+                    <div className="deleteContain">
+                        <div className="sec1-dc"><p>Eliminar al usuario: {userName}</p></div>
+                        <div className="sec2-dc">
+                            <button  onClick={close} className="cancel">Cancelar</button>
+                            <button onClick={eliminarUsuario} className="ok">Aceptar</button>
+                        </div>
+                    </div>
+                </section>
+            )}
             <div className="sec0-edtu"><p className="titulo-edtu">Datos personales</p></div>
             <div className="sec1-edtu"><TextInput ti={"Nombre de ususario"} value={userName} setValue={setUserName}/></div>
             <div className="sec2-edtu"><TextInput ti={"E-mail"} value={email} setValue={setEmail}/></div>
@@ -132,7 +151,7 @@ const EditarUsuario=()=>{
             <div className="sec15-edtu"><TextInput ti={"Referido"} value={referido} setValue={setReferido}/></div>
             <div className="sec18-edtu"><p className="titulo-edtu">Permisos</p></div>
             <div className="sec19-edtu"><button onClick={save}><p>Guardar</p></button></div>
-            <div className="sec20-edtu"><button onClick={eliminarUsuario}><p>Eliminar ususario</p></button></div>
+            <div className="sec20-edtu"><button onClick={open}><p>Eliminar ususario</p></button></div>
             <div className="sec21-edtu"><button onClick={regresar}><p>Regresar</p></button></div>
         </section>
     )

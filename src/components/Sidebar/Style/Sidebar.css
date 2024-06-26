@@ -193,6 +193,11 @@ body{
     background-color: var(--color-scroll-hover);
 }
 
+.btn_logout{
+    background-color: white;
+
+}
+
 /*------------------> Responsive*/
 @media (max-height: 660px){
     .barra-lateral .nombre-pagina{

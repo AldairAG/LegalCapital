@@ -13,6 +13,7 @@
     "link"
     "contenido";
     overflow-y: auto;
+    overflow-x: hidden;
 }
 header{
     grid-template-columns: 300px auto 150px;

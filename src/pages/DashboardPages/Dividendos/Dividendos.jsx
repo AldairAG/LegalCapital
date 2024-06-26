@@ -70,7 +70,7 @@ const Dividendos = (props) => {
         if (snapshot.exists()) {
             if (concept == "All") {
                 const historys = Object.values(snapshot.val());
-                const filteredHistorys = historys.filter(history => history.userName == props.userName);
+                const filteredHistorys = historys.filter(history => history.userName == props.userName).reverse();
 
                 const startIndex = (pagina - 1) * 25;
                 const endIndex = startIndex + 25;

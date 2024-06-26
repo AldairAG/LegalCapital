@@ -1,6 +1,10 @@
 import NavBtn from "./NavBtn"
 import LogoutButton from "../LogoutButton/LogoutButton"
 import { useState } from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
+import { getAuth, signOut } from "firebase/auth"
+import appFirebase from "../../firebase-config";
+const auth = getAuth(appFirebase)
 
 const SiderNav = () => {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -9,10 +13,19 @@ const SiderNav = () => {
         setMenuVisible(!menuVisible);
     };
 
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                console.log("Usuario desconectado exitosamente");
+            })
+            .catch((error) => {
+                console.error("Error al desconectar al usuario:", error);
+            });
+    };
+
     return (
         <nav class="navegacion">
             <ul>
-
                 <h4>Main menu</h4>
                 <hr />
                 <li>
@@ -44,6 +57,12 @@ const SiderNav = () => {
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/Profile" ic="bi bi-person-gear" sp="Edit profile" />
+                </li>
+                <li onClick={handleLogout}>
+                    <Link to={"/"}>
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </Link>
                 </li>
             </ul>
         </nav>

@@ -21,6 +21,20 @@ class AdminData {
     }
   }
 
+  /*fetchData = async () => {
+    const db = getDatabase(appFirebase);
+    const dbRef = ref(db, "history");
+    const snapshot = await get(dbRef);
+
+    if (snapshot.exists()) {
+      const users = Object.values(snapshot.val());
+      const filteredUsers = users.filter(user => user.date ==="24-06-2024");
+      this.setUserModels(filteredUsers);
+    } else {
+      alert("error");
+    }
+  }*/
+
   findData = async (text) => {
     const db = getDatabase(appFirebase);
     const dbRef = ref(db, "users");
@@ -90,7 +104,7 @@ class AdminData {
 
         set(dbRef, userData).then(() => {
           this.fetchData()
-          commom.saveInHistory(userData.referredBy, request, "Payment for starter package", "")
+          commom.saveInHistory(userData.userNames, request, "Payment for starter package", "")
           this.bonoReferenciaDirecta(userData)
         }).catch(() => {
           console.log("error")

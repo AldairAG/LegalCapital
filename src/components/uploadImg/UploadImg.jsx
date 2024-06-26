@@ -42,7 +42,7 @@ const UploadImg = (props) => {
             setVisibleMsj(true)
         }*/
         const storage=getStorage()
-        const storageRef = ref(storage, `images/${props.userName}`);
+        const storageRef = ref(storage, `imagesUp/${props.userName}`);
         const uploadTask = uploadBytesResumable(storageRef, selectedImage);
 
         uploadTask.on(

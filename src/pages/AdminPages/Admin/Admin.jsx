@@ -89,9 +89,9 @@ const Admin = () => {
                             {userModels.map((item, index) => (
                                 <li key={index}>
                                     <span>{item.userName}</span>
-                                    <span>{item.email}</span>
-                                    <span>{item.request}</span>
-                                    <span>{item.validity}</span>
+                                    <span>{item.concepto}</span>
+                                    <span>{item.hora}</span>
+                                    <span>{item.cantidad}</span>
                                     <div className="aprobar">
                                         <button onClick={() => adminData.aprobar(item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
                                         <button onClick={() => adminData.denegar(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>

@@ -81,3 +81,59 @@
 .sec21-edtu{
     grid-area:sec21-edtu;
 }
+
+.deleteSection{
+    display: flex;
+    position: absolute;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+.overlay-ads{
+    background-color: #3333339d;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+.deleteContain{
+    position: fixed;
+    display: grid;
+    background-color: white;
+    width: 300px;
+    height: 200px;
+    grid-template-rows: 150px 50px;
+    border-radius: 10px;
+}
+
+.sec1-dc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.sec2-dc{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: 1px solid rgb(133, 133, 133);
+}
+.sec2-dc button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    color: white;
+
+}
+
+.sec2-dc .cancel{
+    background-color: rgb(248, 109, 109);
+}
+.sec2-dc .ok{
+    background-color: rgb(51, 130, 53);
+}
