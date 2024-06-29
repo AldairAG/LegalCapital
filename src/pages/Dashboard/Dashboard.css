@@ -21,7 +21,7 @@
 
 .cabeza {
     height: 100%;
-    background-color: white;
+    background-color: #070d3b;
     border-bottom: 1px groove rgb(210, 210, 210);
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.142);
     grid-area: sec2;

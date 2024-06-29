@@ -1,0 +1,44 @@
+.Ordenes.ec{
+
+}
+
+.sec0-oec .containTable {
+    overflow-x: auto;
+}
+
+.sec0-oec table {
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.sec0-oec table thead {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
+}
+.sec0-oec table thead th{
+    color: #697c9b;
+}
+
+.sec0-oec table th {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.sec0-oec table tbody {
+    border-top-width: 1px;
+    border-color: #E5E7EB;
+}
+
+.sec0-oec table td {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #374151;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.265);
+}

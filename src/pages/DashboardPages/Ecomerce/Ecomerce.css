@@ -1,0 +1,90 @@
+@import url("../../../Assets//colors/colors.css");
+
+.Ecomerce {
+    background-color: white;
+    display: grid;
+    grid-template-rows: 75px 250px 1000px 300px 250px 550px;
+    margin: 15px;
+    padding-bottom: 50px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.sec0-ec {
+    display: flex;
+    width: 100%;
+    background-color: rgb(57, 99, 238);
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    align-items: center;
+    padding-inline: 20px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.sec0-ec i {
+    margin-inline-end: 5px;
+}
+
+.sec1-ec {
+    color: white;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(57, 99, 238), rgb(225, 231, 253));
+    margin-bottom: 50px;
+}
+
+.sec1-ec p {
+    font-size: 35px;
+}
+.sec2-ec{
+    display: grid;
+    margin-inline: 20px;
+    grid-auto-rows: 60px auto;
+}
+.sec2-ec .s21-ec{
+    display: flex;
+    font-size: 22px;
+    font-weight: 600;
+}
+.sec2-ec .s22-ec{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 20px;
+    justify-self: center;
+}
+
+.sec3-ec {
+    margin-inline: 20px;
+    margin-bottom: 50px;
+}
+
+.sec5-ec {
+    display: grid;
+    margin-inline: 20px;
+    grid-template-rows: 60px auto;
+    margin-bottom: 50px;
+}
+
+.s51-ec {
+    display: flex;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.sec6-ec {
+    margin-inline: 20px;
+    margin-bottom: 50px;
+    display: grid;
+    grid-template-rows: 60px auto;
+}
+.s61-ec {
+    display: flex;
+    font-size: 22px;
+    font-weight: 600;
+}

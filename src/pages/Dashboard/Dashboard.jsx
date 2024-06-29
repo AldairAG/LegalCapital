@@ -13,7 +13,8 @@ import Dividendos from "../DashboardPages/Dividendos/Dividendos.jsx";
 import Red from "../DashboardPages/Red/Red.jsx";
 import MyRed from "../DashboardPages/MyRed/MyRed.jsx";
 import Mantenimiento from "../../components/Mantemiento/Mantenimiento.jsx";
-import Ecomerce from "../../components/Ecomerce/Ecomerce.jsx";
+//import Ecomerce from "../../components/Ecomerce/Ecomerce.jsx";
+import Ecomerce from "../DashboardPages/Ecomerce/Ecomerce.jsx"
 import Support from "../DashboardPages/Support/Support.jsx";
 import UserPerfil from "../DashboardPages/UserPerfil/UserPerfil.jsx";
 import Retiros from "../DashboardPages/Retiros/Retiros.jsx";

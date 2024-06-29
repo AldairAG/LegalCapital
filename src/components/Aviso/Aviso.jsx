@@ -20,7 +20,7 @@ const Aviso = (props) => {
     if (props.val === "unpaid") {
       setVisible(true);
     } else {
-      setVisible(true)
+      setVisible(false)
     }
   }, [props.val]);
 
