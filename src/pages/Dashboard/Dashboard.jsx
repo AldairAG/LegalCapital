@@ -47,7 +47,7 @@ const Dashboard = () => {
                             <Route path="/Dashboard/My-net-genealogy" component={Page3} />
                             <Route path="/Dashboard/My-net" component={Page4} />
                             <Route path="/Dashboard/cooming-soon" component={Page5} />
-                            <Route path="/Dashboard/E-comerce" component={Ecomerce} />
+                            <Route path="/Dashboard/E-comerce" component={Page9} />
                             <Route path="/Dashboard/Support" component={Page6} />
                             <Route path="/Dashboard/Profile" component={Page7} />
                             <Route path="/Dashboard/withdrawals" component={Page8} />
@@ -70,6 +70,13 @@ const Dashboard = () => {
         return (
             <>
                 <Packs/>
+            </>
+        );
+    }
+    function Page9() {
+        return (
+            <>
+                <Ecomerce keyF={userData.firebaseKey}/>
             </>
         );
     }

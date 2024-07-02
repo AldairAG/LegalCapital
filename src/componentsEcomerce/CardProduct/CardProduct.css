@@ -29,6 +29,18 @@
     width: 200px;
     height: 300px;
 }
+.sec1-pec{
+    font-size: 20px;
+    color:#333;
+    font-weight: 600;
+    padding-inline: 10px;
+}
+.sec2-pec{
+    font-size: 16px;
+    color:#727272;
+    padding-inline: 10px;
+
+}
 
 .sec3-pec{
     display: flex;
@@ -78,8 +90,8 @@
     grid-template-columns: repeat(2,1fr);
     grid-template-rows: 30px auto;
     grid-template-areas: 
-    "sec4-pec sec4-pec" 
-    "sec5-pec sec-6pec";
+    "sec5-pec sec4-pec" 
+    "sec5-pec sec6-pec";
     padding: 10px;
     border: 1px solid #707070;
     border-radius: 10px;
@@ -118,4 +130,80 @@
 .sec6-pec{
     grid-area: sec6-pec;
     display: flex;
+    flex-direction: column;
+}
+
+.beneficios {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.beneficios li {
+    position: relative;
+    padding-left: 30px;
+    font-size: 18px; 
+    color: #5f5f5f;
+    font-size: 17px;
+}
+
+.beneficios li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0; 
+    color: rgb(0, 21, 128); 
+    font-size: 20px;
+    font-weight: bold; 
+    font-family: Arial, sans-serif; 
+}
+
+.sec6-pec p{
+    color: #5f5f5f;
+    font-size: 16px;
+}
+.sec6-pec .p1-pec{
+    color: #4e4e4e;
+    font-size: 28px;
+    font-weight: 600;
+}
+.sec6-pec .p2-pec{
+    color: #4e4e4e;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.sec6-pec .p3-pec{
+    color: #4e4e4e;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.sec6-pec input {
+    width: 100px;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 255, 0.27);
+    outline: none;
+    margin-top: 5px;
+}
+
+.sec6-pec input:focus {
+    border: 2px solid rgba(0, 0, 255, 0.27);
+}
+.sec6-pec button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(23, 49, 248, 0.831);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    transition: .5s;
+    margin-top: 50px;
+}
+
+.sec6-pec button:hover {
+    background-color: rgba(41, 65, 250, 0.831);
+    cursor: pointer;
 }

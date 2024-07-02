@@ -64,6 +64,16 @@
 .error__close path {
   fill: #641e1e;
 }
+.none{
+  display: none;
+}
+.none path ,.none .error__title,.none .error__close path {
+  display: none;
+
+}
+.none path ,.none .success__title,.none .error__close path {
+  display: none;
+}
 
 @media(max-width:350px) {
   .success {
@@ -72,6 +82,7 @@
     top: 120px;
   }
 }
+
 
 
 @keyframes desplazar {

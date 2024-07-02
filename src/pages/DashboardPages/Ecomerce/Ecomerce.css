@@ -3,6 +3,7 @@
 .Ecomerce {
     background-color: white;
     display: grid;
+    width: auto;
     grid-template-rows: 75px 250px 1000px 300px 250px 550px;
     margin: 15px;
     padding-bottom: 50px;
@@ -21,10 +22,25 @@
     padding-inline: 20px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+    justify-content: space-between;
 }
 
 .sec0-ec i {
     margin-inline-end: 5px;
+}
+.sec0-ec div{
+    display: flex;
+}
+.sec0-ec button{
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    font-size: 25px;
+    border-radius: 5px;
+}
+.sec0-ec button:hover{
+    background-color: rgb(234, 234, 234);
 }
 
 .sec1-ec {

@@ -16,7 +16,6 @@ const QrComponent = (props) => {
     const handleChange = (event) => {
         const value = parseInt(event.target.value, 10);
         setOpcion(value);
-        console.log(opcion)
     };
     const handleCopy = () => {
         const inputElement = document.getElementById("wallet");
