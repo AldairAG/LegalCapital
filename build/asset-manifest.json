@@ -1,19 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.28538304.css",
-    "main.js": "/static/js/main.af38249b.js",
-    "static/media/ec1.png": "/static/media/ec1.d6c4bb3443b5037e6340.png",
-    "static/media/ec3.png": "/static/media/ec3.fa50f9a453166830215d.png",
-    "static/media/ec2.png": "/static/media/ec2.bd4b72792927e26573e2.png",
+    "main.css": "/static/css/main.7bda3695.css",
+    "main.js": "/static/js/main.d4699e9e.js",
     "static/media/fondoLogin.png": "/static/media/fondoLogin.fffb539cd5e9d252a7ad.png",
     "static/media/promo.png": "/static/media/promo.82380915218620f1b79c.png",
+    "static/media/producto6.png": "/static/media/producto6.44778031b14ed37fcf29.png",
+    "static/media/producto3.png": "/static/media/producto3.614206065db3517876c0.png",
+    "static/media/producto1.png": "/static/media/producto1.b71daf917b95fef67810.png",
+    "static/media/producto5.png": "/static/media/producto5.2a3a37aa5e257521c598.png",
+    "static/media/producto4.png": "/static/media/producto4.28255c57b27614fd32bb.png",
+    "static/media/producto2.png": "/static/media/producto2.8415230efd3dbdb44892.png",
+    "static/media/producto8.png": "/static/media/producto8.9c054ef3ccd937dd7451.png",
+    "static/media/producto7.png": "/static/media/producto7.0958e560422d48868500.png",
     "static/media/platinum.png": "/static/media/platinum.615a99197293021d78b9.png",
     "static/media/bronze.png": "/static/media/bronze.3c2a20745b0a67460047.png",
     "static/media/gold.png": "/static/media/gold.ef55156d8dd608bfaafa.png",
     "static/media/qrms.png": "/static/media/qrms.8b181fc82cd9b273c041.png",
     "static/media/plata.png": "/static/media/plata.ed6cb6218904572b0f4a.png",
     "static/media/builder.png": "/static/media/builder.6f4466d9b04385d2a3ef.png",
-    "static/media/din.png": "/static/media/din.50b1c78fadbd94e4a2b9.png",
     "static/media/Rank-4.png": "/static/media/Rank-4.2c882b173e21a34f20f7.png",
     "static/media/Rank-6.png": "/static/media/Rank-6.0cfeb0c4567c691755e7.png",
     "static/media/Rank-5.png": "/static/media/Rank-5.1f46908c5afe5efc91ce.png",
@@ -34,7 +38,6 @@
     "static/media/Logo_1pq.png": "/static/media/Logo_1pq.97c7a4737b0ec0e161db.png",
     "static/media/Rank-2.png": "/static/media/Rank-2.f63ea47233f4b58a37c7.png",
     "static/media/Logo_1l.png": "/static/media/Logo_1l.5aad6acc488ca0966307.png",
-    "static/media/din2.png": "/static/media/din2.fb4aca44ed7e76b9f0fd.png",
     "static/media/qrfi.png": "/static/media/qrfi.a3a5952f59aa711ce35d.png",
     "static/media/Logo_2.png": "/static/media/Logo_2.543f05730ba6d8dcee13.png",
     "static/media/advertecniafi.png": "/static/media/advertecniafi.3e4f3cd828621285251d.png",
@@ -45,11 +48,11 @@
     "static/media/retiro.png": "/static/media/retiro.92fd700228561bdec6fe.png",
     "static/media/copyfi.png": "/static/media/copyfi.fb756952b94b39a8efd3.png",
     "index.html": "/index.html",
-    "main.28538304.css.map": "/static/css/main.28538304.css.map",
-    "main.af38249b.js.map": "/static/js/main.af38249b.js.map"
+    "main.7bda3695.css.map": "/static/css/main.7bda3695.css.map",
+    "main.d4699e9e.js.map": "/static/js/main.d4699e9e.js.map"
   },
   "entrypoints": [
-    "static/css/main.28538304.css",
-    "static/js/main.af38249b.js"
+    "static/css/main.7bda3695.css",
+    "static/js/main.d4699e9e.js"
   ]
 }

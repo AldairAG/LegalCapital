@@ -81,7 +81,7 @@ const Admin = () => {
                         <span className="column-header">Nombre de usuario</span>
                         <span className="column-header">E-mail</span>
                         <span className="column-header">Cantidad</span>
-                        <span className="column-header">Vigencia</span>
+                        <span className="column-header">Concepto</span>
                         <span className="column-header">Aprobar</span>
                     </li>
                     <div className="datos">
@@ -89,11 +89,11 @@ const Admin = () => {
                             {userModels.map((item, index) => (
                                 <li key={index}>
                                     <span>{item.userName}</span>
+                                    <span>{item.email}</span>
+                                    <span>{item.monto}</span>
                                     <span>{item.concepto}</span>
-                                    <span>{item.hora}</span>
-                                    <span>{item.cantidad}</span>
                                     <div className="aprobar">
-                                        <button onClick={() => adminData.aprobar(item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
+                                        <button onClick={() => adminData.aprobar(item.owner,item.monto,item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
                                         <button onClick={() => adminData.denegar(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>
                                     </div>
                                 </li>

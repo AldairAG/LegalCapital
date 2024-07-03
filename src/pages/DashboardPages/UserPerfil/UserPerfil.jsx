@@ -9,6 +9,7 @@ import img1 from "../../../Assets/Images/Baners_jpg/user.png"
 import UploadImg from "../../../components/uploadImg/UploadImg.jsx"
 import appFirebase from "../../../firebase-config.js"
 import { ref as storageRef, getDownloadURL, getStorage } from 'firebase/storage';
+import DireccionModel from "../../../model/DireccionModel.js"
 
 const UserPerfil = (props) => {
     const [email, setEmail] = useState("");
@@ -25,6 +26,32 @@ const UserPerfil = (props) => {
     const [visiblePic, setVisiblePic] = useState(false);
     const [msj, setMsj] = useState("");
     const [interesCompuesto, setInteresCompuesto] = useState(["0", "0"]);
+
+    //direccion
+    const [direccionData, setDireccionData] = useState([])
+    const [direccion, setDireccion] = useState("")
+    const [numInt, setNumInt] = useState("")
+    const [numExt, setNumExt] = useState("")
+    const [colonia, setColonia] = useState("")
+    const [city, setCity] = useState("")
+    const [estadoSeleccionado, setEstadoSeleccionado] = useState('');
+    const [cp, setCp] = useState('');
+
+    useEffect(() => {
+        const db = getDatabase();
+        const userRef = ref(db, 'direcciones/' + props.keyF);  // Reemplaza 'USER_ID' con el ID del usuario
+
+        const unsubscribe = onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                setDireccionData(data);
+            } else {
+                console.log("No such document!");
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         const db = getDatabase();
@@ -60,10 +87,23 @@ const UserPerfil = (props) => {
         }
     }, [userData]);
 
+    useEffect(() => {
+        if (Object.keys(direccionData).length > 0) {
+            setDireccion(direccionData.direccion || "");
+            setNumExt(direccionData.numExt || "");
+            setNumInt(direccionData.numInt || "");
+            setColonia(direccionData.colonia || "");
+            setCity(direccionData.city || "");
+            setEstadoSeleccionado(direccionData.estadoSeleccionado || "");
+            setCp(direccionData.cp)
+            setIsLoading(false);
+        }
+    }, [direccionData]);
+
     const fetchImage = async (userName) => {
         try {
             const storage = getStorage(appFirebase);
-            const imageRef = storageRef(storage, 'imagesUp/'+userName);
+            const imageRef = storageRef(storage, 'imagesUp/' + userName);
             const url = await getDownloadURL(imageRef);
             setImageUrl(url);
         } catch (error) {
@@ -101,6 +141,35 @@ const UserPerfil = (props) => {
     const activarSelectorImg = () => {
         setVisiblePic(true)
     }
+
+    const estados = {
+        US: [
+            'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut',
+            'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+            'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
+            'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+            'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma',
+            'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
+            'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        ],
+        MX: [
+            'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Chiapas', 'Chihuahua',
+            'Coahuila', 'Colima', 'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco', 'México',
+            'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo',
+            'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'
+        ]
+    };
+
+    const handleChange = (event) => {
+        setEstadoSeleccionado(event.target.value);
+    };
+
+    const handleSaveDireccion = () => {
+        const direccionModel=new DireccionModel(estadoSeleccionado,direccion,numExt,numInt,colonia,city,cp,userData.firebaseKey)
+        direccionModel.saveDireccion()
+        setVisible(true);
+        setMsj("Changes made successfully");
+    };
 
     return (
         <div>
@@ -152,6 +221,40 @@ const UserPerfil = (props) => {
                         </div>
                         <div className="s34-up textoM2">
                             <button onClick={save} className="boton1"><span className="button_top">Save</span></button>
+                        </div>
+                    </div>
+                    <div className="sec4-up">
+                        <div className="s40-up textoM3"><p>Address</p></div>
+                        <div className="s41-up">
+                            <TextInput ti={"Address"} value={direccion} setValue={setDireccion} pl={"123 Main St"} />
+                            <TextInput ti={"Outdoor Number"} value={numExt} setValue={setNumExt} pl={"#202"} />
+                            <TextInput ti={"Interior number"} value={numInt} setValue={setNumInt} pl={"#15 (optional)"} />
+                        </div>
+                        <div className="s42-up">
+                            <TextInput ti={"Colony"} value={colonia} setValue={setColonia} pl={"Buenos Aires"} />
+                            <TextInput ti={"City"} value={city} setValue={setCity} pl={"San Francisco"} />
+                        </div>
+                        <div className="s42-up">
+                            <TextInput ti={"Zip/Postal code"} value={cp} setValue={setCp} pl={"96610"} />
+                            <div>
+                                <p htmlFor="select-estado" className="textoM2">State/Province:</p>
+                                <select id="select-estado" value={estadoSeleccionado} onChange={handleChange}>
+                                    <option value="">--Select--</option>
+                                    <optgroup label="United States">
+                                        {estados.US.map((estado, index) => (
+                                            <option key={index} value={estado}>{estado}</option>
+                                        ))}
+                                    </optgroup>
+                                    <optgroup label="México">
+                                        {estados.MX.map((estado, index) => (
+                                            <option key={index} value={estado}>{estado}</option>
+                                        ))}
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="s43-up">
+                            <button onClick={handleSaveDireccion} className="boton1"><span className="button_top">Save</span></button>
                         </div>
                     </div>
                 </section>

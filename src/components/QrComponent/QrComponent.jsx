@@ -5,7 +5,7 @@ import qr from "../../Assets/Images/qr/qrms.png"
 import img1 from "../../Assets/flaticons/qrfi.png"
 import img2 from "../../Assets/flaticons/copyfi.png"
 import img3 from "../../Assets/flaticons/advertecniafi.png"
-
+import PeticioModel from "../../model/PeticionModel"
 
 const QrComponent = (props) => {
     const [opcion, setOpcion] = useState(0);
@@ -213,8 +213,8 @@ const QrComponent = (props) => {
         }
     };
     const setRequestHandle = (opcion) => {
-        const qrData = new QrData(opcion)
-        qrData.setRequest()
+        const peticionesData=new PeticioModel("Paquete de inicio",opcion) 
+        peticionesData.save()
         props.setIsVisible(false);
     }
 

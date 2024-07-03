@@ -1,0 +1,34 @@
+import appFirebase from "../firebase-config";
+import { getDatabase, ref, set, remove, get } from "firebase/database";
+
+export default class DireccionModel {
+    constructor(estadoSeleccionado, direccion, numExt, numInt, colonia, city, cp, owner) {
+        this.estadoSeleccionado = estadoSeleccionado;
+        this.direccion = direccion;
+        this.numExt = numExt;
+        this.numInt = numInt;
+        this.colonia = colonia;
+        this.city = city;
+        this.cp = cp;
+        this.owner = owner;
+    }
+
+    async saveDireccion() {
+        const db = getDatabase(appFirebase);
+        const newRef = ref(db, `direcciones/${this.owner}`);
+        const data = {
+            estadoSeleccionado : this.estadoSeleccionado,
+            direccion : this.direccion,
+            numExt : this.numExt,
+            numInt : this.numInt,
+            colonia : this.colonia,
+            city : this.city,
+            cp : this.cp,
+            owner : this.owner
+        };
+        await set(newRef, data);
+    }
+
+
+
+}

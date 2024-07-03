@@ -1,7 +1,24 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import "./Ordenes.css"
-const Ordenes = () => {
-    const [ordenes,setOrdenes]=useState([])
+import OrdenModel from "../../model/OrdenModel"
+const Ordenes = (props) => {
+    const [ordenes, setOrdenes] = useState([])
+    const ordenData=new OrdenModel()
+    const [isLoading,setIsLoading]=useState(true)
+
+    useEffect( () => {
+        ordenData.getOrdenes(setOrdenes);
+    }, [props.userName]);
+
+    useEffect(() => {
+        if (ordenes.length > 0) {
+            console.log(ordenes);
+            setIsLoading(false);
+        }else{
+            console.log(ordenes.length);
+        }
+    }, [ordenes]);
+
     return (
         <section className="Ordenes-ec">
             <div className="sec0-oec">
@@ -12,7 +29,7 @@ const Ordenes = () => {
                                 Date
                             </th>
                             <th>
-                                Number of Order
+                                Order number
                             </th>
                             <th>
                                 Total
@@ -21,23 +38,29 @@ const Ordenes = () => {
                                 State
                             </th>
                             <th>
+                                Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {ordenes && ordenes.length > 0 ? (
-                            ordenes.map((item) => (
-                                <tr key={item.userName}>
-                                    <td className="p-4 align-middle">{item.userName}</td>
-                                    <td className="p-4 align-middle">{item.firstName + " " + item.lastName}</td>
-                                    <td className="p-4 align-middle">{item.admissionDate}</td>
-                                    <td className="p-4 align-middle">{item.Country}</td>
+                        {isLoading?(
+                            <div className="spinner"></div>
+                        ):(
+                            ordenes.length > 0 ? (
+                                ordenes.map((item) => (
+                                    <tr key={item.userName}>
+                                        <td >{item.fecha}</td>
+                                        <td >{item.numeroOrden}</td>
+                                        <td >{item.totalPagar} USDT</td>
+                                        <td >{item.estado}</td>
+                                        <td><button>View details</button></td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6">No orders</td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="6" className="p-4 align-middle">No orders</td>
-                            </tr>
+                            )
                         )}
                     </tbody>
                 </table>

@@ -18,7 +18,7 @@ const CardProduct = (props) => {
     const handleAddCart = () => {
         const comun = new Common(setUserData)
         comun.getUserData()
-        const cart = new CartModel(userData.firebaseKey)
+        const cart = new CartModel(props.firebaseKey)
         cart.crearCarrito({ nombre: props.nombre, precio: 35, cantidad: cantidad }).then((resultado) => {
             if (resultado) {
                 setVisibleMsj(true)

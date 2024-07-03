@@ -5,22 +5,21 @@ import { useEffect, useState } from "react";
 import { div } from "three/examples/jsm/nodes/Nodes.js";
 import { EventDispatcher } from "three";
 import emailjs from '@emailjs/browser';
-import Common from "../../../components/js/Common.js"
+import PeticionesModel from "../../../model/PeticionModel.js"
 
 
 const Retiros = () => {
     const [retiros, setRetiros] = useState([])
-    const common = new Common()
 
     useEffect(() => {
         fetchData()
     }, []);
 
-    const sendEmail = (userData) => {
+    const sendEmail = (peticionData) => {
         emailjs.send("service_033kgeg", "template_rtzxfsv", {
-            cantidad: userData.requestRetiro,
-            userName: userData.userName,
-            destinatario: userData.email,
+            cantidad: peticionData.requestRetiro,
+            userName: peticionData.userName,
+            destinatario: peticionData.email,
         }, {
             publicKey: '0wCoAjcnZT2N0PVfE',
         })
@@ -34,24 +33,24 @@ const Retiros = () => {
             );
     }
 
-    const aprobar = (userData) => {
-        sendEmail(userData)
-        userData.requestRetiro = 0
-        common.editAnyUser(userData)
+    const aprobar = (peticionData) => {
+        const peticionesModel = new PeticionesModel()
+        sendEmail(peticionData)
+        peticionesModel.borrar(peticionData.firebaseKey)
         fetchData()
     }
 
     const fetchData = async () => {
         const db = getDatabase(appFirebase);
-        const dbRef = ref(db, "users");
+        const dbRef = ref(db, "peticiones/");
         const snapshot = await get(dbRef);
 
         if (snapshot.exists()) {
-            const users = Object.values(snapshot.val());
-            const filteredUsers = users.filter(user => user.requestRetiro > 0);
-            setRetiros(filteredUsers);
+            const peticiones = Object.values(snapshot.val());
+            const peticionesFiltradas = peticiones.filter(peticion => peticion.concepto === "Retiro");
+            setRetiros(peticionesFiltradas);
         } else {
-            alert("error");
+            setRetiros([])
         }
     }
 

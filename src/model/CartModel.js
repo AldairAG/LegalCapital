@@ -3,6 +3,7 @@ import { getDatabase, ref, set, remove, get } from "firebase/database";
 import Common from "../components/js/Common"
 import OrdenModel from "./OrdenModel"
 import AlertMsjError from "../components/AlertMsg/AlertMsgError"
+import { Return } from "three/examples/jsm/nodes/Nodes.js";
 export default class CartModel {
     constructor(owner) {
         this.owner = owner;
@@ -56,9 +57,16 @@ export default class CartModel {
             const db = getDatabase(appFirebase);
             const newRef = ref(db, `carritos/${firebaseKey}/productos`);
             await remove(newRef);
-        }catch (error) {
+        } catch (error) {
             console.error('Error al realizar el cobro:', error);
         }
+    }
+
+    async eliminarProducto(productosNuevos) {
+        const db = getDatabase(appFirebase);
+        const newRef = ref(db, `carritos/${this.owner}/productos`);
+        await this.limpiarCarrito(this.owner)
+        await set(newRef, productosNuevos);
     }
 
     async realizarCobro(wallet, total) {
@@ -68,33 +76,63 @@ export default class CartModel {
             const cart = await this.getFromDatabase();
             const db = getDatabase(appFirebase);
             const newRef = ref(db, `users/${user.firebaseKey}`);
-            console.log(cart)
-            if (wallet === 1) {
+
+            if (wallet == 1) {
                 if (user.walletDiv < total) {
                     throw new Error('Insufficient funds in Wallet');
                 } else {
                     user.walletDiv = user.walletDiv - total;
                 }
-            } else if (wallet === 2) {
+            } else {
                 if (user.walletCom < total) {
                     throw new Error('Insufficient funds in Wallet');
                 } else {
                     user.walletCom = user.walletCom - total;
                 }
             }
-            
             await set(newRef, user);
             extractDB.saveInHistory(user.userName, -total, "Buy in marketplace", "");
-            const ordenData = new OrdenModel(new Date().toISOString(), "Pending", total, "", cart.productos, user.userName);
+            const ordenData = new OrdenModel("Pending", total, "", cart.productos, user.userName);
             ordenData.creaOrden();
             await this.limpiarCarrito(user.firebaseKey)
-
+            this.asignarBono(user.userName, user.referredBy, 1, total, extractDB.editAnyUser, extractDB.saveInHistory)
             return null;
         } catch (error) {
             console.error('Error al realizar el cobro:', error);
             return error.message;
         }
     }
+
+    async asignarBono(user, userRef, nivel, total, saveUser, saveHistory) {
+        const porcentaje = [.1, .05, .02, .01, .01, .005, .005]
+        if (nivel > 7) {
+            return
+        }
+        const db = getDatabase(appFirebase);
+        const usersRef = ref(db, 'users');
+
+        try {
+            const snapshot = await get(usersRef);
+            if (snapshot.exists()) {
+                const users = snapshot.val();
+                const patrocinador = Object.values(users).find(user => user.userName === userRef);
+
+                if (patrocinador) {
+                    const bono = total * porcentaje[nivel - 1]
+                    let currentWallet = patrocinador.walletEc || 0;
+                    currentWallet = currentWallet + bono
+                    patrocinador.walletEc = parseFloat((currentWallet + bono).toFixed(2));
+                    saveUser(patrocinador)
+                    saveHistory(user, bono, "Purchase commission", "Lv. " + nivel)
+                    this.asignarBono(user, patrocinador.referredBy, nivel + 1, total, saveUser, saveHistory)
+
+                }
+            }
+        } catch (error) {
+            console.error("Error al obtener los datos:", error);
+        }
+    }
+
 
 
 }

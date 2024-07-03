@@ -24,9 +24,8 @@ const Cart = (props) => {
             const data = snapshot.val();
             if (data) {
                 setProductos(data);
-
             } else {
-                console.log("No such document!");
+                setProductos([])
             }
         });
 
@@ -65,9 +64,21 @@ const Cart = (props) => {
         }
     }
 
+    const eliminarProducto = async (index) => {
+        const cart = new CartModel(props.keyF)
+        const prodcuts = await cart.getFromDatabase()
+        const productos = prodcuts.productos
+        if (index >= 0 && index < productos.length) {
+            const nuevosProductos = productos.filter((_, i) => i !== index);
+            cart.eliminarProducto(nuevosProductos)
+        } else {
+            console.error('Índice no válido');
+        }
+    }
+
     return (
         <section className="Cart-ec">
-            <button onClick={openClose}><i class="bi bi-cart-fill"></i></button>
+            <button className="cartbtn" onClick={openClose}><i class="bi bi-cart-fill"></i></button>
             {visible && (
                 <section className="cart-modal-ec">
                     <div className="overlay-ec">
@@ -79,10 +90,13 @@ const Cart = (props) => {
                         <div className="sec1-ecc"><p>Shopping cart</p></div>
                         <div className="sec2-ecc">
                             {productos && productos.length > 0 ? (
-                                productos.map((item) => (
-                                    <div>
-                                        <p>{item.nombre}</p>
-                                        <span>{item.precio} USDT x {item.cantidad}</span>
+                                productos.map((item, index) => (
+                                    <div className="s21-ecc">
+                                        <div className="item-ecc">
+                                            <p>{item.nombre}</p>
+                                            <span>{item.precio} USDT x {item.cantidad}</span>
+                                        </div>
+                                        <button onClick={() => eliminarProducto(index)}><i class="bi bi-x"></i></button>
                                     </div>
                                 ))) : (
                                 <p>You have no added products</p>
@@ -92,8 +106,8 @@ const Cart = (props) => {
                         <div className="sec4-ecc"><p>Shipping: </p><p>{envio} USDT</p></div>
                         <div className="sec5-ecc"><p>Total: </p><p>{total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p></div>
                         <div className="sec6-ecc">  <select className="payment-select" value={opcion} onChange={(e) => setOpcion(e.target.value)}>
-                            <option value={1}>Wallet de Dividendos</option>
-                            <option value={2}>Wallet de Comisiones</option>
+                            <option value={1}>Wallet de Dividendos: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                            <option value={2}>Wallet de Comisiones: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
                         </select></div>
                         <div className="sec7-ecc"><button onClick={realizarCompra}>Pay</button></div>
                     </div>

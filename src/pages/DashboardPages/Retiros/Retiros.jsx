@@ -9,7 +9,7 @@ import AlertMsgError from "../../../components/AlertMsg/AlertMsgError"
 import { getDatabase, ref, onValue, get } from 'firebase/database';
 import Common from "../../../components/js/Common"
 import appFirebase from "../../../firebase-config";
-import { div } from "three/examples/jsm/nodes/Nodes.js"
+import PeticionModel from "../../../model/PeticionModel"
 
 const Retiros = (props) => {
     const [opc1, setOpc1] = useState(true)
@@ -113,8 +113,8 @@ const Retiros = (props) => {
     const sendRequest = (monto, wallet) => {
         const floatValue = parseFloat(monto);
         const common = new Common();
+        const peticionModel=new PeticionModel("Retiro",floatValue)
         const updatedUser = { ...userData };
-        updatedUser.requestRetiro = floatValue
         if (wallet === 1) {
             updatedUser.walletDiv = updatedUser.walletDiv - monto
             common.saveInHistory(updatedUser.userName, -monto, "dividend wallet withdrawl", "Dividend wallet")
@@ -124,6 +124,7 @@ const Retiros = (props) => {
         }
         updatedUser.retiros = updatedUser.retiros + Number(monto)
         common.editAnyUser(updatedUser)
+        peticionModel.save()
         fetchHistorial()
     }
 

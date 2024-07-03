@@ -1,95 +1,72 @@
 import appFirebase from "../firebase-config";
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, query, orderByChild, onValue, equalTo, push } from "firebase/database";
+import Common from "../components/js/Common";
 export default class Orden {
-    constructor(fecha, estado, totalPagar, numeroRastreo, productos,owner) {
-        this.fecha = fecha;
+    constructor(estado, totalPagar, numeroRastreo, productos, owner) {
         this.estado = estado;
         this.numeroOrden = this.generateUniqueId();
         this.totalPagar = totalPagar;
         this.numeroRastreo = numeroRastreo;
         this.productos = productos;
-        this.owner=owner;
+        this.owner = owner;
     }
 
     generateUniqueId() {
-        return '_' + Math.random().toString(36).substr(2, 9);
+        const timestamp = Date.now(); // Obtener el timestamp actual en milisegundos
+        const randomPart = Math.floor(Math.random() * 9000000000) + 1000000000; // Generar un número aleatorio de 1000000000 a 9999999999
+    
+        // Concatenar y asegurar que tenga exactamente 10 dígitos
+        const uniqueId = timestamp.toString() + randomPart.toString();
+    
+        // Tomar solo los primeros 10 caracteres
+        return uniqueId.substring(0, 10);
+    }
+    getCurrentDateDMY() {
+        const currentDate = new Date();
+        const day = currentDate.getDate().toString().padStart(2, '0'); // Obtener día y asegurar que tenga dos dígitos
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Obtener mes (0-11) y ajustar a 1-12, luego asegurar dos dígitos
+        const year = currentDate.getFullYear();
+    
+        return `${day}-${month}-${year}`;
     }
 
     async creaOrden() {
         try {
             const db = getDatabase(appFirebase);
             const newRef = ref(db, `ordenes/`);
-            const orden={
-                fecha: this.fecha,
+            const orden = {
+                fecha: this.getCurrentDateDMY(),
                 estado: this.estado,
                 numeroOrden: this.numeroOrden,
                 totalPagar: this.totalPagar,
                 numeroRastreo: this.numeroRastreo,
                 productos: this.productos,
-                owner:this.owner
-            }   
+                owner: this.owner
+            }
             await push(newRef, orden);
         } catch (e) {
             console.error("Error al agregar la orden: ", e);
         }
     }
 
-    /*async editarEnFirebase(id) {
-        try {
-            const ordenRef = doc(db, "ordenes", id);
-            await setDoc(ordenRef, {
-                fecha: this.fecha,
-                estado: this.estado,
-                numeroOrden: this.numeroOrden,
-                totalPagar: this.totalPagar,
-                numeroRastreo: this.numeroRastreo,
-                productos: this.productos
-            }, { merge: true });
-            console.log("Orden actualizada con ID: ", id);
-        } catch (e) {
-            console.error("Error al actualizar la orden: ", e);
-        }
-    }
+    async getOrdenes(setOrdenes) {
+        const extractDB = new Common();
+        const user = await extractDB.getUserDataR();
+        const db = getDatabase(appFirebase);
+        const ordersRef = ref(db, 'ordenes/');
+        const userOrdersQuery = query(ordersRef, orderByChild('owner'), equalTo(user.userName));
 
-    static async obtenerDeFirebase(id) {
-        try {
-            const docRef = doc(db, "ordenes", id);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                console.log("Datos de la orden:", docSnap.data());
-                return docSnap.data();
+        onValue(userOrdersQuery, (snapshot) => {
+            if (snapshot.exists()) {
+                const orders = snapshot.val();
+                const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
+                setOrdenes(ordersArray);
             } else {
-                console.log("No se encontró la orden.");
-                return null;
+                setOrdenes([]);
             }
-        } catch (e) {
-            console.error("Error al obtener la orden: ", e);
-            return null;
-        }
-    }*/
+        }, (error) => {
+            console.error("Error al obtener las órdenes del usuario:", error);
+            setOrdenes([]);
+        });
+    }
 }
-
-/*// Ejemplo de uso:
-const productosEjemplo = [
-    { cantidad: 2, precioUnitario: 15.00 },
-    { cantidad: 1, precioUnitario: 25.00 }
-];
-
-const nuevaOrden = new Orden(
-    new Date().toISOString(),
-    'Pendiente',
-    55.00,
-    '1234567890',
-    productosEjemplo
-);
-
-// Crear una nueva orden en Firebase
-nuevaOrden.crearEnFirebase();
-
-// Editar una orden existente en Firebase (debes pasar el ID de la orden existente)
-// nuevaOrden.editarEnFirebase('ID_EXISTENTE');
-
-// Obtener una orden existente de Firebase (debes pasar el ID de la orden existente)
-// Orden.obtenerDeFirebase('ID_EXISTENTE').then(data => console.log(data));
-*/

@@ -1,6 +1,7 @@
 import appFirebase from "../../../firebase-config.js";
 import { getDatabase, ref, get, set } from "firebase/database";
 import Common from "../../../components/js/Common.js";
+import PeticionModel from "../../../model/PeticionModel.js"
 
 class AdminData {
   constructor(setUserModels) {
@@ -9,15 +10,16 @@ class AdminData {
 
   fetchData = async () => {
     const db = getDatabase(appFirebase);
-    const dbRef = ref(db, "users");
+    const dbRef = ref(db, "peticiones/");
     const snapshot = await get(dbRef);
 
     if (snapshot.exists()) {
-      const users = Object.values(snapshot.val());
-      const filteredUsers = users.filter(user => user.request !== 0);
+      const peticiones = Object.values(snapshot.val());
+      const filteredUsers = peticiones.filter(peticion => peticion.concepto === "Paquete de inicio");
       this.setUserModels(filteredUsers);
     } else {
-      alert("error");
+      alert("no hay peticiones");
+      this.setUserModels([])
     }
   }
 
@@ -67,30 +69,31 @@ class AdminData {
     return sum;
   }
 
-  bonoReferenciaDirecta=async (userData)=>{
+  bonoReferenciaDirecta = async (userData) => {
     const commom = new Common()
-    const bono=[10,40,75,125,250]
-    const st=this.determinarPaquete(userData['staterPack'])
-    let fa=userData['firtsAdd']
+    const bono = [10, 40, 75, 125, 250]
+    const st = this.determinarPaquete(userData['staterPack'])
+    let fa = userData['firtsAdd']
 
-    while (fa!=st) {
-      const patrocinadorData=await commom.getUserDataByName(userData.referredBy)
-      patrocinadorData["bonoRefDirect"]=patrocinadorData["bonoRefDirect"]+bono[fa]
-      patrocinadorData["walletCom"]=patrocinadorData["walletCom"]+bono[fa]
-      patrocinadorData["walletTotal"]=patrocinadorData["walletTotal"]+bono[fa]
+    while (fa != st) {
+      const patrocinadorData = await commom.getUserDataByName(userData.referredBy)
+      patrocinadorData["bonoRefDirect"] = patrocinadorData["bonoRefDirect"] + bono[fa]
+      patrocinadorData["walletCom"] = patrocinadorData["walletCom"] + bono[fa]
+      patrocinadorData["walletTotal"] = patrocinadorData["walletTotal"] + bono[fa]
       commom.editAnyUser(patrocinadorData)
       commom.saveInHistory(userData.referredBy, bono[fa], "direct referral bonus", userData.userName)
       fa++
     }
-    userData["firtsAdd"]=st
+    userData["firtsAdd"] = st
     commom.editAnyUser(userData)
   }
 
-  aprobar = async (key) => {
+  aprobar = async (Userkey, cantidad,key) => {
     const commom = new Common()
     const db = getDatabase(appFirebase);
+    const peticionModel = new PeticionModel()
 
-    const dbRef = ref(db, "users/" + key);
+    const dbRef = ref(db, "users/" + Userkey);
     const snapshot = await get(dbRef);
     try {
       if (snapshot.exists()) {
@@ -98,16 +101,14 @@ class AdminData {
         if (userData.validity === "") {
           userData.validity = this.obtenerFechaVencimiento();
         }
-        userData.staterPack = userData.staterPack + userData.request
-        const request = userData.request
-        userData.request = 0
-
+        userData.staterPack = userData.staterPack + cantidad
         set(dbRef, userData).then(() => {
-          this.fetchData()
-          commom.saveInHistory(userData.userNames, request, "Payment for starter package", "")
+          commom.saveInHistory(userData.userName, cantidad, "Payment for starter package", "")
           this.bonoReferenciaDirecta(userData)
-        }).catch(() => {
-          console.log("error")
+          peticionModel.borrar(key)
+          this.fetchData()
+        }).catch((e) => {
+          console.log("error", e)
         })
       }
     } catch (error) {
@@ -116,23 +117,9 @@ class AdminData {
 
 
   denegar = async (key) => {
-    const db = getDatabase(appFirebase);
-    const dbRef = ref(db, "users/" + key);
-    const snapshot = await get(dbRef);
-    if (snapshot.exists()) {
-      const userData = snapshot.val();
-
-      userData.request = 0;
-      set(dbRef, userData)
-        .then(() => {
-          this.fetchData()
-        })
-        .catch((error) => {
-          alert("Error al actualizar los datos: " + error.message);
-        });
-    } else {
-      alert("El usuario con la clave " + key + " no existe.");
-    }
+    const peticionModel = new PeticionModel()
+    peticionModel.borrar(key)
+    this.fetchData()
   }
 
   obtenerFechaVencimiento() {
