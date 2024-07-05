@@ -1,12 +1,13 @@
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
 import "./Ordenes.css"
 import OrdenModel from "../../model/OrdenModel"
 const Ordenes = (props) => {
     const [ordenes, setOrdenes] = useState([])
-    const ordenData=new OrdenModel()
-    const [isLoading,setIsLoading]=useState(true)
+    const ordenData = new OrdenModel()
+    const [isLoading, setIsLoading] = useState(true)
+    const [visibleOrdenDetail, setVisibleOrdenDetail] = useState(false)
 
-    useEffect( () => {
+    useEffect(() => {
         ordenData.getOrdenes(setOrdenes);
     }, [props.userName]);
 
@@ -14,13 +15,21 @@ const Ordenes = (props) => {
         if (ordenes.length > 0) {
             console.log(ordenes);
             setIsLoading(false);
-        }else{
+        } else {
             console.log(ordenes.length);
         }
     }, [ordenes]);
 
     return (
         <section className="Ordenes-ec">
+            {visibleOrdenDetail && (
+                <section className="orden-modal">
+                    <div className="overlay"></div>
+                    <div className="orden-modalContent">
+
+                    </div>
+                </section>
+            )}
             <div className="sec0-oec">
                 <table>
                     <thead>
@@ -43,9 +52,9 @@ const Ordenes = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {isLoading?(
+                        {isLoading ? (
                             <div className="spinner"></div>
-                        ):(
+                        ) : (
                             ordenes.length > 0 ? (
                                 ordenes.map((item) => (
                                     <tr key={item.userName}>

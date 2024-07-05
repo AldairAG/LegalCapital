@@ -3,11 +3,9 @@ import TextInput from "../../../components/TextInput/TextInput"
 import { useState ,useEffect} from "react"
 import { useParams } from 'react-router-dom';
 import { getDatabase, ref, onValue,remove } from 'firebase/database';
-import SwitchFun from "../../../components/EditUser/InputData/SwitchFun.jsx"
 import AlertMsg from "../../../components/AlertMsg/AlertMsg.jsx";
 import Common from "../../../components/js/Common";
 import { useHistory } from 'react-router-dom';
-import { div } from "three/examples/jsm/nodes/Nodes.js";
 
 const EditarUsuario=()=>{
     const [userData,setUserData]=useState("")

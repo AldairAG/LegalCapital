@@ -15,10 +15,11 @@ class AdminData {
 
     if (snapshot.exists()) {
       const peticiones = Object.values(snapshot.val());
-      const filteredUsers = peticiones.filter(peticion => peticion.concepto === "Paquete de inicio");
+      const filteredUsers = peticiones.filter(peticion => 
+        peticion.concepto === "Paquete de inicio" || peticion.concepto === "Mantenimiento"
+    );
       this.setUserModels(filteredUsers);
     } else {
-      alert("no hay peticiones");
       this.setUserModels([])
     }
   }
@@ -88,7 +89,7 @@ class AdminData {
     commom.editAnyUser(userData)
   }
 
-  aprobar = async (Userkey, cantidad,key) => {
+  aprobar = async (Userkey, cantidad, key) => {
     const commom = new Common()
     const db = getDatabase(appFirebase);
     const peticionModel = new PeticionModel()
@@ -98,13 +99,17 @@ class AdminData {
     try {
       if (snapshot.exists()) {
         const userData = snapshot.val();
-        if (userData.validity === "") {
+        if (userData.validity === "" ||userData.validity === "unpaid") {
           userData.validity = this.obtenerFechaVencimiento();
         }
-        userData.staterPack = userData.staterPack + cantidad
+        if (cantidad != 25) {
+          userData.staterPack = userData.staterPack + cantidad
+        }
         set(dbRef, userData).then(() => {
-          commom.saveInHistory(userData.userName, cantidad, "Payment for starter package", "")
-          this.bonoReferenciaDirecta(userData)
+          if(cantidad != 25) {
+            commom.saveInHistory(userData.userName, cantidad, "Payment for starter package", "")
+            this.bonoReferenciaDirecta(userData)
+          }
           peticionModel.borrar(key)
           this.fetchData()
         }).catch((e) => {

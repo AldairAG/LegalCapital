@@ -42,13 +42,14 @@ const Register = () => {
 
     const handleChange = (e) => {
         const newValue = e.target.value;
-        const sanitizedValue = newValue.replace(/\s/g, "");
+        const sanitizedValue = newValue.replace(/[^\w\s]/gi, '').replace(/\s/g, "");
         setUserName(sanitizedValue);
     };
-
+    
     const handleBlur = () => {
-        setUserName(userName.replace(/\s/g, ""));
+        setUserName(userName.replace(/[^\w\s]/gi, '').replace(/\s/g, ""));
     };
+    
 
     const sendEmail = () => {
         emailjs.send("service_033kgeg", "template_ct13fi2", {

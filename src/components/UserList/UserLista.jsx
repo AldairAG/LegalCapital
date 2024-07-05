@@ -7,7 +7,7 @@ import "./UserLista.css"
 import { getAuth } from "firebase/auth"
 import { useHistory } from 'react-router-dom';
 
-const UserLista = (props) => {
+const UserLista = () => {
     const [userModels, setUserModels] = useState([]);
     const [textFind, setTextFind] = useState("");
     const [visible, setVisible] = useState(false);

@@ -58,3 +58,29 @@
 .sec0-oec button:hover{
     transform: scale(1.1);
 }
+
+.orden-modal{
+
+}
+
+.orden-modalContent{
+    
+}
+@media(max-width:1400px){
+    .Ordenes-ec{
+        width: 950px;
+        min-width: 0;
+    }
+}
+@media(max-width:1100px){
+    .Ordenes-ec{
+        width: 650px;
+        min-width: 0;
+    }
+}
+@media(max-width:800px){
+    .Ordenes-ec{
+        width: 300px;
+        min-width: 0;
+    }
+}

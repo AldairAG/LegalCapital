@@ -207,3 +207,47 @@
     background-color: rgba(41, 65, 250, 0.831);
     cursor: pointer;
 }
+
+.content-ec::-webkit-scrollbar {
+    width: 2px; /* Ancho de la scrollbar */
+  }
+
+@media(max-width:620px){
+    .content-ec{
+        width: 90%;
+        height: 80%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30px auto;
+        grid-template-areas: 
+        "sec4-pec" 
+        "sec5-pec"
+        "sec6-pec";
+        overflow-y: auto;
+
+    }
+    .sec5-pec{
+        display: flex;
+        justify-content: center;
+    }
+    .sec5-pec img{
+        width: 90%;
+        height: 80%;
+    }
+}
+@media(max-width:400px){
+    .content-ec{
+        height: 90%;
+        width: 300px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30px auto;
+        grid-template-areas: 
+        "sec4-pec" 
+        "sec5-pec"
+        "sec6-pec";
+        overflow-y: auto;
+    }
+    .sec5-pec img{
+        width: 100%;
+        height: 100%;
+    }
+}

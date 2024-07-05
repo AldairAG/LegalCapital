@@ -4,7 +4,7 @@
     background-color: white;
     display: grid;
     width: auto;
-    grid-template-rows: 75px 250px 1000px 300px 250px 550px;
+    grid-template-rows: 75px 250px auto 300px 250px 550px;
     margin: 15px;
     padding-bottom: 50px;
     border-bottom-left-radius: 7px;
@@ -54,6 +54,7 @@
     margin-inline: 20px;
     grid-auto-rows: 60px auto;
     justify-content: center;
+    margin-bottom: 20px;
 }
 .sec2-ec .s21-ec{
     display: flex;
@@ -67,6 +68,7 @@
     grid-template-rows: repeat(2,1fr);
     gap: 20px;
     justify-self: center;
+    
 }
 
 .sec3-ec {
@@ -98,4 +100,33 @@
     display: flex;
     font-size: 25px;
     font-weight: 600;
+}
+
+@media (max-width:1420px) {
+    .sec0-ec {
+        width: 100%;
+    }
+    
+    .sec2-ec .s22-ec{
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(3,1fr);
+    }
+}
+@media (max-width:1250px) {
+    .sec2-ec .s22-ec{
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(4,1fr);
+    }
+}
+@media (max-width:1090px) {
+    .sec2-ec .s22-ec{
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(4,1fr);
+    }
+}
+@media (max-width:800px) {
+    .sec2-ec .s22-ec{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
 }

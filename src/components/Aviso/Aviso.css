@@ -37,6 +37,9 @@
     display: flex;
     justify-content: center;
 }
+.sec0-ev img{
+    width: 130px;
+}
 .sec1-ev{
     grid-area: sec1-av;
     display: flex;
@@ -174,9 +177,6 @@
 
 @media(min-width:500px){
     .avisoContent2{
-        height: auto;
-    }
-    .avisoContent{
         height: auto;
     }
 }

@@ -9,6 +9,8 @@ import UserLista from '../../../components/UserList/UserLista.jsx';
 import { useHistory } from 'react-router-dom';
 import Retiros from "../Retiros/Retiros.jsx"
 import EditarUsuario from '../EditarUsuario/EditarUsuario.jsx';
+import Editar from "../../../componentsEcomerce/Editar/Editar.jsx"
+import AdminEc from "../../../componentsEcomerce/Admin/AdminEc.jsx"
 
 const Admin = () => {
     const [userModels, setUserModels] = useState([]);
@@ -28,6 +30,8 @@ const Admin = () => {
             history.push('/admin/gestionar-ususarios');
         } else if (num == 3) {
             history.push('/admin');
+        } else if(num==4){
+            history.push('/admin/Ecomerce');
         }
     }
 
@@ -41,6 +45,7 @@ const Admin = () => {
                 <button onClick={() => handleClick(1)}>Gestionar<br />retiros</button>
                 <button onClick={() => handleClick(2)}>Gestionar<br />usuarios</button>
                 <button onClick={() => handleClick(3)}>Aprobar<br />pagos</button>
+                <button onClick={() => handleClick(4)}>Ecomerce</button>
             </div>
             <div className="linkC">
                 <CopyLink username={"Administrador"} />
@@ -51,6 +56,8 @@ const Admin = () => {
                     <Route path="/admin/gestionar-ususarios" component={UserList} />
                     <Route path="/admin/gestionar-retiros" component={Retiros} />
                     <Route path="/admin/editar-usuario/:fk?" component={EditarUsuario} />
+                    <Route path="/admin/Ecomerce/" component={AdminEc} />
+                    <Route path="/admin/editar-orden/:fk?" component={Editar} />
                     <Route path="/admin" component={Tabla} />
                 </Switch>
             </div>

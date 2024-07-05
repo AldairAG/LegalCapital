@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import "./Anuncio2.css"
 const Anuncio2 = (props) => {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         if (props.val === "") {
-            setVisible(true);
+            setVisible(false);
         } else {
             setVisible(false)
         }

@@ -1,11 +1,12 @@
 .mainAdmin {
+    width: 100%;
     height: 100vh;
     background-color: aliceblue;
     overflow: hidden;
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows:100px 100px 220px auto;
     grid-template-areas: 
     "header"
@@ -16,11 +17,11 @@
     overflow-x: hidden;
 }
 header{
-    grid-template-columns: 300px auto 150px;
+    grid-template-columns: auto 100px;
     grid-template-rows: 100px;
     display: grid;
     grid-template-areas: 
-    "logo espacio cs";
+    "logo cs";
     border-bottom: 1px solid rgb(130, 130, 130);
 }
 header .logo{
@@ -32,16 +33,16 @@ header .logo img{
 }
 header .cs{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items:center ;
     grid-area: cs;
+    padding: 30px;
 }
 
 .ops{
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 1%;
     justify-content: space-around;
     border-bottom: 1px solid rgb(130, 130, 130);
     grid-area: nav;
@@ -49,7 +50,7 @@ header .cs{
 .ops button{
     width: 10%;
     border-radius: 10px;
-    padding: 0.5%;
+    padding: 2px;
     background-color: rgb(237, 165, 9);
     color: rgb(0, 0, 0);
     font-weight: bold;
@@ -218,10 +219,15 @@ header .cs{
 }
 @media (max-width:500px) {
     .ops{
-        height: 10%;
+        height: 50px;
     }
     .ops button{
-        width: 30%;
+        width: 25%;
         font-size: 12px;
+        padding: 0;
+        width: 70px;
+    }
+    header .logo img {
+        width: 200px;
     }
 }

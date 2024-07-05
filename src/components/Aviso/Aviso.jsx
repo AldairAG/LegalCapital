@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import img1 from "../../Assets/Images/Baners_jpg/advertencia.png"
 import img2 from "../../Assets/Images/qr/qrms.png"
 import Alert from "../AlertMsg/AlertMsg"
-import QrData from "../QrComponent/QrData";
+import Peticion from "../../model/PeticionModel";
 
 const Aviso = (props) => {
   const [visible, setVisible] = useState(false);
@@ -29,8 +29,8 @@ const Aviso = (props) => {
   }
 
   const setRequestHandle = () => {
-    const qrData = new QrData(25)
-    qrData.setRequest()
+    const peticion=new Peticion("Mantenimiento",25)
+    peticion.save()
     setVisibleMsj(true)
     setMsj("transaction completed")
   }
