@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
 import "./Ordenes.css"
 import OrdenModel from "../../model/OrdenModel"
+import OrdenModal from "../OrdenModal/OrdenModal"
 const Ordenes = (props) => {
     const [ordenes, setOrdenes] = useState([])
     const ordenData = new OrdenModel()
     const [isLoading, setIsLoading] = useState(true)
-    const [visibleOrdenDetail, setVisibleOrdenDetail] = useState(false)
 
     useEffect(() => {
         ordenData.getOrdenes(setOrdenes);
@@ -22,14 +22,6 @@ const Ordenes = (props) => {
 
     return (
         <section className="Ordenes-ec">
-            {visibleOrdenDetail && (
-                <section className="orden-modal">
-                    <div className="overlay"></div>
-                    <div className="orden-modalContent">
-
-                    </div>
-                </section>
-            )}
             <div className="sec0-oec">
                 <table>
                     <thead>
@@ -56,14 +48,14 @@ const Ordenes = (props) => {
                             <div className="spinner"></div>
                         ) : (
                             ordenes.length > 0 ? (
-                                ordenes.map((item) => (
-                                    <tr key={item.userName}>
-                                        <td >{item.fecha}</td>
-                                        <td >{item.numeroOrden}</td>
-                                        <td >{item.totalPagar} USDT</td>
-                                        <td >{item.estado}</td>
-                                        <td><button>View details</button></td>
-                                    </tr>
+                                ordenes.map((item) => (          
+                                        <tr key={item.userName}>
+                                            <td >{item.fecha}</td>
+                                            <td >{item.numeroOrden}</td>
+                                            <td >{item.totalPagar} USDT</td>
+                                            <td >{item.estado}</td>
+                                            <td><OrdenModal orden={item}/></td>
+                                        </tr>        
                                 ))
                             ) : (
                                 <tr>

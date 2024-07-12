@@ -123,7 +123,7 @@ export default class CartModel {
                     currentWallet = currentWallet + bono
                     patrocinador.walletEc = parseFloat((currentWallet + bono).toFixed(2));
                     saveUser(patrocinador)
-                    saveHistory(user, bono, "Purchase commission", "Lv. " + nivel)
+                    saveHistory(patrocinador.userName, bono, "Purchase commission", user+" (Level "+nivel+")")
                     this.asignarBono(user, patrocinador.referredBy, nivel + 1, total, saveUser, saveHistory)
 
                 }

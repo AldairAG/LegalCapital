@@ -4,7 +4,7 @@
     background-color: white;
     display: grid;
     width: auto;
-    grid-template-rows: 75px 250px auto 300px 250px 550px;
+    grid-template-rows: 75px 250px auto auto 570px;
     margin: 15px;
     padding-bottom: 50px;
     border-bottom-left-radius: 7px;

@@ -78,7 +78,7 @@ class Common {
             if (user) {
                 return user
             } else {
-                alert("No se encontró el usuario");
+                console.log("No se encontró el usuario");
             }
         } else {
             alert("No se encontraron datos en la base de datos");

@@ -31,7 +31,6 @@ const Cart = (props) => {
 
         return () => unsubscribe();
     }
-
     useEffect(() => {
         const sumCantidad = productos.reduce((acc, producto) => acc + producto.cantidad, 0);
         const sumPrecio = productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
@@ -105,10 +104,12 @@ const Cart = (props) => {
                         <div className="sec3-ecc"><p>Subtotal: </p><p>{subtotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p></div>
                         <div className="sec4-ecc"><p>Shipping: </p><p>{envio} USDT</p></div>
                         <div className="sec5-ecc"><p>Total: </p><p>{total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p></div>
-                        <div className="sec6-ecc">  <select className="payment-select" value={opcion} onChange={(e) => setOpcion(e.target.value)}>
-                            <option value={1}>Wallet de Dividendos: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
-                            <option value={2}>Wallet de Comisiones: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
-                        </select></div>
+                        <div className="sec6-ecc">
+                            <select className="payment-select" value={opcion} onChange={(e) => setOpcion(e.target.value)}>
+                                <option value={1}>Wallet de Dividendos: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={2}>Wallet de Comisiones: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                            </select>
+                        </div>
                         <div className="sec7-ecc"><button onClick={realizarCompra}>Pay</button></div>
                     </div>
                 </section>

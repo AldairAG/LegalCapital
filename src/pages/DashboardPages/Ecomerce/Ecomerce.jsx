@@ -40,7 +40,7 @@ const Ecomerce = (props) => {
                 <div className="head-ec">
                     <i class="bi bi-shop"></i> <p>E-comerce</p>
                 </div>
-                <Cart keyF={props.keyF} wd={userData.walletDiv} wc={userData.walletCom}/>
+                <Cart keyF={props.keyF} wd={userData.walletDiv} wc={userData.walletCom} />
             </div>
             <div className="sec1-ec"><p>Discover our exclusive products!</p><br /><span>Don't miss the opportunity to purchase these incredible products</span></div>
             <div className="sec2-ec">
@@ -49,21 +49,21 @@ const Ecomerce = (props) => {
                 </div>
                 <div className="s22-ec">
                     <CardProduct img={img1} precio={"35.00"} nombre={"Gold milk"} desc={"Spice up your day"}
-                        b1={"Antioxidant"} b2={"Anti-inflammatory"} b3={"Anti carcinogenic"} b4={"Regulates metabolism"} firebaseKey={props.keyF}/>
+                        b1={"Antioxidant"} b2={"Anti-inflammatory"} b3={"Anti carcinogenic"} b4={"Regulates metabolism"} firebaseKey={props.keyF} />
                     <CardProduct img={img2} precio={"35.00"} nombre={"Alkavit"} desc={"Alkaline balance"}
-                        b1={"Antioxidant"} b2={"Strengthens the immune system"} b3={"Balances the digestive system"} b4={"Control digestive problems"} firebaseKey={props.keyF}/>
+                        b1={"Antioxidant"} b2={"Strengthens the immune system"} b3={"Balances the digestive system"} b4={"Control digestive problems"} firebaseKey={props.keyF} />
                     <CardProduct img={img3} precio={"35.00"} nombre={"Vita 100"} desc={"The energy you need"}
-                        b1={"Greater concentration"} b2={"Physical and mental resistance"} b3={"Cardio-protection"} b4={"Energy"} firebaseKey={props.keyF}/>
+                        b1={"Greater concentration"} b2={"Physical and mental resistance"} b3={"Cardio-protection"} b4={"Energy"} firebaseKey={props.keyF} />
                     <CardProduct img={img4} precio={"35.00"} nombre={"Clean fiber"} desc={"Incomparable balance"}
-                        b1={"Diuretic "} b2={"Laxative"} b3={"Weight control"} b4={"combat chronic constipation"} firebaseKey={props.keyF}/>
+                        b1={"Diuretic "} b2={"Laxative"} b3={"Weight control"} b4={"combat chronic constipation"} firebaseKey={props.keyF} />
                     <CardProduct img={img5} precio={"35.00"} nombre={"Kino"} desc={"Great taste"}
-                        b1={"glucose regulator"} b2={"Diuretic"} b3={"Cardio-protection"} b4={"Energy"} firebaseKey={props.keyF}/>
+                        b1={"glucose regulator"} b2={"Diuretic"} b3={"Cardio-protection"} b4={"Energy"} firebaseKey={props.keyF} />
                     <CardProduct img={img6} precio={"35.00"} nombre={"Lemon clean"} desc={"Lemon punch"}
-                        b1={"Weight control"} b2={"Detoxifier"} b3={"Anti-constipation"} b4={"Anticancer"} firebaseKey={props.keyF}/>
+                        b1={"Weight control"} b2={"Detoxifier"} b3={"Anti-constipation"} b4={"Anticancer"} firebaseKey={props.keyF} />
                     <CardProduct img={img7} precio={"35.00"} nombre={"Fruit relax"} desc={"Just relax!"}
-                        b1={"Antidepressant"} b2={"Prevents ADHD"} b3={"Anti-stress"} b4={"Prevents insomnia"} firebaseKey={props.keyF}/>
+                        b1={"Antidepressant"} b2={"Prevents ADHD"} b3={"Anti-stress"} b4={"Prevents insomnia"} firebaseKey={props.keyF} />
                     <CardProduct img={img8} precio={"35.00"} nombre={"Actigenol"} desc={"Renew yourself every day"}
-                        b1={"Anti-aging"} b2={"Activates the immune system"} b3={"Strengthens joints"} b4={"Antioxidant"} firebaseKey={props.keyF}/>
+                        b1={"Anti-aging"} b2={"Activates the immune system"} b3={"Strengthens joints"} b4={"Antioxidant"} firebaseKey={props.keyF} />
                 </div>
             </div>
             {/*             <div className="sec3-ec">
@@ -75,14 +75,14 @@ const Ecomerce = (props) => {
                     <Ordenes userName={userData.userName} />
                 </div>
             </div>
-            {/*  {           <div className="sec5-ec">
+            <div className="sec5-ec">
                 <div className="s51-ec">
                     <p>Wallet-comerce</p>
                 </div>
                 <div className="s52-ec">
-                    <Wallet />
-                </div>}
-            </div> */}
+                    <Wallet walletEc={userData.walletEc} currentUser={userData.userName}/>
+                </div>
+            </div>
         </section>
     )
 }

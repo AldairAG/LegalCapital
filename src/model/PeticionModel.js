@@ -27,6 +27,27 @@ export default class Orden {
         }
     }
 
+    async saveRetiro() {
+        try {
+            const extractDB = new Common();
+            const user = await extractDB.getUserDataR();
+            const db = getDatabase(appFirebase);
+            const newDocRef = push(ref(db, 'peticiones/'));
+            const peticion = {
+                userName: user.userName,
+                concepto: this.concepto,
+                monto: this.monto,
+                email: user.email,
+                firebaseKey: newDocRef.key,
+                owner:user.firebaseKey,
+                usdtAddress:user.usdtAddress,
+            }
+            await set(newDocRef, peticion)
+        } catch (error) {
+            console.error("Error al agregar la orden: ", error);
+        }
+    }
+
     async borrar(firebaseKey) {
         try {
             const db = getDatabase(appFirebase);

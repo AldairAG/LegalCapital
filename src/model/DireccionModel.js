@@ -1,5 +1,5 @@
 import appFirebase from "../firebase-config";
-import { getDatabase, ref, set, remove, get } from "firebase/database";
+import { getDatabase, ref, set, get } from "firebase/database";
 
 export default class DireccionModel {
     constructor(estadoSeleccionado, direccion, numExt, numInt, colonia, city, cp, owner) {
@@ -17,18 +17,30 @@ export default class DireccionModel {
         const db = getDatabase(appFirebase);
         const newRef = ref(db, `direcciones/${this.owner}`);
         const data = {
-            estadoSeleccionado : this.estadoSeleccionado,
-            direccion : this.direccion,
-            numExt : this.numExt,
-            numInt : this.numInt,
-            colonia : this.colonia,
-            city : this.city,
-            cp : this.cp,
-            owner : this.owner
+            estadoSeleccionado: this.estadoSeleccionado,
+            direccion: this.direccion,
+            numExt: this.numExt,
+            numInt: this.numInt,
+            colonia: this.colonia,
+            city: this.city,
+            cp: this.cp,
+            owner: this.owner
         };
         await set(newRef, data);
     }
 
+    async getDireccion(firebaseKey, setDireccion) {
+        const db = getDatabase(appFirebase);
+        const direccionRef = ref(db, `direcciones/${firebaseKey}/`);
+        const snapshot = await get(direccionRef);
+
+        if (snapshot.exists()) {
+            const direccion = snapshot.val();
+            setDireccion(direccion);
+        } else {
+            setDireccion([]);
+        }
+    }
 
 
 }

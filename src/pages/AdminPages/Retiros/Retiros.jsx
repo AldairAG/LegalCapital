@@ -80,7 +80,7 @@ const Retiros = () => {
                                 </div>
                                 <div className="sec2-rea">
                                     <p>Cantidad:</p> <tr />
-                                    <span>{item.requestRetiro}</span>
+                                    <span>{item.monto}</span>
                                 </div>
                                 <div className="sec3-rea">
                                     <button onClick={() => aprobar(item)}>Notificar de aprobado</button>

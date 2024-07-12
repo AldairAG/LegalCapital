@@ -26,7 +26,7 @@ const EditarUsuario=()=>{
     const [visible,setVisible]=useState(false)
     const [msj,setMsj]=useState("")
     const history = useHistory();
-    const [visibleAlert,setVisibleAlert]=useState(true)
+    const [visibleAlert,setVisibleAlert]=useState(false)
 
     useEffect(() => {
         const db = getDatabase();

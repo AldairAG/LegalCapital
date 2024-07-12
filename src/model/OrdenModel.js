@@ -1,5 +1,5 @@
 import appFirebase from "../firebase-config";
-import { getDatabase, ref, query, orderByChild, onValue, equalTo, push } from "firebase/database";
+import { getDatabase, ref, query, orderByChild, onValue, equalTo, push,set } from "firebase/database";
 import Common from "../components/js/Common";
 export default class Orden {
     constructor(estado, totalPagar, numeroRastreo, productos, owner) {
@@ -44,6 +44,15 @@ export default class Orden {
                 owner: this.owner
             }
             await push(newRef, orden);
+        } catch (e) {
+            console.error("Error al agregar la orden: ", e);
+        }
+    }
+    async saveOrden(firebaseKey,orden) {
+        try {
+            const db = getDatabase(appFirebase);
+            const newRef = ref(db, `ordenes/${firebaseKey}`);
+            await set(newRef, orden);
         } catch (e) {
             console.error("Error al agregar la orden: ", e);
         }

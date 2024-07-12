@@ -124,7 +124,7 @@ const Retiros = (props) => {
         }
         updatedUser.retiros = updatedUser.retiros + Number(monto)
         common.editAnyUser(updatedUser)
-        peticionModel.save()
+        peticionModel.saveRetiro()
         fetchHistorial()
     }
 

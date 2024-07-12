@@ -4,6 +4,7 @@
     border-radius: 5px;
     border: 1px solid #d0d0d0;
     grid-template-rows: 35px 100px 70px 200px;
+    overflow: hidden;
 }
 .sec0-wec{
     font-weight: 600;
@@ -43,6 +44,11 @@
     align-items: center;
     font-size: 20px;
     font-weight: 600;
+}
+.sec3-wec{
+    display: flex;
+    height: 200px;
+    overflow: auto;
 }
 
 .sec3-wec .containTable {
