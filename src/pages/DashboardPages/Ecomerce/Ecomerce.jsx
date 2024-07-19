@@ -40,7 +40,7 @@ const Ecomerce = (props) => {
                 <div className="head-ec">
                     <i class="bi bi-shop"></i> <p>E-comerce</p>
                 </div>
-                <Cart keyF={props.keyF} wd={userData.walletDiv} wc={userData.walletCom} />
+                <Cart keyF={props.keyF} wd={userData.walletDiv} wc={userData.walletCom} we={userData.walletEc}/>
             </div>
             <div className="sec1-ec"><p>Discover our exclusive products!</p><br /><span>Don't miss the opportunity to purchase these incredible products</span></div>
             <div className="sec2-ec">

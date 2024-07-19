@@ -83,12 +83,20 @@ export default class CartModel {
                 } else {
                     user.walletDiv = user.walletDiv - total;
                 }
-            } else {
+            } else if(wallet==2){
                 if (user.walletCom < total) {
                     throw new Error('Insufficient funds in Wallet');
                 } else {
                     user.walletCom = user.walletCom - total;
                 }
+            }else if(wallet==3){
+                if (user.walletEc < total) {
+                    throw new Error('Insufficient funds in Wallet');
+                } else {
+                    user.walletEc = user.walletEc - total;
+                }
+            }else if(wallet==4){
+                
             }
             await set(newRef, user);
             extractDB.saveInHistory(user.userName, -total, "Buy in marketplace", "");

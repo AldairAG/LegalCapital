@@ -4,12 +4,16 @@ import "./Cart.css"
 import CartModel from "../../model/CartModel";
 import AlertMsgError from "../../components/AlertMsg/AlertMsgError";
 import AlertMsg from "../../components/AlertMsg/AlertMsg";
+import DireccionModel from "../../model/DireccionModel";
+import QR from "../QR/QR";
 const Cart = (props) => {
     const [visible, setVisible] = useState(false)
+    const [visibleDP, setVisibleDP] = useState(false)
     const [subtotal, setSubtotal] = useState(0)
     const [total, setTotal] = useState(0)
     const [envio, SetEnvio] = useState(0)
     const [productos, setProductos] = useState([])
+    const [direccion, setDireccion] = useState([])
     const [opcion, setOpcion] = useState(1)
     const [msj, setMsj] = useState(false)
     const [msjE, setMsjE] = useState(false)
@@ -46,19 +50,29 @@ const Cart = (props) => {
     }, [productos]);
 
     const realizarCompra = async () => {
-        if (productos.length === 0) {
-            setMsjE(true)
-            setTxt("You don't have any products")
+        if (opcion == 4) {
+            setVisibleDP(true)
         } else {
-            const cart = new CartModel(props.keyF)
-            const resultado = await cart.realizarCobro(opcion, total)
-            if (resultado) {
-                setMsjE(true)
-                setTxt(resultado)
+            const direccionModel = new DireccionModel()
+            if (await direccionModel.direccionIsEmpty(props.keyF)) {
+                if (productos.length === 0) {
+                    setMsjE(true)
+                    setTxt("You don't have any products")
+                } else {
+                    const cart = new CartModel(props.keyF)
+                    const resultado = await cart.realizarCobro(opcion, total)
+                    if (resultado) {
+                        setMsjE(true)
+                        setTxt(resultado)
+                    } else {
+                        setMsj(true)
+                        setTxt("Your order was created successfully")
+                        setProductos([])
+                    }
+                }
             } else {
-                setMsj(true)
-                setTxt("Your order was created successfully")
-                setProductos([])
+                setMsjE(true)
+                setTxt("You do not have any registered address")
             }
         }
     }
@@ -106,11 +120,13 @@ const Cart = (props) => {
                         <div className="sec5-ecc"><p>Total: </p><p>{total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p></div>
                         <div className="sec6-ecc">
                             <select className="payment-select" value={opcion} onChange={(e) => setOpcion(e.target.value)}>
-                                <option value={1}>Wallet de Dividendos: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
-                                <option value={2}>Wallet de Comisiones: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={1}>Dividend Wallet: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={2}>Commission Wallet: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={3}>Ecommerce wallet: {props.we.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={4}>Direct payment</option>
                             </select>
                         </div>
-                        <div className="sec7-ecc"><button onClick={realizarCompra}>Pay</button></div>
+                        <div className="sec7-ecc"><QR opc={opcion}/></div>
                     </div>
                 </section>
             )}

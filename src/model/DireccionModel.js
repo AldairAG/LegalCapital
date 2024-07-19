@@ -42,5 +42,23 @@ export default class DireccionModel {
         }
     }
 
+    async direccionIsEmpty(firebaseKey) {
+        const db = getDatabase(appFirebase);
+        const direccionRef = ref(db, `direcciones/${firebaseKey}/`);
+        const snapshot = await get(direccionRef);
+
+        if (snapshot.exists()) {
+            const direccion = snapshot.val();
+            if (direccion.estadoSeleccionado == '' ||direccion.direccion == '' ||direccion.numExt == '' ||direccion.colonia == '' ||
+                direccion.city == '' ||direccion.cp == '') {
+                return false;
+            }else{
+                return true
+            }
+        } else {
+            return false
+        }
+    }
+
 
 }
