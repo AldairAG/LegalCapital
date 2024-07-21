@@ -80,6 +80,9 @@ const Retiros = (props) => {
         } else if (hasMoreThanTwoDecimals(cantidad)) {
             setVisibleError(true)
             setTextoMsj("The value you entered is not valid")
+        } else if(userData.phoneNumber==""|| userData.firstName=="" || userData.lastName==""){
+            setVisibleError(true)
+            setTextoMsj("Complete your profile to be able to withdraw")
         } else if (opc1) {
             if (cantidad > userData.walletDiv) {
                 setVisibleError(true)
@@ -99,9 +102,9 @@ const Retiros = (props) => {
             if (cantidad > userData.walletCom) {
                 setVisibleError(true)
                 setTextoMsj("You do not have enough balance to withdraw this amount")
-            } else if (cantidad < 50) {
+            } else if (cantidad < 10) {
                 setVisibleError(true)
-                setTextoMsj("The minimum withdrawal amount is 50 USDT")
+                setTextoMsj("The minimum withdrawal amount is 10 USDT")
             } else {
                 sendRequest(cantidad, 2)
                 setVisibleMsg(true)
@@ -128,19 +131,7 @@ const Retiros = (props) => {
         fetchHistorial()
     }
 
-    const handleNextPage = () => {
-        if (paginaActual < paginaMaxima) {
-            setPaginaActual(paginaActual + 1);
-        }
-    }
-
-    const handlePrevPage = () => {
-        if (paginaActual > 1) {
-            setPaginaActual(paginaActual - 1);
-        }
-    }
-
-    const fetchHistorial = async (pagina) => {
+    const fetchHistorial = async () => {
         const db = getDatabase(appFirebase);
         const dbRef = ref(db, "history");
         const snapshot = await get(dbRef);
@@ -150,13 +141,8 @@ const Retiros = (props) => {
             const filteredHistorys = historys.filter(history => 
                 history.userName === userData.userName && (history.concepto && history.concepto.toLowerCase().includes('withdrawl'))
             ).reverse();
-            
 
-            /*const startIndex = (pagina - 1) * 25;
-            const endIndex = startIndex + 25;
-            const limitedHistorys = filteredHistorys.slice(startIndex, endIndex);*/
             setHistorial(filteredHistorys);
-            //setPaginaMaxima(Math.ceil(filteredHistorys.length / 25));
 
         } else {
             console.log("No data available");
@@ -207,10 +193,10 @@ const Retiros = (props) => {
                 </div>
                 <div className="notas-re">
                     <p className="textoM2">Important notes:</p>
-                    <p className="textoM"><li>You need to have your TRC20 wallet address registered. If you don't have it yet,<Link to="Profile" className="link"> click here</Link></li></p>
-                    <p className="textoM"><li>To request withdrawal of dividends or commissions, a <span>minimum amount of 50 USDT is required.</span></li></p>
+                    <p className="textoM"><li>You need to have your USDT(TRC20) wallet address registered. If you don't have it yet,<Link to="Profile" className="link"> click here</Link></li></p>
+                    <p className="textoM"><li>Withdrawal requests: minimum amount of 50 USDT required for the <span>dividend wallet</span> and minimum amount of 10 USDT required for <span>commission wallet</span>.</li></p>
                     <p className="textoM"><li>All requests will be approved only <span>Monday through Friday</span> starting at 12:00 a.m. (Miami time).</li></p>
-                    <p className="textoM"><li>Withdrawal <span>cost of 5% </span>for the total amount requested (Administrative expenses).</li></p>
+                    <p className="textoM"><li>Withdrawal <span>cost of 3% </span>for the total amount requested (Administrative expenses).</li></p>
                     <p className="textoM"><li>When a withdrawal is requested the dividend wallet <span>must have at least 25 USDT</span>.</li></p>
                 </div>
             </div>

@@ -29,7 +29,7 @@ const Support = (props) => {
                 <div class="custom-select-wrapper">
                     <select id="support-options" class="custom-select" onChange={(e) => setMotivo(e.target.value)}>
                         <option value="Soporte General">Soporte General</option>
-                        <option value="Soporte General">Capital request starter package (Within 24 months -30%, then 0%)</option>
+                        <option value="Soporte General">Capital request starter package (Forced term 12 months, after 12 months: -15%, after 24 months: 0%)</option>
                         <option value="la acreditación de dividendos">I did not receive my dividends correctly</option>
                         <option value="la acreditacion de comisiones">I did not receive my commissions correctly</option>
                         <option value="un retiro pendiente">I have a pending withdrawal</option>

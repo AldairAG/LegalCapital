@@ -2,9 +2,6 @@ import { useState, useEffect } from "react"
 import { getDatabase, ref, onValue } from 'firebase/database';
 import "./Cart.css"
 import CartModel from "../../model/CartModel";
-import AlertMsgError from "../../components/AlertMsg/AlertMsgError";
-import AlertMsg from "../../components/AlertMsg/AlertMsg";
-import DireccionModel from "../../model/DireccionModel";
 import QR from "../QR/QR";
 const Cart = (props) => {
     const [visible, setVisible] = useState(false)
@@ -13,11 +10,8 @@ const Cart = (props) => {
     const [total, setTotal] = useState(0)
     const [envio, SetEnvio] = useState(0)
     const [productos, setProductos] = useState([])
-    const [direccion, setDireccion] = useState([])
     const [opcion, setOpcion] = useState(1)
-    const [msj, setMsj] = useState(false)
-    const [msjE, setMsjE] = useState(false)
-    const [txt, setTxt] = useState("")
+
 
     const openClose = () => {
         setVisible(!visible)
@@ -49,34 +43,6 @@ const Cart = (props) => {
         }
     }, [productos]);
 
-    const realizarCompra = async () => {
-        if (opcion == 4) {
-            setVisibleDP(true)
-        } else {
-            const direccionModel = new DireccionModel()
-            if (await direccionModel.direccionIsEmpty(props.keyF)) {
-                if (productos.length === 0) {
-                    setMsjE(true)
-                    setTxt("You don't have any products")
-                } else {
-                    const cart = new CartModel(props.keyF)
-                    const resultado = await cart.realizarCobro(opcion, total)
-                    if (resultado) {
-                        setMsjE(true)
-                        setTxt(resultado)
-                    } else {
-                        setMsj(true)
-                        setTxt("Your order was created successfully")
-                        setProductos([])
-                    }
-                }
-            } else {
-                setMsjE(true)
-                setTxt("You do not have any registered address")
-            }
-        }
-    }
-
     const eliminarProducto = async (index) => {
         const cart = new CartModel(props.keyF)
         const prodcuts = await cart.getFromDatabase()
@@ -95,8 +61,6 @@ const Cart = (props) => {
             {visible && (
                 <section className="cart-modal-ec">
                     <div className="overlay-ec">
-                        <AlertMsg visible={msj} setVisible={setMsj} texto={txt} />
-                        <AlertMsgError visible={msjE} setVisible={setMsjE} texto={txt} />
                     </div>
                     <div className="contenido-cart">
                         <div className="sec0-ecc"><button onClick={openClose}><i class="bi bi-x"></i></button></div>
@@ -126,7 +90,7 @@ const Cart = (props) => {
                                 <option value={4}>Direct payment</option>
                             </select>
                         </div>
-                        <div className="sec7-ecc"><QR opc={opcion}/></div>
+                        <div className="sec7-ecc"><QR opc={opcion} total={total} productos={productos}/></div>
                     </div>
                 </section>
             )}

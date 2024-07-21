@@ -7,8 +7,12 @@ const Tools=()=>{
                 <span>Tools</span>
             </div>
             <div className="sec1-to">
-                <p>Presentation</p>
-                <iframe class="pdf-container" src={"https://drive.google.com/file/d/1mROOLWSkGwLfdnwhIHi3IbTJyvSvOHhN/preview"}/>
+                <p>Presentation in Spanish</p>
+                <iframe class="pdf-container" src={"https://drive.google.com/file/d/1zcPhBvi7UQ88dXtx8Sux-dpSxCfHiXBe/preview"}/>
+            </div>
+            <div className="sec2-to">
+                <p>Presentation in English</p>
+                <iframe class="pdf-container" src={"https://drive.google.com/file/d/1Sn7gxBTTJNh6Hs2K5fn48bNKgoDAr5iI/preview"}/>
             </div>
         </section>
     )

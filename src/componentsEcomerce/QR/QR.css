@@ -28,13 +28,15 @@
     grid-template-rows: 100%;
     grid-template-areas:
         "sec1-qr sec2-qr";
-    gap: 15px;
+    gap: 0;
     z-index: 102;
 }
 
 .sec1-qr {
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     background: #f1f1f1;
     display: grid;
     grid-template-columns: 100%;
@@ -74,18 +76,18 @@
     border-radius: 10px;
 }
 
-.s3-qr {
+.modal-content .s3-qr {
     grid-area: s3-qr;
     display: flex;
     flex-direction: column;
 }
 
-.s3-qr .wallet {
+.modal-content .s3-qr .walletInput {
     width: 100%;
     display: flex;
 }
 
-.s3-qr .wallet input {
+.modal-content .s3-qr .walletInput input {
     width: 100%;
     font-size: 1rem;
     border-radius: 5px;
@@ -94,52 +96,45 @@
     font-weight: 600;
 }
 
-.s3-qr .wallet input:focus {
+.modal-content .s3-qr .walletInput input:focus {
     border-color: #0011ff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     outline: none;
 }
 
-.s3-qr button {
+.modal-content .s3-qr .walletInput button {
     width: 10%;
     background-color: ghostwhite;
+    border-radius: 0;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-inline-start: -7PX;
     padding: 2px;
+    color: black;
     border: 0.5px solid #9b9b9b;
+    transition: .3s;
 }
 
 .s4-qr {
     grid-area: s4-qr;
-}
-
-.s4-qr .amount {
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-.s4-qr select {
+.s4-qr input {
     width: 100%;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><polygon fill="black" points="0,0 20,0 10,10"/></svg>') no-repeat right 10px center;
-    background-color: white;
-    background-size: 10px;
-    border: 0.5px solid #ccc;
-    padding: 10px 40px 10px 10px;
-    font-size: 16px;
+    font-size: 1rem;
     border-radius: 5px;
-    cursor: pointer;
+    padding: 10px 0px 10px 10px;
+    border: 0.5px solid #ccc;
+    font-weight: 600;
 }
 
-.s4-qr select option {
-    padding: 10px;
-    background-color: white;
-    color: #333;
-    font-size: 16px;
-    font-weight: 600;
+.s4-qr input:focus {
+    border-color: #0011ff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
 }
 
 .s5-qr {
@@ -171,8 +166,11 @@
 }
 
 .sec2-qr {
+    border: 1px solid rgb(208, 208, 208);
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     grid-area: sec2-qr;
     background: #f1f1f1;
     display: grid;

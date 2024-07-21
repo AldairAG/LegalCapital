@@ -27,9 +27,10 @@ const EditarUsuario=()=>{
     const [msj,setMsj]=useState("")
     const history = useHistory();
     const [visibleAlert,setVisibleAlert]=useState(false)
+    const [fechaInicio,setFechaIncio]=useState("")
 
     useEffect(() => {
-        const db = getDatabase();
+        const db =getDatabase();
         const userRef = ref(db, 'users/'+fk);
 
         const unsubscribe = onValue(userRef, (snapshot) => {
@@ -59,6 +60,7 @@ const EditarUsuario=()=>{
             setReferenciaDirecta(userData.bonoRefDirect || "");
             setRango(userData.rank || "no rank");
             setReferido(userData.referredBy || "");
+            setFechaIncio(userData.admissionDate||"")
             //setIsLoading(false);
         }
     }, [userData]);
@@ -79,6 +81,7 @@ const EditarUsuario=()=>{
         updatedUser.bonoRefDirect=Number(referenciaDirecta)
         updatedUser.rank=Number(rango)
         updatedUser.referredBy=referido
+        updatedUser.admissionDate=fechaInicio
         common.editAnyUser(updatedUser);
     };
 
@@ -138,7 +141,7 @@ const EditarUsuario=()=>{
             <div className="sec4-edtu"><TextInput ti={"Apellidos"} value={apellidos} setValue={setApellidos}/></div>
             <div className="sec5-edtu"><TextInput ti={"Telefono"} value={telefono} setValue={setTelefono}/></div>
             <div className="sec6-edtu"><TextInput ti={"Direccion de wallet"} value={walletDir} setValue={setWalletDir}/></div>
-            <div className="sec7-edtu"></div>
+            <div className="sec7-edtu"><TextInput ti={"Fecha de inscripción"} value={fechaInicio} setValue={setFechaIncio}/></div>
             <div className="sec8-edtu"><p className="titulo-edtu">Datos de oficinal virtual</p></div>
             <div className="sec9-edtu"><TextInput ti={"Bono fast-Track"} value={fastTrack} setValue={setFastTrack}/></div>
             <div className="sec10-edtu"><TextInput ti={"Bono de igualación"} value={igualacion} setValue={setIgualacion}/></div>

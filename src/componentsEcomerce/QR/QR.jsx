@@ -1,13 +1,25 @@
 import "./QR.css"
 import React, { useState, useEffect } from 'react';
-import qr from "../../Assets/Images/qr/qrms.png"
+import qr from "../../Assets/Images/qr/qrecc.png"
 import img1 from "../../Assets/flaticons/qrfi.png"
 import img2 from "../../Assets/flaticons/copyfi.png"
 import img3 from "../../Assets/flaticons/advertecniafi.png"
 import PeticioModel from "../../model/PeticionModel"
+import DireccionModel from "../../model/DireccionModel";
+import AlertMsgError from "../../components/AlertMsg/AlertMsgError";
+import AlertMsg from "../../components/AlertMsg/AlertMsg";
+import CartModel from "../../model/CartModel";
+
 
 const QrComponent = (props) => {
     const [visible, setVisible] = useState(true)
+    const [direccion, setDireccion] = useState([])
+    const [msj, setMsj] = useState(false)
+    const [msjE, setMsjE] = useState(false)
+    const [txt, setTxt] = useState("")
+    const [productos, setProductos] = useState([])
+
+
 
     useEffect(() => {
 
@@ -24,13 +36,43 @@ const QrComponent = (props) => {
     };
 
     const setRequestHandle = () => {
-        const peticionesData = new PeticioModel("Paquete de inicio", 0)
+        const peticionesData = new PeticioModel("Pago directo de ecomerce", 0)
         peticionesData.save()
+    }
+
+    const realizarCompra = async () => {
+        if (props.opc == 4) {
+            openClose()
+        } else {
+            const direccionModel = new DireccionModel()
+            if (await direccionModel.direccionIsEmpty(props.keyF)) {
+                if (props.productos.length === 0) {
+                    setMsjE(true)
+                    setTxt("You don't have any products")
+                } else {
+                    const cart = new CartModel(props.keyF)
+                    const resultado = await cart.realizarCobro(props.opc, props.total)
+                    if (resultado) {
+                        setMsjE(true)
+                        setTxt(resultado)
+                    } else {
+                        setMsj(true)
+                        setTxt("Your order was created successfully")
+                        setProductos([])
+                    }
+                }
+            } else {
+                setMsjE(true)
+                setTxt("You do not have any registered address")
+            }
+        }
     }
 
     return (
         <section className="compQR-main">
-            <button onClick={openClose}>Pay</button>
+            <AlertMsg visible={msj} setVisible={setMsj} texto={txt} />
+            <AlertMsgError visible={msjE} setVisible={setMsjE} texto={txt} />
+            <button onClick={realizarCompra}>Pay</button>
             {visible && (
                 <section className={visible ? 'compQR' : 'none'}>
                     <div className="modal-content">
@@ -43,14 +85,14 @@ const QrComponent = (props) => {
                             </div>
                             <div className="s3-qr">
                                 <p >Wallet address to pay</p>
-                                <div className="wallet">
-                                    <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
+                                <div className="walletInput">
+                                    <input type="text" id="wallet" readOnly value="TFDno1XUsT8RBiSsu4Mj2AxhmPwC4mvHuN" />
                                     <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
                                 </div>
                             </div>
                             <div className="s4-qr">
                                 <p>Amount</p>
-                                <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
+                                <input type="text" id="wallet" readOnly value={props.total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.') + " USDT"} />
                             </div>
                             <div className="s5-qr">
                                 <button className="boton3" onClick={openClose}><span>Close</span></button>
