@@ -2,6 +2,7 @@ import appFirebase from "../../../firebase-config.js";
 import { getDatabase, ref, get, set } from "firebase/database";
 import Common from "../../../components/js/Common.js";
 import PeticionModel from "../../../model/PeticionModel.js"
+import Orden from "../../../model/OrdenModel.js";
 
 class AdminData {
   constructor(setUserModels) {
@@ -15,28 +16,14 @@ class AdminData {
 
     if (snapshot.exists()) {
       const peticiones = Object.values(snapshot.val());
-      const filteredUsers = peticiones.filter(peticion => 
-        peticion.concepto === "Paquete de inicio" || peticion.concepto === "Mantenimiento"
-    );
+      const filteredUsers = peticiones.filter(peticion =>
+        peticion.concepto === "Paquete de inicio" || peticion.concepto === "Mantenimiento" || peticion.concepto === "Pago directo de ecomerce"
+      );
       this.setUserModels(filteredUsers);
     } else {
       this.setUserModels([])
     }
   }
-
-  /*fetchData = async () => {
-    const db = getDatabase(appFirebase);
-    const dbRef = ref(db, "history");
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      const users = Object.values(snapshot.val());
-      const filteredUsers = users.filter(user => user.date ==="24-06-2024");
-      this.setUserModels(filteredUsers);
-    } else {
-      alert("error");
-    }
-  }*/
 
   findData = async (text) => {
     const db = getDatabase(appFirebase);
@@ -89,34 +76,70 @@ class AdminData {
     commom.editAnyUser(userData)
   }
 
-  aprobar = async (Userkey, cantidad, key) => {
+  aprobarStaterPack = async (peticion) => {
     const commom = new Common()
-    const db = getDatabase(appFirebase);
     const peticionModel = new PeticionModel()
+    const db = getDatabase(appFirebase);
 
-    const dbRef = ref(db, "users/" + Userkey);
+    const dbRef = ref(db, "users/" + peticion.owner);
     const snapshot = await get(dbRef);
+
     try {
       if (snapshot.exists()) {
         const userData = snapshot.val();
-        if (userData.validity === "" ||userData.validity === "unpaid") {
-          userData.validity = this.obtenerFechaVencimiento();
-        }
-        if (cantidad != 25) {
-          userData.staterPack = userData.staterPack + cantidad
-        }
-        set(dbRef, userData).then(() => {
-          if(cantidad != 25) {
-            commom.saveInHistory(userData.userName, cantidad, "Payment for starter package", "")
-            this.bonoReferenciaDirecta(userData)
-          }
-          peticionModel.borrar(key)
+        userData.staterPack += peticion.monto;
+        commom.saveInHistory(userData.userName, peticion.monto, "Payment for starter package", "")
+        this.bonoReferenciaDirecta(userData)
+        set(dbRef, userData).finally(() => {
+          peticionModel.borrar(peticion.firebaseKey)
           this.fetchData()
-        }).catch((e) => {
-          console.log("error", e)
         })
       }
     } catch (error) {
+
+    }
+  }
+  aprobarMantenimiento = async (peticion) => {
+    const peticionModel = new PeticionModel()
+    const db = getDatabase(appFirebase);
+
+    const dbRef = ref(db, "users/" + peticion.owner);
+    const snapshot = await get(dbRef);
+
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+      userData.validity = this.obtenerFechaVencimiento();
+      set(dbRef, userData).then(() => {
+        peticionModel.borrar(peticion.firebaseKey)
+        this.fetchData()
+      })
+    }
+  }
+  aprobarPagoEcomerce = async (peticion) => {
+    const peticionModel = new PeticionModel()
+    const db = getDatabase(appFirebase);
+
+    const dbRef = ref(db, "users/" + peticion.owner);
+    const snapshot = await get(dbRef);
+    try {
+      const userData = snapshot.val();
+      const ordenModel= new Orden('Pending',peticion.monto,'',peticion.productos,userData.userName)
+      ordenModel.creaOrden()
+      peticionModel.borrar(peticion.firebaseKey)
+      this.fetchData()
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  aprobar = async (peticion) => {
+    if (peticion.concepto == 'Paquete de inicio') {
+      this.aprobarStaterPack(peticion)
+    } else if (peticion.concepto == 'Mantenimiento') {
+      this.aprobarMantenimiento(peticion)
+    } else if (peticion.concepto == 'Pago directo de ecomerce') {
+      this.aprobarPagoEcomerce(peticion)
     }
   }
 

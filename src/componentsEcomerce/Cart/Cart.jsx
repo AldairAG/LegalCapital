@@ -16,7 +16,7 @@ const Cart = (props) => {
     const openClose = () => {
         setVisible(!visible)
         const db = getDatabase();
-        const userRef = ref(db, 'carritos/' + props.keyF + "/productos");  // Reemplaza 'USER_ID' con el ID del usuario
+        const userRef = ref(db, 'carritos/' + props.keyF + "/productos");
 
         const unsubscribe = onValue(userRef, (snapshot) => {
             const data = snapshot.val();
@@ -90,7 +90,7 @@ const Cart = (props) => {
                                 <option value={4}>Direct payment</option>
                             </select>
                         </div>
-                        <div className="sec7-ecc"><QR opc={opcion} total={total} productos={productos}/></div>
+                        <div className="sec7-ecc"><QR opc={opcion} total={total} productos={productos} keyF={props.keyF}/></div>
                     </div>
                 </section>
             )}

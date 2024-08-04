@@ -12,7 +12,7 @@ import CartModel from "../../model/CartModel";
 
 
 const QrComponent = (props) => {
-    const [visible, setVisible] = useState(true)
+    const [visible, setVisible] = useState(false)
     const [direccion, setDireccion] = useState([])
     const [msj, setMsj] = useState(false)
     const [msjE, setMsjE] = useState(false)
@@ -36,8 +36,8 @@ const QrComponent = (props) => {
     };
 
     const setRequestHandle = () => {
-        const peticionesData = new PeticioModel("Pago directo de ecomerce", 0)
-        peticionesData.save()
+        const peticionesData = new PeticioModel("Pago directo de ecomerce", props.total)
+        peticionesData.saveProducts(props.productos)
     }
 
     const realizarCompra = async () => {
@@ -96,7 +96,7 @@ const QrComponent = (props) => {
                             </div>
                             <div className="s5-qr">
                                 <button className="boton3" onClick={openClose}><span>Close</span></button>
-                                <button className="boton2" onClick={() => setRequestHandle()}>Finish payment</button>
+                                <button className="boton2" onClick={setRequestHandle}>Finish payment</button>
                             </div>
                             <div className="s11-qr">
                                 <p>Press the button "Finish payment" to complete the request</p>

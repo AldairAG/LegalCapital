@@ -100,7 +100,7 @@ const Admin = () => {
                                     <span>{item.monto}</span>
                                     <span>{item.concepto}</span>
                                     <div className="aprobar">
-                                        <button onClick={() => adminData.aprobar(item.owner,item.monto,item.firebaseKey)} className="check"><i class="bi bi-check-circle-fill" /></button>
+                                        <button onClick={() => adminData.aprobar(item)} className="check"><i class="bi bi-check-circle-fill" /></button>
                                         <button onClick={() => adminData.denegar(item.firebaseKey)} className="trash"><i class="bi bi-x-circle-fill" /></button>
                                     </div>
                                 </li>
