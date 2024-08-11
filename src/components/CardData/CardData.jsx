@@ -10,7 +10,7 @@ const CardData = (props) => {
 
 
     return (
-        <section className="contain-data">
+        <section className="contain-data-home">
             <div className="case">
                 <p class="text-sm text-muted-foreground">{props.titulo}</p>
                 <div className="case2">

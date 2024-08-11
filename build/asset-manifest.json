@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.5f13e53c.css",
-    "main.js": "/static/js/main.3cc318d0.js",
+    "main.css": "/static/css/main.070fe8e5.css",
+    "main.js": "/static/js/main.c832d76f.js",
     "static/media/fondoLogin.png": "/static/media/fondoLogin.fffb539cd5e9d252a7ad.png",
     "static/media/promo.png": "/static/media/promo.82380915218620f1b79c.png",
     "static/media/producto6.png": "/static/media/producto6.44778031b14ed37fcf29.png",
@@ -43,16 +43,17 @@
     "static/media/advertecniafi.png": "/static/media/advertecniafi.3e4f3cd828621285251d.png",
     "static/media/palomita.png": "/static/media/palomita.fb7d7091878e7ed26d5d.png",
     "static/media/usdt.png": "/static/media/usdt.176daf5b0e7615e72cd2.png",
+    "static/media/qrecc.png": "/static/media/qrecc.f34f1bbcace68d6fa637.png",
     "static/media/advertencia.png": "/static/media/advertencia.1ac0ac0116bf86a11597.png",
     "static/media/Gold.png": "/static/media/Gold.e3667339027380a45909.png",
     "static/media/retiro.png": "/static/media/retiro.92fd700228561bdec6fe.png",
     "static/media/copyfi.png": "/static/media/copyfi.fb756952b94b39a8efd3.png",
     "index.html": "/index.html",
-    "main.5f13e53c.css.map": "/static/css/main.5f13e53c.css.map",
-    "main.3cc318d0.js.map": "/static/js/main.3cc318d0.js.map"
+    "main.070fe8e5.css.map": "/static/css/main.070fe8e5.css.map",
+    "main.c832d76f.js.map": "/static/js/main.c832d76f.js.map"
   },
   "entrypoints": [
-    "static/css/main.5f13e53c.css",
-    "static/js/main.3cc318d0.js"
+    "static/css/main.070fe8e5.css",
+    "static/js/main.c832d76f.js"
   ]
 }

@@ -1,4 +1,4 @@
-.contain-data {
+.contain-data-home {
   height: 100%;
   border-radius: 10px;
   background-color: #ffffff;
@@ -9,12 +9,12 @@
   transition: .4s ease-in-out;
 }
 
-.contain-data p {
+.contain-data-home p {
   font-size: 1.2rem;
   line-height: 2rem;
   color: rgb(84, 75, 75);
 }
-.contain-data h3 {
+.contain-data-home h3 {
   font-size: 2rem;
   line-height: 2rem;
   font-weight: 600;
@@ -22,16 +22,16 @@
   line-height: 1;
   white-space: nowrap;
 }
-.contain-data .case2{
+.contain-data-home .case2{
   display: flex;
   flex-direction: row;
 }
-.contain-data:hover {
+.contain-data-home:hover {
   transform: scale(1.02);
   border: 3px solid rgb(236, 158, 15);
   box-shadow: none;
 }
-.contain-data img {
+.contain-data-home img {
   line-height: 2rem;
   width: 30px;
   height: 30px;

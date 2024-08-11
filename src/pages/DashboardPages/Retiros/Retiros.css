@@ -78,6 +78,48 @@
     font-size: 17px; 
 }
 
+.contain-data {
+    height: 100%;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: .4s ease-in-out;
+  }
+  
+  .contain-data p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    color: rgb(84, 75, 75);
+  }
+  .contain-data h3 {
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .contain-data .case2{
+    display: flex;
+    flex-direction: row;
+  }
+  .contain-data:hover {
+    transform: scale(1.02);
+    border: 3px solid rgb(236, 158, 15);
+    box-shadow: none;
+  }
+  .contain-data img {
+    line-height: 2rem;
+    width: 30px;
+    height: 30px;
+    justify-self:center;
+    align-self: center;
+    margin-inline-end: 10px;
+  }
+
 .contain-data{
     border: 1px solid #717171;
     transition: 250ms;
@@ -139,18 +181,6 @@
     border: 0.5px solid #a9a9a9;
     width: 70px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .seleccionado{
     border: 3px solid #010a89;
@@ -227,7 +257,7 @@
         width: 300px;
         height: 950px;
         grid-template-columns: repeat(2,130px);
-        grid-template-rows: 400px 30px 100px 100px repeat(3,75px);
+        grid-template-rows: 425px 30px 100px 100px repeat(3,75px);
         grid-template-areas: 
         "notas-re notas-re"
         "s0-re s0-re"

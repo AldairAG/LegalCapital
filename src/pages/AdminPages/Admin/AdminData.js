@@ -123,14 +123,13 @@ class AdminData {
     const snapshot = await get(dbRef);
     try {
       const userData = snapshot.val();
-      const ordenModel= new Orden('Pending',peticion.monto,'',peticion.productos,userData.userName)
+      const ordenModel = new Orden('Pending', peticion.monto, '', peticion.productos, userData.userName)
       ordenModel.creaOrden()
       peticionModel.borrar(peticion.firebaseKey)
       this.fetchData()
     } catch (error) {
       console.log(error)
     }
-
   }
 
   aprobar = async (peticion) => {
@@ -149,7 +148,6 @@ class AdminData {
     peticionModel.borrar(key)
     this.fetchData()
   }
-
   obtenerFechaVencimiento() {
     const currentDate = new Date();
     const next30DaysDate = new Date(currentDate);
@@ -164,7 +162,6 @@ class AdminData {
 
     return fechaDentroDe30Dias;
   }
-
   determinarPaquete = (valor) => {
     switch (true) {
       case (valor >= 100 && valor <= 499):

@@ -87,7 +87,7 @@ const Cart = (props) => {
                                 <option value={1}>Dividend Wallet: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
                                 <option value={2}>Commission Wallet: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
                                 <option value={3}>Ecommerce wallet: {props.we.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
-                                <option value={4}>Direct payment</option>
+                                {/* <option value={4}>Direct payment</option> */}
                             </select>
                         </div>
                         <div className="sec7-ecc"><QR opc={opcion} total={total} productos={productos} keyF={props.keyF}/></div>

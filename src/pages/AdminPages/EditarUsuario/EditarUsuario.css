@@ -1,85 +1,55 @@
-.EditarUsuario{
-    width:calc(100% - 20px);
-    height: 800px;
+.EditarUsuario {
+    width: calc(100% - 20px);
     margin-inline: 10px;
     background-color: aliceblue;
     border: 1px solid black;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: 50px repeat(3,75px) 50px repeat(3,75px);
-    grid-template-areas: 
-    "sec0-edtu sec0-edtu sec21-edtu"
-    "sec1-edtu sec2-edtu sec2-edtu"
-    "sec3-edtu sec4-edtu sec5-edtu"
-    "sec6-edtu sec6-edtu sec7-edtu"
-    "sec8-edtu sec8-edtu sec8-edtu"
-    "sec9-edtu sec10-edtu sec11-edtu"
-    "sec12-edtu sec13-edtu sec14-edtu"
-    "sec15-edtu sec16-edtu sec17-edtu"
-    "sec18-edtu sec18-edtu sec18-edtu"
-    "sec19-edtu sec19-edtu sec19-edtu"
-    "sec20-edtu sec20-edtu sec20-edtu";
+    display: flex;
+    flex-direction: column;
     padding: 10px;
-    gap: 15px;
     justify-content: center;
+    gap: 5px;
+}
+
+.EditarUsuario .enterData {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.EditarUsuario .botones{
+    height: 50px;
+    display:  flex;
+    justify-content: space-around;
+}
+
+.EditarUsuario .permisos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.EditarUsuario .permisos .permiso{
+    display: flex;
     align-items: center;
 }
-
-.sec0-edtu{
-    grid-area:sec0-edtu;
+.EditarUsuario .permisos span{
+    font-size: 20px;
+    font-weight: 600;
+    margin-inline-start: 10px;
 }
-.titulo-edtu{
+
+
+.EditarUsuario .enterData div {
+    width: 500px;
+}
+
+.EditarUsuario .titulo-edtu {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
     font-size: 25px;
     font-weight: 600;
-
-}
-.sec1-edtu{
-    grid-area:sec1-edtu;
-}
-.sec2-edtu{
-    grid-area:sec2-edtu;
-}
-.sec3-edtu{
-    grid-area:sec3-edtu;
-}
-.sec4-edtu{
-    grid-area:sec4-edtu;
-}
-.sec5-edtu{
-    grid-area:sec5-edtu;
-}
-.sec6-edtu{
-    grid-area:sec6-edtu;
-}
-.sec7-edtu{
-    grid-area:sec7-edtu;
-}
-.sec8-edtu{
-    grid-area:sec8-edtu;
-}
-.sec9-edtu{
-    grid-area:sec9-edtu;
-}
-.sec10-edtu{
-    grid-area:sec10-edtu;
-}
-.sec11-edtu{
-    grid-area:sec11-edtu;
-}
-.sec12-edtu{
-    grid-area:sec12-edtu;
-}
-.sec18-edtu{
-    grid-area:sec18-edtu;
-}
-.sec19-edtu{
-    grid-area:sec19-edtu;
-}
-.sec20-edtu{
-    grid-area:sec20-edtu;
-}
-.sec21-edtu{
-    grid-area:sec21-edtu;
 }
 
 .deleteSection{
@@ -128,7 +98,6 @@
     border-radius: 5px;
     border: 1px solid #333;
     color: white;
-
 }
 
 .sec2-dc .cancel{
@@ -136,4 +105,20 @@
 }
 .sec2-dc .ok{
     background-color: rgb(51, 130, 53);
+}
+
+
+
+
+@media (max-width:1500px) {
+    .EditarUsuario .enterData {
+        justify-content: center;
+    }
+    
+}
+@media (max-width:550px) {
+    .EditarUsuario .enterData div {
+        width: 300px;
+    }
+    
 }

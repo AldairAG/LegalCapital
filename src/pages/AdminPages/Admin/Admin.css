@@ -4,6 +4,7 @@
     background-color: aliceblue;
     overflow: hidden;
     padding: 0;
+    padding-bottom: 20px;
     margin: 0;
     display: grid;
     grid-template-columns: 100%;
