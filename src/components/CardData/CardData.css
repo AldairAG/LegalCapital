@@ -5,14 +5,15 @@
   padding: 15px;
   display: flex;
   flex-direction: row;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
   transition: .4s ease-in-out;
 }
 
 .contain-data-home p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 2rem;
   color: rgb(84, 75, 75);
+  font-weight: 600;
 }
 .contain-data-home h3 {
   font-size: 2rem;

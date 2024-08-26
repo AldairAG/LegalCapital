@@ -15,7 +15,11 @@ const QrComponent = (props) => {
     }
     const handleChange = (event) => {
         const value = parseInt(event.target.value, 10);
-        setOpcion(value);
+        if (isNaN(value)) {
+            setOpcion(0);
+        } else {
+            setOpcion(value);
+        }
     };
     const handleCopy = () => {
         const inputElement = document.getElementById("wallet");
@@ -213,7 +217,7 @@ const QrComponent = (props) => {
         }
     };
     const setRequestHandle = (opcion) => {
-        const peticionesData=new PeticioModel("Paquete de inicio",opcion) 
+        const peticionesData = new PeticioModel("Paquete de inicio", opcion)
         peticionesData.save()
         props.setIsVisible(false);
     }
@@ -239,9 +243,13 @@ const QrComponent = (props) => {
                     <div className="s4-qr">
                         <p>Amount</p>
                         <div className="amount">
-                            <select className="select-box" value={opcion} onChange={handleChange} >
-                                {generarOpciones(props.op)}
-                            </select>
+                            {props.op === 5 ? (
+                                <input type="text" id="wallet" value={opcion} onChange={handleChange} />
+                            ) : (
+                                <select className="select-box" value={opcion} onChange={handleChange} >
+                                    {generarOpciones(props.op)}
+                                </select>
+                            )}
                         </div>
                     </div>
                     <div className="s5-qr">
@@ -282,51 +290,8 @@ const QrComponent = (props) => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     )
 }
-
-/*
- <div className="secqr1">
-                    <button className="close-modal" onClick={closeModal}><i class="bi bi-x-square-fill"></i></button>
-                </div>
-                <div className="secqr2">
-                    <p className="tituloQr">PAYMENT INFORMATION</p>
-                    <img className="qr" />
-                </div>
-                <div className="secqr3">
-                    <span>Wallet address</span>
-                    <div className="wallet">
-                        <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
-                        <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
-                    </div>
-
-                    <span>Price</span>
-                    <div className="select-container">
-                        <select className="select-box" value={opcion} onChange={handleChange} >
-                            {generarOpciones(props.op)}
-                        </select>
-                        <div className="icon-container">
-                            <i class="bi bi-caret-down-fill"></i>
-                        </div>
-                    </div>
-                </div>
-                <div className="secqr4">
-                    <div className="seccionPack">
-                        <p>Starter pack</p>
-                        <img src={props.img} alt="stp" />
-                    </div>
-                    <div className="seccionNota">
-                        <p>Once your transaction is completed, you will receive a notification to your registered email of approval.<br /> <br />
-                            <span>Important Note: Make sure to correctly send the transaction, verifying the exact amount and that the
-                                Wallet is correct. Any sending error will result in the loss of funds.</span></p>
-                    </div>
-                </div>
-                <div className="secqr5">
-                    <button className="boton1" onClick={() => setRequestHandle(opcion)}>
-                        <span  class="button_top">End</span>
-                    </button>
-                </div>  
-*/
 
 export default QrComponent

@@ -6,6 +6,7 @@ import { div } from "three/examples/jsm/nodes/Nodes.js";
 import { EventDispatcher } from "three";
 import emailjs from '@emailjs/browser';
 import PeticionesModel from "../../../model/PeticionModel.js"
+import Common from "../../../components/js/Common.js";
 
 
 const Retiros = () => {
@@ -31,6 +32,20 @@ const Retiros = () => {
                     console.log('FAILED...', error.text);
                 },
             );
+    }
+
+    const editarUsuario = async (wallet,peticionData) => {
+            
+        const userRepo = Common()
+        const userData = await userRepo.getUserDataByName(peticionData.userName)
+        if (wallet == 1) {
+            userData.walletDiv = userData.walletDiv - peticionData.monto
+        } else {
+            userData.walletCom = userData.walletCom - peticionData.monto
+        }
+        userRepo.editAnyUser(userData).then(()=>{
+            
+        })
     }
 
     const aprobar = (peticionData) => {

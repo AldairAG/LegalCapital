@@ -68,8 +68,14 @@ class UserModel {
     this.activo=false
     this.staterPack=0 
     this.retiros=0
-    this.intComp="11"
+    this.intComp="01"
     this.walletTotal=0
   }
+
+
+  getUserDataInRealTime() {
+    
+  }
+
 }
 export default UserModel

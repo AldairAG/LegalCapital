@@ -255,9 +255,9 @@
 @media(max-width:500px){
     .contenido-re{
         width: 300px;
-        height: 950px;
+        height: 975px;
         grid-template-columns: repeat(2,130px);
-        grid-template-rows: 425px 30px 100px 100px repeat(3,75px);
+        grid-template-rows: 450px 30px 100px 100px repeat(3,75px);
         grid-template-areas: 
         "notas-re notas-re"
         "s0-re s0-re"

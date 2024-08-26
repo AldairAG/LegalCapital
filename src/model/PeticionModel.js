@@ -2,9 +2,10 @@ import appFirebase from "../firebase-config";
 import { getDatabase, ref, set, remove, push } from "firebase/database";
 import Common from "../components/js/Common"
 export default class Orden {
-    constructor(concepto, monto) {
+    constructor(concepto, monto,wallet) {
         this.monto = monto
         this.concepto = concepto
+        this.wallet=wallet
     }
 
     async save() {
@@ -19,7 +20,8 @@ export default class Orden {
                 monto: this.monto,
                 email: user.email,
                 firebaseKey: newDocRef.key,
-                owner:user.firebaseKey
+                owner:user.firebaseKey,
+                wallet:this.wallet
             }
             await set(newDocRef, peticion)
         } catch (error) {

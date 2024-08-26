@@ -8,6 +8,7 @@ import CardData from "../../../components/CardData/CardData"
 import image0 from "../../../Assets/Images/Logos/retiro.png";
 import image1 from "../../../Assets/Images/Logos/usdt.png";
 import CardPack from '../../../components/CardPack/CardPack';
+import InteresCompuesto from "../../../components/InteresCompuesto/InteresCompuesto.jsx"
 
 const MainDiv = (props) => {
     const [userData, setUserData] = useState([]);
@@ -36,7 +37,7 @@ const MainDiv = (props) => {
                 <section className='dashboard'>
                     <div className="sec0">
                         <i className="bi bi-bank"></i>
-                        <span>Dashboard</span>
+                        <span>DASHBOARD</span>
                     </div>
                     <div className="item-grid sec1"><CardData dato={userData.walletTotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="TOTAL EARNINGS" /></div>
                     <div className="item-grid sec2"><CardData dato={userData.retiros.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="TOTAL WITHDRAWALS" /></div>
@@ -48,7 +49,8 @@ const MainDiv = (props) => {
                     <div className="item-grid sec8"><CardData dato={userData.bonoIngresoRes.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="RESIDUAL INCOME FEES" /></div>
                     <div className="item-grid sec9"><CardData dato={userData.bonoIgualacion.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="MATCHING BONUS" /></div>
                     <div className="item-grid sec10"><CardData dato={userData.bonoFastTrack.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} type={false} titulo="FASTRACK BONUS" /></div>
-                    <div className="item-grid sec12"><CopiLink username={userData.userName}/></div>
+                    <div className='item-grid sec11'><InteresCompuesto keyF={userData.firebaseKey} /></div>
+                    <div className="item-grid sec12"><CopiLink username={userData.userName} /></div>
                     <div className="item-grid sec13"><img alt="promo" /></div>
                     <div className="item-grid sec14"><CardUser userData={userData} /></div>
                 </section>

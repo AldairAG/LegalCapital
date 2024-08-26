@@ -23,24 +23,29 @@ body {
   padding-top: 1%;
   overflow-y: auto;
 }
+
 .form-register img {
   width: 50%;
   height: 15%;
   content: url("../../Assets/Images/Logos/Logo_2.png");
 }
+
 .form-register h2 {
   color: #2e385c;
   margin-bottom: 2%;
 }
+
 .form-register h4 {
   color: #2e385c;
   margin-bottom: 3%;
 }
+
 .form-register span {
   font-weight: bold;
   margin-bottom: 1%;
   color: #667197;
 }
+
 .form-register input {
   width: 100%;
   background: #ffffff;
@@ -51,15 +56,18 @@ body {
   margin-bottom: 2%;
   padding: 2%;
 }
+
 .form-register label {
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 1%;
 }
+
 .form-register .botonsE {
   cursor: not-allowed;
   opacity: 0.5
 }
+
 .form-register .botons:hover {
   border: 2px solid transparent;
   border-color: #fff;
@@ -80,7 +88,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color:var(--primary-color) ;
+  background-color: var(--primary-color);
   border-radius: 20px;
   margin-top: auto;
   margin-bottom: auto;
@@ -104,32 +112,42 @@ body {
   text-align: center;
 }
 
+.register-seccion .show {
+  height: 50px;
+}
+
 
 @media(max-width:600px) {
   .msj-seccion {
     display: none;
   }
+
   .form-register {
     width: 100%;
   }
 }
+
 @media(max-width:400px) {
   .msj-seccion {
     display: none;
   }
+
   .form-register {
     width: 100%;
   }
 }
+
 @media(max-width:1000px) {
-  .form-register img{
+  .form-register img {
     width: 80%;
     align-self: center;
   }
-  .form-register input{
+
+  .form-register input {
     margin-bottom: 5%;
   }
 }
+
 @media(max-width:1200px) {
   .msj-seccion span {
     padding: 5%;

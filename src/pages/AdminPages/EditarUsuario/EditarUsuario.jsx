@@ -6,11 +6,15 @@ import { getDatabase, ref, onValue, remove } from 'firebase/database';
 import AlertMsg from "../../../components/AlertMsg/AlertMsg.jsx";
 import Common from "../../../components/js/Common";
 import { useHistory } from 'react-router-dom';
+import appFirebase from "../../../firebase-config.js";
 import ToggleButton from "../../../components/ToggleButton/ToggleButton.jsx";
+import { getAuth, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
+const auth = getAuth(appFirebase)
 
 const EditarUsuario = () => {
     const [userData, setUserData] = useState("")
     const [userName, setUserName] = useState("")
+    const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
     const [apellidos, setApellidos] = useState("")
@@ -32,6 +36,7 @@ const EditarUsuario = () => {
     const [visibleAlert, setVisibleAlert] = useState(false)
     const [fechaInicio, setFechaIncio] = useState("")
     const [gananciasTotales, setGananciasTotales] = useState("")
+    const [permisos, setPermisos] = useState("")
 
     useEffect(() => {
         const db = getDatabase();
@@ -68,11 +73,13 @@ const EditarUsuario = () => {
             setWalletCom(userData.walletCom || 0)
             setWalletDiv(userData.walletDiv || 0)
             setGananciasTotales(userData.walletTotal || 0)
+            setPermisos(userData.permisos || { promo: false, retiroDiv: true })
+            setPassword(userData.password)
             //setIsLoading(false);
         }
     }, [userData]);
 
-    const editarUser = () => {
+    const editarUser = async() => {
         const common = new Common();
         const updatedUser = { ...userData };
         updatedUser.userName = userName
@@ -92,8 +99,21 @@ const EditarUsuario = () => {
         updatedUser.walletCom = Number(walletCom)
         updatedUser.walletDiv = Number(walletDiv)
         updatedUser.walletTotal = Number(gananciasTotales)
+        updatedUser.permisos = permisos
+        updatedUser.password=await cambiarContraseña(password)||""
         common.editAnyUser(updatedUser)
     };
+
+    const cambiarContraseña = async (newPass) => {
+        if(userData.password!=newPass){
+            const userCredential = await signInWithEmailAndPassword(auth, email, userData.password);
+            const userCurrent = userCredential.user;
+            await updatePassword(userCurrent, newPass);
+            return newPass
+        }else{
+            return userData.password
+        }
+    }
 
     const save = () => {
         try {
@@ -129,6 +149,12 @@ const EditarUsuario = () => {
     const open = () => {
         setVisibleAlert(true)
     }
+    const updatePermiso = (key, value) => {
+        setPermisos({
+            ...permisos,
+            [key]: value,
+        });
+    };
     return (
         <section className="EditarUsuario">
             <AlertMsg visible={visible} setVisible={setVisible} texto={msj} />
@@ -152,6 +178,7 @@ const EditarUsuario = () => {
             <div><p className="titulo-edtu">Datos personales</p></div>
             <section className="enterData">
                 <div><TextInput ti={"Nombre de ususario"} value={userName} setValue={setUserName} /></div>
+                <div><TextInput ti={"Contraseña"} value={password} setValue={setPassword} /></div>
                 <div><TextInput ti={"E-mail"} value={email} setValue={setEmail} /></div>
                 <div><TextInput ti={"Nombre"} value={name} setValue={setName} /></div>
                 <div><TextInput ti={"Apellidos"} value={apellidos} setValue={setApellidos} /></div>
@@ -174,8 +201,8 @@ const EditarUsuario = () => {
             </section>
             <div><p className="titulo-edtu">Permisos</p></div>
             <section className="permisos">
-                <div className="permiso"><ToggleButton /><span>Retirar de dividendos</span></div>
-                <div className="permiso"><ToggleButton /><span>Activar promosion de 10%</span></div>
+                <div className="permiso"><ToggleButton permiso={permisos.retiroDiv} onToggle={(newValue) => updatePermiso('retiroDiv', newValue)} /><span>Retirar de dividendos</span></div>
+                <div className="permiso"><ToggleButton permiso={permisos.promo} onToggle={(newValue) => updatePermiso('promo', newValue)} /><span>Activar promosion de 10%</span></div>
             </section>
         </section>
     )

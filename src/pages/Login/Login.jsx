@@ -48,7 +48,7 @@ const Login = () => {
                             </button>
                         </div>
                         <input type="submit" value="Login" onClick={(e) => handleLogin(e)} />
-                        <Link to={`/recovery_password`}><p className="fyp">Forgot your password?</p></Link>
+                        <Link className="fyp" to={`/recovery_password`}><p >Forgot your password?</p></Link>
                     </form>
                 </div>
                 <img className="imagen" alt="img1" />

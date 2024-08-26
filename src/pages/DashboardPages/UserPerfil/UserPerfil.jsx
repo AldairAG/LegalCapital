@@ -10,8 +10,17 @@ import UploadImg from "../../../components/uploadImg/UploadImg.jsx"
 import appFirebase from "../../../firebase-config.js"
 import { ref as storageRef, getDownloadURL, getStorage } from 'firebase/storage';
 import DireccionModel from "../../../model/DireccionModel.js"
+import InteresCompuesto from "../../../components/InteresCompuesto/InteresCompuesto.jsx"
+import TwoStepVerification from "../../../components/TwoStepVerification/TwoStepVerification.jsx"
+import NipModal from "../../../components/NipModal/NipModal.jsx"
+import AlertMsgError from "../../../components/AlertMsg/AlertMsgError.jsx"
 
 const UserPerfil = (props) => {
+    //ventanas modales|
+    const [modalNip, setModalNip] = useState(false)
+    const [verificado, setVerificado] = useState(false)
+    const [periods, setperiods] = useState(12)
+
     const [email, setEmail] = useState("");
     const [user, setUser] = useState("");
     const [name, setName] = useState("");
@@ -21,7 +30,9 @@ const UserPerfil = (props) => {
     const [imageUrl, setImageUrl] = useState('');
 
     const [userData, setUserData] = useState({});
+    const [updatedUserData, setUpdatedUserData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [visibleE, setVisibleE] = useState(false);
     const [visible, setVisible] = useState(false);
     const [visiblePic, setVisiblePic] = useState(false);
     const [msj, setMsj] = useState("");
@@ -114,17 +125,9 @@ const UserPerfil = (props) => {
     const save = () => {
         try {
             editarUser();
-            setVisible(true);
-            setMsj("Changes made successfully");
         } catch (error) {
             console.error("Error saving data: ", error);
         }
-    };
-
-    const actualizarPermiso = (indice, nuevoValor) => {
-        const nuevosPermisos = [...interesCompuesto];
-        nuevosPermisos[indice] = nuevoValor;
-        setInteresCompuesto(nuevosPermisos);
     };
 
     const editarUser = () => {
@@ -133,9 +136,26 @@ const UserPerfil = (props) => {
         updatedUser.intComp = interesCompuesto.join("");
         updatedUser.firstName = name;
         updatedUser.lastName = apellido;
-        updatedUser.usdtAddress = wallet;
         updatedUser.phoneNumber = telefono;
-        common.editAnyUser(updatedUser);
+        if (wallet != userData.usdtAddress) {
+            updatedUser.usdtAddress = wallet;
+            setModalNip(true)
+            setUpdatedUserData(updatedUser)
+        } else {
+            common.editAnyUser(updatedUser).then(() => {
+                setMsj("Changes made successfully");
+                setVisible(true);
+            }).catch(() => {
+                setMsj("Error");
+                setVisibleE(true);
+            })
+        }
+    };
+
+    const actualizarPermiso = (indice, nuevoValor) => {
+        const nuevosPermisos = [...interesCompuesto];
+        nuevosPermisos[indice] = nuevoValor;
+        setInteresCompuesto(nuevosPermisos);
     };
 
     const activarSelectorImg = () => {
@@ -165,16 +185,22 @@ const UserPerfil = (props) => {
     };
 
     const handleSaveDireccion = () => {
-        const direccionModel=new DireccionModel(estadoSeleccionado,direccion,numExt,numInt,colonia,city,cp,userData.firebaseKey)
+        const direccionModel = new DireccionModel(estadoSeleccionado, direccion, numExt, numInt, colonia, city, cp, userData.firebaseKey)
         direccionModel.saveDireccion()
         setVisible(true);
         setMsj("Changes made successfully");
     };
 
+    const onOpenClose = () => {
+        setModalNip(!modalNip)
+    }
+
     return (
         <div>
             <AlertMsg visible={visible} setVisible={setVisible} texto={msj} />
+            <AlertMsgError visible={visibleE} setVisible={setVisibleE} texto={msj} />
             <UploadImg visible={visiblePic} setVisible={setVisiblePic} userName={userData.userName} />
+            <NipModal correctNip={userData.nip} onOpenClose={onOpenClose} updatedUserData={updatedUserData} modalNip={modalNip} />
             {isLoading ? (
                 <div className="spinner"></div>
             ) : (
@@ -210,19 +236,24 @@ const UserPerfil = (props) => {
                         <div className="s31-up textoM2">
                             <p>The "compound interest" feature automatically reinvests into the starter
                                 pack every 100 USDT earned in the activated wallet. This reinvestment is carried out daily at 00:00 hours (Miami time).</p>
-                        </div>
+                        </div>{/* 
                         <div className="s32-up textoM2">
                             <p>Activate compound interest from the dividend wallet</p>
-                            <SwitchFun permiso={interesCompuesto[0]} indice={0} actualizarPermiso={actualizarPermiso} />
-                        </div>
+                            <SwitchFun permiso={interesCompuesto[0]} indice={0} actualizarPermiso={actualizarPermiso} tipo={0}/>
+                        </div> */}
                         <div className="s33-up textoM2">
                             <p>Activate compound interest from the commission wallet</p>
-                            <SwitchFun permiso={interesCompuesto[1]} indice={1} actualizarPermiso={actualizarPermiso} />
+                            <SwitchFun permiso={interesCompuesto[1]} indice={1} actualizarPermiso={actualizarPermiso} tipo={1} />
                         </div>
                         <div className="s34-up textoM2">
                             <button onClick={save} className="boton1"><span className="button_top">Save</span></button>
                         </div>
                     </div>
+
+                    <div className="sec5-up">
+                        <InteresCompuesto keyF={userData.firebaseKey} />
+                    </div>
+
                     <div className="sec4-up">
                         <div className="s40-up textoM3"><p>Address</p></div>
                         <div className="s41-up">
@@ -256,6 +287,10 @@ const UserPerfil = (props) => {
                         <div className="s43-up">
                             <button onClick={handleSaveDireccion} className="boton1"><span className="button_top">Save</span></button>
                         </div>
+                    </div>
+
+                    <div className="sec6-up">
+                        <TwoStepVerification userData={userData} />
                     </div>
                 </section>
             )}

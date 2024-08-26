@@ -10,6 +10,7 @@ import { getDatabase, ref, onValue, get } from 'firebase/database';
 import Common from "../../../components/js/Common"
 import appFirebase from "../../../firebase-config";
 import PeticionModel from "../../../model/PeticionModel"
+import NipModal from "../../../components/NipModal/NipModal"
 
 const Retiros = (props) => {
     const [opc1, setOpc1] = useState(true)
@@ -17,6 +18,7 @@ const Retiros = (props) => {
     const [cantidad, setCantidad] = useState("")
     const [visibleMsg, setVisibleMsg] = useState(false)
     const [visibleError, setVisibleError] = useState(false)
+    const [visibleNipModal, setVisibleNipModal] = useState(false)
     const [textoMsj, setTextoMsj] = useState("")
     const [userData, setUserData] = useState({});
     const [historial, setHistorial] = useState([]);
@@ -24,6 +26,10 @@ const Retiros = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [paginaMaxima, setPaginaMaxima] = useState(0)
     const [paginaActual, setPaginaActual] = useState(1)
+
+    const openCloseNipModal=()=>{
+        setVisibleNipModal(!visibleNipModal)
+    }
 
     useEffect(() => {
         const db = getDatabase();
@@ -47,10 +53,6 @@ const Retiros = (props) => {
         }
         fetchHistorial()
     }, [userData]);
-
-    useEffect(() => {
-        fetchHistorial(paginaActual)
-    }, [paginaActual]);
 
     const handleChangeOpc = (opc) => {
         if (opc === 1) {
@@ -80,11 +82,16 @@ const Retiros = (props) => {
         } else if (hasMoreThanTwoDecimals(cantidad)) {
             setVisibleError(true)
             setTextoMsj("The value you entered is not valid")
-        } else if(userData.phoneNumber==""|| userData.firstName=="" || userData.lastName==""){
+        } else if (userData.phoneNumber == "" || userData.firstName == "" || userData.lastName == "") {
             setVisibleError(true)
             setTextoMsj("Complete your profile to be able to withdraw")
         } else if (opc1) {
-            if (cantidad > userData.walletDiv) {
+            setWallet(1)
+            const permisos= userData.permisos || { promo: false, retiroDiv: true }
+            if (!permisos.retiroDiv) {
+                setVisibleError(true)
+                setTextoMsj("you are not allowed to perform this action")
+            } else if (cantidad > userData.walletDiv) {
                 setVisibleError(true)
                 setTextoMsj("You do not have enough balance to withdraw this amount")
             } else if (cantidad < 50) {
@@ -94,11 +101,13 @@ const Retiros = (props) => {
                 setVisibleError(true)
                 setTextoMsj("After withdrawing you need to have at least 25 USDT remaining")
             } else {
-                sendRequest(cantidad, 1)
+                setVisibleNipModal(true)
+                //sendRequest(cantidad, 1)
                 setVisibleMsg(true)
                 setTextoMsj("Request submitted successfully")
             }
         } else if (opc2) {
+            setWallet(2)
             if (cantidad > userData.walletCom) {
                 setVisibleError(true)
                 setTextoMsj("You do not have enough balance to withdraw this amount")
@@ -106,30 +115,15 @@ const Retiros = (props) => {
                 setVisibleError(true)
                 setTextoMsj("The minimum withdrawal amount is 10 USDT")
             } else {
-                sendRequest(cantidad, 2)
+                setVisibleNipModal(true)
+                //sendRequest(cantidad, 2)
                 setVisibleMsg(true)
                 setTextoMsj("Request submitted successfully")
             }
         }
     }
 
-    const sendRequest = (monto, wallet) => {
-        const floatValue = parseFloat(monto);
-        const common = new Common();
-        const peticionModel=new PeticionModel("Retiro",floatValue)
-        const updatedUser = { ...userData };
-        if (wallet === 1) {
-            updatedUser.walletDiv = updatedUser.walletDiv - monto
-            common.saveInHistory(updatedUser.userName, -monto, "dividend wallet withdrawl", "Dividend wallet")
-        } else if (wallet === 2) {
-            updatedUser.walletCom = updatedUser.walletCom - monto
-            common.saveInHistory(updatedUser.userName, -monto, "commission wallet withdrawl", "Commission wallet")
-        }
-        updatedUser.retiros = updatedUser.retiros + Number(monto)
-        common.editAnyUser(updatedUser)
-        peticionModel.saveRetiro()
-        fetchHistorial()
-    }
+
 
     const fetchHistorial = async () => {
         const db = getDatabase(appFirebase);
@@ -138,7 +132,7 @@ const Retiros = (props) => {
 
         if (snapshot.exists()) {
             const historys = Object.values(snapshot.val());
-            const filteredHistorys = historys.filter(history => 
+            const filteredHistorys = historys.filter(history =>
                 history.userName === userData.userName && (history.concepto && history.concepto.toLowerCase().includes('withdrawl'))
             ).reverse();
 
@@ -154,6 +148,8 @@ const Retiros = (props) => {
         <section className="contenido Retiros">
             <AlertMsgError texto={textoMsj} visible={visibleError} setVisible={setVisibleError} />
             <AlertMsg texto={textoMsj} visible={visibleMsg} setVisible={setVisibleMsg} />
+            <NipModal correctNip={userData.nip} onOpenClose={openCloseNipModal} updatedUserData={userData} modalNip={visibleNipModal} 
+            funcion={true} monto={cantidad} wallet={wallet} fetch={fetchHistorial}/>
             <div className="titulos titulo-re">
                 <i className="bi bi-person-gear"></i>
                 <span>Retiros</span>

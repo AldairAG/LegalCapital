@@ -28,7 +28,7 @@ const CardPack = (props) => {
     return (
         <section className="cardpack">
             <div className="cardpack-s1">
-                <p className="pcp1">YOUR PACKAGE: </p>
+                <p className="pcp1">YOUR PACKAGE TOTAL: </p>
                 <p className="pcp2">{paquete}</p>
             </div>
             <div className="cardpack-s2">
@@ -36,7 +36,6 @@ const CardPack = (props) => {
                     <img src={img1} alt="logo_usdt" />
                     <p className="pcp3">{props.dato.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p>
                 </div>
-                <p className="pcp1">TOTAL CAPITAL</p>
             </div>
         </section>
     )

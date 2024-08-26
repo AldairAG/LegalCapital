@@ -15,10 +15,12 @@ const Register = () => {
     const [textError, setTextError] = useState('');
     const [btnActive, setbtnActive] = useState(false);
     const [msjError, setMsjError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
     const registerData = new RegisterData(userName, email, password, passwordConf, referredBy, textError,
-        setTextError, setMsjError, setbtnActive,msjError);
+        setTextError, setMsjError, setbtnActive, msjError);
     const { r } = useParams();
-    
+
 
     useEffect(() => {
         setReferredBy(r || '');
@@ -45,11 +47,11 @@ const Register = () => {
         const sanitizedValue = newValue.replace(/[^\w\s]/gi, '').replace(/\s/g, "");
         setUserName(sanitizedValue);
     };
-    
+
     const handleBlur = () => {
         setUserName(userName.replace(/[^\w\s]/gi, '').replace(/\s/g, ""));
     };
-    
+
 
     const sendEmail = () => {
         emailjs.send("service_033kgeg", "template_ct13fi2", {
@@ -69,6 +71,16 @@ const Register = () => {
             );
     }
 
+    const handleTogglePassword = (e) => {
+        e.preventDefault();
+        setShowPassword(!showPassword);
+    };
+
+    const handleTogglePassword2 = (e) => {
+        e.preventDefault();
+        setShowPassword2(!showPassword2);
+    };
+
 
     return (
         <div className="register-seccion">
@@ -78,13 +90,23 @@ const Register = () => {
                 <h2>Sing up</h2>
                 <h4>Enter your username, email and password to register</h4>
                 <span>Username:</span>
-                <input type="text" placeholder="Enter your Username" value={userName} onChange={handleChange} onBlur={handleBlur}/>
+                <input type="text" placeholder="Enter your Username" value={userName} onChange={handleChange} onBlur={handleBlur} />
                 <span>Email:</span>
                 <input type="email" placeholder="Enter your E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <span>Password</span>
-                <input type="password" onBlur={blurPass} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <div className="password">
+                    <input type={showPassword ? 'text' : 'password'} onBlur={blurPass} placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button className="show" onClick={handleTogglePassword}>
+                        <i className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"}></i>
+                    </button>
+                </div>
                 <span>Confirm your password</span>
-                <input type="password" onBlur={blurPassConf} placeholder="confirm your password" value={passwordConf} onChange={(e) => setPasswordConf(e.target.value)} />
+                <div className="password">
+                    <input type={showPassword2 ? 'text' : 'password'} onBlur={blurPassConf} placeholder="confirm your password" value={passwordConf} onChange={(e) => setPasswordConf(e.target.value)} />
+                    <button className="show" onClick={handleTogglePassword2}>
+                        <i className={showPassword2 ? "bi bi-eye-slash" : "bi bi-eye"}></i>
+                    </button>
+                </div>
                 <label htmlFor="reference">Referred by:</label>
                 <input type="text" name="referred" id="referred" readOnly value={referredBy} onChange={(e) => setReferredBy(e.target.value)} />
                 <h5 className="tac">"By registering, you agree to all terms and conditions."</h5>
