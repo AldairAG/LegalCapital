@@ -32,7 +32,7 @@ const Ecomerce = (props) => {
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [props.keyF]);
 
     return (
         <section className="Ecomerce">

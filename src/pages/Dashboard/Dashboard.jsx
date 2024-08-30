@@ -28,6 +28,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         common.getUserData()
+        //setUserData(common.getUserDataR)
     }, []);
 
     return (

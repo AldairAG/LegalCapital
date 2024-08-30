@@ -1,162 +1,137 @@
 import { useEffect, useState } from "react";
 import appFirebase from "../../../firebase-config";
-import { getDatabase, ref, get } from "firebase/database";
-import Common from "../../../components/js/Common";
-import "./Dividendos.css"
+import { getDatabase, ref, get, query, orderByChild, equalTo, limitToLast, startAfter, limitToFirst } from "firebase/database";
+import { useLocation } from "react-router-dom";
+import "./Dividendos.css";
 
-const Dividendos = (props) => {
-    const [userModels, setUserModels] = useState([])
-    const [find, setFind] = useState('');
-    const [filterConcept, setFilterConcept] = useState("All");
-    const [paginaMaxima, setPaginaMaxima] = useState(0)
-    const [paginaActual, setPaginaActual] = useState(1)
-
-    const convertArrayOfObjectsToCSV = (array) => {
-        const data = [];
-
-        // Agregar encabezados de columna
-        const headers = Object.keys(array[0]);
-        data.push(headers.map(header => `"${header}"`).join(',')); // Rodear los encabezados por comillas dobles
-
-        // Agregar datos
-        array.forEach(obj => {
-            const row = [];
-            headers.forEach(header => {
-                row.push(`"${obj[header]}"`); // Rodear el valor con comillas dobles
-            });
-            data.push(row.join(',')); // Unir los valores con comas
-        });
-
-        return data.join('\n');
-    }
-
-    const downloadCSV = () => {
-        const csvData = convertArrayOfObjectsToCSV(userModels);
-        const filename = "datos.csv";
-
-        const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(csvData);
-        const link = document.createElement("a");
-        link.setAttribute("href", csvContent);
-        link.setAttribute("download", filename);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    const handleDownloadClick = () => {
-        downloadCSV()
-    }
+// Custom hook to handle Firebase queries
+const useFetchData = (userName, concept, pagina, pageSize) => {
+    const [historial, setHistorial] = useState([]);
+    const [paginaMaxima, setPaginaMaxima] = useState(12); // Fijo en 12 páginas
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData(filterConcept)
-    }, [filterConcept]);
+        if (!userName) return;
 
-    const manejarCambioInput = (event) => {
-        setFind(event.target.value);
-    };
-    const manejarCambioSelect = (event) => {
-        setFilterConcept(event.target.value);
-    };
-
-    useEffect(() => {
-        fetchData("All", paginaActual);
-    }, [paginaActual]);
-
-    const fetchData = async (concept, pagina) => {
         const db = getDatabase(appFirebase);
         const dbRef = ref(db, "history");
-        const snapshot = await get(dbRef);
 
-        if (snapshot.exists()) {
-            if (concept == "All") {
-                const historys = Object.values(snapshot.val());
-                const filteredHistorys = historys.filter(history => history.userName == props.userName).reverse();
+        const fetchData = async () => {
+            let queryRef;
 
-                const startIndex = (pagina - 1) * 25;
-                const endIndex = startIndex + 25;
-                const limitedHistorys = filteredHistorys.slice(startIndex, endIndex);
-
-                setUserModels(limitedHistorys);
-                setPaginaMaxima(Math.ceil(filteredHistorys.length / 25));
+            if (concept === "All") {
+                if (pagina === 1) {
+                    // Para la primera página
+                    queryRef = query(dbRef, orderByChild("userName"), equalTo(userName), limitToLast(Math.min(500, pageSize)));
+                } else {
+                    const lastItemKey = await getLastItemKey(db, userName, pagina - 1, pageSize);
+                    if (lastItemKey) {
+                        queryRef = query(dbRef, orderByChild("userName"), startAfter(lastItemKey), limitToLast(Math.min(500 - (pagina - 1) * pageSize, pageSize)));
+                    }
+                }
             }
-        } else {
-            console.log("No data available");
-        }
-    }
 
-    const handleNextPage = () => {
-        if (paginaActual < paginaMaxima) {
-            setPaginaActual(paginaActual + 1);
-        }
-    }
+            const snapshot = await get(queryRef);
+            if (snapshot.exists()) {
+                const historys = Object.values(snapshot.val()).reverse();
+                setHistorial(prevModels => pagina === 1 ? historys : [...prevModels, ...historys]);
+            }
+            setLoading(false);
+        };
 
-    const handlePrevPage = () => {
-        if (paginaActual > 1) {
-            setPaginaActual(paginaActual - 1);
-        }
+        fetchData();
+
+        return () => setHistorial([]); // Cleanup
+
+    }, [userName, concept, pagina, pageSize]);
+
+    return { historial, paginaMaxima, loading };
+};
+
+const getLastItemKey = async (db, userName, pagina, pageSize) => {
+    const dbRef = ref(db, "history");
+    const queryRef = query(dbRef, orderByChild("userName"), equalTo(userName), limitToLast(Math.min(500, pagina * pageSize)));
+    const snapshot = await get(queryRef);
+    if (snapshot.exists()) {
+        const historys = Object.keys(snapshot.val());
+        return historys[historys.length - 1];
     }
+    return null;
+};
+
+const Dividendos = ({ userName }) => {
+    const [filterConcept, setFilterConcept] = useState("All");
+    const [paginaActual, setPaginaActual] = useState(1);
+    const pageSize = 25;
+
+    const { historial, paginaMaxima, loading } = useFetchData(userName, filterConcept, paginaActual, pageSize);
+
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname !== "/Dashboard/benefits") {
+            // Cleanup any ongoing async processes if the route changes
+            setPaginaActual(1);
+            setFilterConcept("All");
+        }
+    }, [location.pathname]);
 
     return (
         <section className="seccionDividendos">
             <div className="sec1-div"><i className="bi bi-graph-up-arrow"></i><h2>Dividends</h2></div>
 
             <div className="sec4-div">
-                            <div className="sec2-div">
-                <div className="filtro1">
-                    <span >Order by concept: </span>
-                    <select name="tipo" id="tipo" value={filterConcept} onChange={(event) => manejarCambioSelect(event)} >
-                        <option value="All">All</option>
-                        <option value="Direct referral bonus">Direct referral bonus</option>
-                        <option value="fast track bonus">fast track bonus</option>
-                        <option value="Maintenance fee charge">Maintenance fee charge</option>
-                        <option value="Residual fee bonus">Residual fee bonus</option>
-                        <option value="Rank residual bonus">Rank residual bonus</option>
-                        <option value="Weekly earnings">Weekly earnings</option>
-                        <option value="Matching bonus">Matching bonus</option>
-                    </select>
+                <div className="sec2-div">
+                    <div className="filtro1">
+                        <span>Order by concept: </span>
+                        <select name="tipo" id="tipo" value={filterConcept} onChange={(e) => setFilterConcept(e.target.value)}>
+                            <option value="All">All</option>
+                            <option value="Direct referral bonus">Direct referral bonus</option>
+                            <option value="fast track bonus">Fast track bonus</option>
+                            <option value="Maintenance fee charge">Maintenance fee charge</option>
+                            <option value="Residual fee bonus">Residual fee bonus</option>
+                            <option value="Rank residual bonus">Rank residual bonus</option>
+                            <option value="Weekly earnings">Weekly earnings</option>
+                            <option value="Matching bonus">Matching bonus</option>
+                        </select>
+                    </div>
+                    <div className="filtro2">
+                        <button onClick={() => setPaginaActual(prev => Math.max(prev - 1, 1))}><i className="bi bi-arrow-left-short"></i></button>
+                        <p>Page: {paginaActual}/{paginaMaxima}</p>
+                        <button onClick={() => setPaginaActual(prev => Math.min(prev + 1, paginaMaxima))}><i className="bi bi-arrow-right-short"></i></button>
+                    </div>
                 </div>
-                <div className="filtro2">
-                    <button onClick={handlePrevPage}><i class="bi bi-arrow-left-short"></i></button>
-                    <p>Page: {paginaActual}/{paginaMaxima}</p>
-                    <button onClick={handleNextPage}><i class="bi bi-arrow-right-short"></i></button>
-                </div>
-            </div>
-            <div className="sec3-div">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                Date
-                            </th>
-                            <th>
-                                Time
-                            </th>
-                            <th>
-                                Amount
-                            </th>
-                            <th>
-                                Type
-                            </th>
-                            <th>
-                                User
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userModels.map((item, index) => (
-                            <tr key={index}>
-                                <td className="p-4 align-middle">{item.date}</td>
-                                <td className="p-4 align-middle">{item.hora}</td>
-                                <td className="p-4 align-middle">{item.cantidad}</td>
-                                <td className="p-4 align-middle">{item.concepto}</td>
-                                <td className="p-4 align-middle">{item.emisor}</td>
+                <div className="sec3-div">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>User</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {loading ? (
+                                <div className="spinner"></div>
+                            ) : (
+                                historial.map((item, index) => (
+                                    <tr key={index}>
+                                        <td className="p-4 align-middle">{item.date}</td>
+                                        <td className="p-4 align-middle">{item.hora}</td>
+                                        <td className="p-4 align-middle">{item.cantidad}</td>
+                                        <td className="p-4 align-middle">{item.concepto}</td>
+                                        <td className="p-4 align-middle">{item.emisor}</td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
-    )
-}
-export default Dividendos
+    );
+};
+
+export default Dividendos;

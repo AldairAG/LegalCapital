@@ -1,155 +1,144 @@
-import img1 from "../../../Assets/Images/Logos/usdt.png"
-import "./Retiros.css"
-import TextInput from "../../../components/TextInput/TextInput"
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import { useEffect } from "react"
-import AlertMsg from "../../../components/AlertMsg/AlertMsg"
-import AlertMsgError from "../../../components/AlertMsg/AlertMsgError"
-import { getDatabase, ref, onValue, get } from 'firebase/database';
-import Common from "../../../components/js/Common"
+import img1 from "../../../Assets/Images/Logos/usdt.png";
+import "./Retiros.css";
+import TextInput from "../../../components/TextInput/TextInput";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import AlertMsg from "../../../components/AlertMsg/AlertMsg";
+import AlertMsgError from "../../../components/AlertMsg/AlertMsgError";
+import { getDatabase, ref, onValue, get, query, orderByChild, equalTo } from "firebase/database";
+import NipModal from "../../../components/NipModal/NipModal";
 import appFirebase from "../../../firebase-config";
-import PeticionModel from "../../../model/PeticionModel"
-import NipModal from "../../../components/NipModal/NipModal"
 
 const Retiros = (props) => {
-    const [opc1, setOpc1] = useState(true)
-    const [opc2, setOpc2] = useState(false)
-    const [cantidad, setCantidad] = useState("")
-    const [visibleMsg, setVisibleMsg] = useState(false)
-    const [visibleError, setVisibleError] = useState(false)
-    const [visibleNipModal, setVisibleNipModal] = useState(false)
-    const [textoMsj, setTextoMsj] = useState("")
-    const [userData, setUserData] = useState({});
-    const [historial, setHistorial] = useState([]);
-    const [wallet, setWallet] = useState("")
-    const [isLoading, setIsLoading] = useState(true);
-    const [paginaMaxima, setPaginaMaxima] = useState(0)
-    const [paginaActual, setPaginaActual] = useState(1)
+  const location = useLocation();
+  const isWithdrawalsPage = location.pathname === "/Dashboard/withdrawals";
 
-    const openCloseNipModal=()=>{
-        setVisibleNipModal(!visibleNipModal)
-    }
+  const [opc1, setOpc1] = useState(true);
+  const [opc2, setOpc2] = useState(false);
+  const [cantidad, setCantidad] = useState("");
+  const [visibleMsg, setVisibleMsg] = useState(false);
+  const [visibleError, setVisibleError] = useState(false);
+  const [visibleNipModal, setVisibleNipModal] = useState(false);
+  const [textoMsj, setTextoMsj] = useState("");
+  const [userData, setUserData] = useState({});
+  const [historial, setHistorial] = useState([]);
+  const [wallet, setWallet] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const db = getDatabase();
-        const userRef = ref(db, 'users/' + props.keyF);
+  const openCloseNipModal = () => {
+    setVisibleNipModal(!visibleNipModal);
+  };
 
-        const unsubscribe = onValue(userRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                setUserData(data);
-            } else {
-                console.log("No such document!");
-            }
-        });
+  useEffect(() => {
+    if (!isWithdrawalsPage) return;
 
-        return () => unsubscribe();
-    }, []);
+    const fetchUserData = async () => {
+      const db = getDatabase();
+      const userRef = ref(db, "users/" + props.keyF);
+      const snapshot = await get(userRef);
 
-    useEffect(() => {
-        if (Object.keys(userData).length > 0) {
-            setWallet(userData.usdtAddress)
-        }
-        fetchHistorial()
-    }, [userData]);
-
-    const handleChangeOpc = (opc) => {
-        if (opc === 1) {
-            setOpc1(true)
-            setOpc2(false)
-        } else if (opc === 2) {
-            setOpc2(true)
-            setOpc1(false)
-        }
-    }
-
-    const hasMoreThanTwoDecimals = (num) => {
-        const str = num.toString();
-        const decimalIndex = str.indexOf('.');
-        if (decimalIndex === -1) return false;
-        const decimalPart = str.slice(decimalIndex + 1);
-        return decimalPart.length > 2;
+      if (snapshot.exists()) {
+        setUserData(snapshot.val());
+      } else {
+        console.log("No such document!");
+      }
     };
 
-    const handleValidacion = () => {
-        if (isNaN(parseFloat(cantidad))) {
-            setVisibleError(true)
-            setTextoMsj("The value you entered is not valid")
-        } else if (wallet === null || wallet === undefined || wallet === "") {
-            setVisibleError(true)
-            setTextoMsj("You have not yet registered your USDT wallet")
-        } else if (hasMoreThanTwoDecimals(cantidad)) {
-            setVisibleError(true)
-            setTextoMsj("The value you entered is not valid")
-        } else if (userData.phoneNumber == "" || userData.firstName == "" || userData.lastName == "") {
-            setVisibleError(true)
-            setTextoMsj("Complete your profile to be able to withdraw")
-        } else if (opc1) {
-            setWallet(1)
-            const permisos= userData.permisos || { promo: false, retiroDiv: true }
-            if (!permisos.retiroDiv) {
-                setVisibleError(true)
-                setTextoMsj("you are not allowed to perform this action")
-            } else if (cantidad > userData.walletDiv) {
-                setVisibleError(true)
-                setTextoMsj("You do not have enough balance to withdraw this amount")
-            } else if (cantidad < 50) {
-                setVisibleError(true)
-                setTextoMsj("The minimum withdrawal amount is 50 USDT")
-            } else if (userData.walletDiv - cantidad < 25) {
-                setVisibleError(true)
-                setTextoMsj("After withdrawing you need to have at least 25 USDT remaining")
-            } else {
-                setVisibleNipModal(true)
-                //sendRequest(cantidad, 1)
-                setVisibleMsg(true)
-                setTextoMsj("Request submitted successfully")
-            }
-        } else if (opc2) {
-            setWallet(2)
-            if (cantidad > userData.walletCom) {
-                setVisibleError(true)
-                setTextoMsj("You do not have enough balance to withdraw this amount")
-            } else if (cantidad < 10) {
-                setVisibleError(true)
-                setTextoMsj("The minimum withdrawal amount is 10 USDT")
-            } else {
-                setVisibleNipModal(true)
-                //sendRequest(cantidad, 2)
-                setVisibleMsg(true)
-                setTextoMsj("Request submitted successfully")
-            }
-        }
+    fetchUserData();
+  }, [isWithdrawalsPage, props.keyF]);
+
+  useEffect(() => {
+    if (!isWithdrawalsPage || Object.keys(userData).length === 0) return;
+
+    setWallet(userData.usdtAddress);
+    fetchHistorial();
+  }, [userData, isWithdrawalsPage]);
+
+  const fetchHistorial = async () => {
+    if (!isWithdrawalsPage) return;
+
+    try {
+      const db = getDatabase(appFirebase);
+      const dbRef = ref(db, "history");
+      const snapshot = await get(query(dbRef, orderByChild("userName"), equalTo(userData.userName)));
+
+      if (snapshot.exists()) {
+        const filteredHistorys = Object.values(snapshot.val())
+          .filter(({ concepto }) => concepto?.toLowerCase().includes("withdrawl"))
+          .reverse();
+
+        setHistorial(filteredHistorys);
+      } else {
+        console.log("No data available");
+      }
+    } catch (error) {
+      console.error("Error fetching history:", error);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
+  const handleChangeOpc = (opc) => {
+    setOpc1(opc === 1);
+    setOpc2(opc === 2);
+  };
 
+  const hasMoreThanTwoDecimals = (num) => {
+    const str = num.toString();
+    const decimalIndex = str.indexOf(".");
+    return decimalIndex !== -1 && str.slice(decimalIndex + 1).length > 2;
+  };
 
-    const fetchHistorial = async () => {
-        const db = getDatabase(appFirebase);
-        const dbRef = ref(db, "history");
-        const snapshot = await get(dbRef);
-
-        if (snapshot.exists()) {
-            const historys = Object.values(snapshot.val());
-            const filteredHistorys = historys.filter(history =>
-                history.userName === userData.userName && (history.concepto && history.concepto.toLowerCase().includes('withdrawl'))
-            ).reverse();
-
-            setHistorial(filteredHistorys);
-
-        } else {
-            console.log("No data available");
-        }
-        setIsLoading(false)
+  const handleValidacion = () => {
+    if (isNaN(parseFloat(cantidad))) {
+      setVisibleError(true);
+      setTextoMsj("The value you entered is not valid");
+    } else if (!wallet) {
+      setVisibleError(true);
+      setTextoMsj("You have not yet registered your USDT wallet");
+    } else if (hasMoreThanTwoDecimals(cantidad)) {
+      setVisibleError(true);
+      setTextoMsj("The value you entered is not valid");
+    } else if (!userData.phoneNumber || !userData.firstName || !userData.lastName) {
+      setVisibleError(true);
+      setTextoMsj("Complete your profile to be able to withdraw");
+    } else if (opc1) {
+      const permisos = userData.permisos || { promo: false, retiroDiv: true };
+      if (!permisos.retiroDiv) {
+        setVisibleError(true);
+        setTextoMsj("You are not allowed to perform this action");
+      } else if (cantidad > userData.walletDiv) {
+        setVisibleError(true);
+        setTextoMsj("You do not have enough balance to withdraw this amount");
+      } else if (cantidad < 50) {
+        setVisibleError(true);
+        setTextoMsj("The minimum withdrawal amount is 50 USDT");
+      } else if (userData.walletDiv - cantidad < 25) {
+        setVisibleError(true);
+        setTextoMsj("After withdrawing you need to have at least 25 USDT remaining");
+      } else {
+        setVisibleNipModal(true);
+      }
+    } else if (opc2) {
+      if (cantidad > userData.walletCom) {
+        setVisibleError(true);
+        setTextoMsj("You do not have enough balance to withdraw this amount");
+      } else if (cantidad < 10) {
+        setVisibleError(true);
+        setTextoMsj("The minimum withdrawal amount is 10 USDT");
+      } else {
+        setVisibleNipModal(true);
+      }
     }
+  };
+
 
     return (
         <section className="contenido Retiros">
             <AlertMsgError texto={textoMsj} visible={visibleError} setVisible={setVisibleError} />
             <AlertMsg texto={textoMsj} visible={visibleMsg} setVisible={setVisibleMsg} />
-            <NipModal correctNip={userData.nip} onOpenClose={openCloseNipModal} updatedUserData={userData} modalNip={visibleNipModal} 
-            funcion={true} monto={cantidad} wallet={wallet} fetch={fetchHistorial}/>
+            <NipModal correctNip={userData.nip} onOpenClose={openCloseNipModal} updatedUserData={userData} modalNip={visibleNipModal}
+                funcion={true} monto={cantidad} wallet={wallet} fetch={fetchHistorial} opcion={opc1} />
             <div className="titulos titulo-re">
                 <i className="bi bi-person-gear"></i>
                 <span>Retiros</span>
@@ -161,7 +150,7 @@ const Retiros = (props) => {
                         <div className="case">
                             <p class="text-sm text-muted-foreground">Dividend wallet</p>
                             <div className="case2">
-                                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">$ {(userData.walletDiv || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}</h3>
+                                <h3 class="whitespace-nowrap text-2xl font-semibold leadin+g-none tracking-tight">$ {(userData.walletDiv || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}</h3>
                                 <img src={img1} alt="logo_usdt" />
                             </div>
                         </div>

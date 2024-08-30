@@ -34,25 +34,27 @@ const Retiros = () => {
             );
     }
 
-    const editarUsuario = async (wallet,peticionData) => {
-            
-        const userRepo = Common()
+    const editarUsuario = async (peticionData) => {
+        const userRepo = new Common()
         const userData = await userRepo.getUserDataByName(peticionData.userName)
-        if (wallet == 1) {
+        if (peticionData.wallet == 1) {
             userData.walletDiv = userData.walletDiv - peticionData.monto
+            userRepo.saveInHistory(peticionData.userName, -peticionData.monto, "dividend wallet withdrawl", "Dividend wallet")
         } else {
             userData.walletCom = userData.walletCom - peticionData.monto
+            userRepo.saveInHistory(peticionData.userName, -peticionData.monto, "commission wallet withdrawl", "Commission wallet")
         }
-        userRepo.editAnyUser(userData).then(()=>{
-            
+        userRepo.editAnyUser(userData).then(() => {
+            fetchData()
         })
     }
 
     const aprobar = (peticionData) => {
         const peticionesModel = new PeticionesModel()
         sendEmail(peticionData)
-        peticionesModel.borrar(peticionData.firebaseKey)
-        fetchData()
+        editarUsuario(peticionData).then(() => {
+            peticionesModel.borrar(peticionData.firebaseKey)
+        })
     }
 
     const fetchData = async () => {

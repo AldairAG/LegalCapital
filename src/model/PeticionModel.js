@@ -21,7 +21,7 @@ export default class Orden {
                 email: user.email,
                 firebaseKey: newDocRef.key,
                 owner:user.firebaseKey,
-                wallet:this.wallet
+                wallet:this.wallet||""
             }
             await set(newDocRef, peticion)
         } catch (error) {
@@ -64,6 +64,7 @@ export default class Orden {
                 firebaseKey: newDocRef.key,
                 owner:user.firebaseKey,
                 usdtAddress:user.usdtAddress,
+                wallet:this.wallet||""
             }
             await set(newDocRef, peticion)
         } catch (error) {

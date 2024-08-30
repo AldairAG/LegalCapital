@@ -1,5 +1,5 @@
 import appFirebase from "../firebase-config";
-import { getDatabase, ref, query, orderByChild, onValue, equalTo, push,set } from "firebase/database";
+import { getDatabase, ref, query, orderByChild, get, equalTo, push, set } from "firebase/database";
 import Common from "../components/js/Common";
 export default class Orden {
     constructor(estado, totalPagar, numeroRastreo, productos, owner) {
@@ -48,7 +48,7 @@ export default class Orden {
             console.error("Error al agregar la orden: ", e);
         }
     }
-    async saveOrden(firebaseKey,orden) {
+    async saveOrden(firebaseKey, orden) {
         try {
             const db = getDatabase(appFirebase);
             const newRef = ref(db, `ordenes/${firebaseKey}`);
@@ -59,46 +59,32 @@ export default class Orden {
     }
 
     async getOrdenes(setOrdenes) {
+    try {
         const extractDB = new Common();
         const user = await extractDB.getUserDataR();
+
+        if (!user || !user.userName) {
+            setOrdenes([]);
+            return;
+        }
+
         const db = getDatabase(appFirebase);
         const ordersRef = ref(db, 'ordenes/');
         const userOrdersQuery = query(ordersRef, orderByChild('owner'), equalTo(user.userName));
 
-        onValue(userOrdersQuery, (snapshot) => {
-            if (snapshot.exists()) {
-                const orders = snapshot.val();
-                const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
-                setOrdenes(ordersArray);
-            } else {
-                setOrdenes([]);
-            }
-        }, (error) => {
-            console.error("Error al obtener las órdenes del usuario:", error);
-            setOrdenes([]);
-        });
-    }
+        const snapshot = await get(userOrdersQuery);
 
-    async getAllOrdenes(setOrdenes, estado) {
-        let userOrdersQuery
-        const db = getDatabase(appFirebase);
-        const ordersRef = ref(db, 'ordenes/');
-        if (estado != "All") {
-            userOrdersQuery = ordersRef.filter(orden => orden.estado === estado);
-        }else{
-            userOrdersQuery=ordersRef
-        }
-        onValue(userOrdersQuery, (snapshot) => {
-            if (snapshot.exists()) {
-                const orders = snapshot.val();
-                const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
-                setOrdenes(ordersArray);
-            } else {
-                setOrdenes([]);
-            }
-        }, (error) => {
-            console.error("Error al obtener las órdenes del usuario:", error);
+        if (snapshot.exists()) {
+            const orders = snapshot.val();
+            const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
+            setOrdenes(ordersArray);
+        } else {
             setOrdenes([]);
-        });
+        }
+    } catch (error) {
+        console.error("Error al obtener las órdenes del usuario:", error);
+        setOrdenes([]);
     }
+}
+    
 }
