@@ -195,12 +195,71 @@ const UserPerfil = (props) => {
         setModalNip(!modalNip)
     }
 
+    const editarWalletAddress = () => {
+        const common = new Common();
+        common.editAnyUser(updatedUserData).then(() => {
+            setMsj("Changes made successfully");
+            setVisible(true);
+            onOpenClose();
+        }).catch(() => {
+            setMsj("Error");
+            setVisibleE(true);
+        })
+    }
+
+
+    /*     const [modalNip, setModalNip] = useState(false)
+        const [verificado, setVerificado] = useState(false)
+        const [isLoading, setIsLoading] = useState(true);
+     
+        const [visibleE, setVisibleE] = useState(false);
+        const [visible, setVisible] = useState(false);
+        const [msj, setMsj] = useState("");
+     
+        const [visiblePic, setVisiblePic] = useState(false);
+     
+        const [interesCompuesto, setInteresCompuesto] = useState(["0", "0"]);
+     
+        const [direccionData, setDireccionData] = useState([])
+        const [userData, setUserData] = useState({});
+     
+        useEffect(() => {
+            fetch()
+        }, [])
+     
+        function fetch() {
+            const userRepo = new Common()
+            userRepo.fetchUserData.then(user => {
+                setUserData(user)
+                fetchDireccion(user.firebaseKey).then(()=>{
+                    setIsLoading(false)
+                })
+            }).catch(error => {
+                console.error("Error al obtener el usuario:", error);
+            });
+     
+        }
+     
+        async function fetchDireccion(keyF) {
+            const db = getDatabase();
+            const userRef = ref(db, 'direcciones/' + keyF);  // Reemplaza 'USER_ID' con el ID del usuario
+     
+            const unsubscribe = onValue(userRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    setDireccionData(data);
+                } else {
+                    console.log("No such document!");
+                }
+            });
+        } */
+
     return (
         <div>
             <AlertMsg visible={visible} setVisible={setVisible} texto={msj} />
             <AlertMsgError visible={visibleE} setVisible={setVisibleE} texto={msj} />
             <UploadImg visible={visiblePic} setVisible={setVisiblePic} userName={userData.userName} />
-            <NipModal correctNip={userData.nip} onOpenClose={onOpenClose} updatedUserData={updatedUserData} modalNip={modalNip} />
+            <NipModal correctNip={userData.nip} onOpenClose={onOpenClose} modalNip={modalNip} proceso={editarWalletAddress} />
             {isLoading ? (
                 <div className="spinner"></div>
             ) : (

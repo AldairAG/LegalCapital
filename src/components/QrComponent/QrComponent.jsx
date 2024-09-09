@@ -1,18 +1,33 @@
 import "./QrComponent.css"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QrData from "./QrData";
 import qr from "../../Assets/Images/qr/qrms.png"
 import img1 from "../../Assets/flaticons/qrfi.png"
 import img2 from "../../Assets/flaticons/copyfi.png"
 import img3 from "../../Assets/flaticons/advertecniafi.png"
+import img4 from ".././../Assets/Images/Baners_jpg/pagometodo.png"
+import logoUSDT from "../../Assets/Images/Logos/usdt.png"
 import PeticioModel from "../../model/PeticionModel"
+import AlertMsj from "../AlertMsg/AlertMsg"
+import AlertMsjError from "../AlertMsg/AlertMsgError"
+import Common from "../js/Common";
 
-const QrComponent = (props) => {
+const QrComponent = ({ visible, openClose, op }) => {
     const [opcion, setOpcion] = useState(0);
+    const [msj, setMsj] = useState(false)
+    const [msjE, setMsjE] = useState(false)
+    const [texto, setTexto] = useState("")
+    const opcionesPago = ["---", "USDT Transfer", "Use your own earnings"]
+    const [opcionPago, setOpcionPago] = useState("")
+    const [userData, setUserData] = useState([])
+    const [seleccionado, setSeleccionado] = useState(1)
 
-    const closeModal = () => {
-        props.setIsVisible(false);
-    }
+    useEffect(() => {
+        fetch()
+    }, [])
+
+    if (!visible) return
+
     const handleChange = (event) => {
         const value = parseInt(event.target.value, 10);
         if (isNaN(value)) {
@@ -26,6 +41,8 @@ const QrComponent = (props) => {
         inputElement.select();
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
+        setTexto("Wallet copied successfully")
+        setMsj(true)
     };
     const generarOpciones = (op) => {
         switch (op) {
@@ -219,79 +236,198 @@ const QrComponent = (props) => {
     const setRequestHandle = (opcion) => {
         const peticionesData = new PeticioModel("Paquete de inicio", opcion)
         peticionesData.save()
-        props.setIsVisible(false);
+        openClose()
+    }
+    const onOpenClose = () => {
+        setOpcionPago("")
+        openClose()
+    }
+    const changeSeleccion = (opc) => {
+        setSeleccionado(opc)
+    }
+
+    function fetch() {
+        if (visible) return
+        const userRepo = new Common()
+        userRepo.fetchUserData().then(user => {
+            setUserData(user)
+        }).catch(error => {
+            console.error("Error al obtener el usuario:", error);
+        });
+    }
+
+    function validaciones(wallet, walletS,monto) {
+        if (walletS == 1) {
+            if (wallet <= 25) {
+                setTexto("You must have at least 25 USDT")
+                setMsjE(true)
+                return false
+            }
+        }
+        if (monto > wallet) {
+            setTexto("You don't have enough funds")
+            setMsjE(true)
+            return false
+        }
+
+        //validador por si no selecciono una opcion
+        if(opcion==0){
+            setTexto("You have not selected an option")
+            setMsjE(true)
+            return false
+        }
+
+
+        return true
+    }
+
+    const realizarPago =async()=> {
+        const userRepo = new Common()
+        const monto = opcion
+        const wallet = seleccionado
+        const user = userData
+
+        if (wallet == 1) {
+            const walletPrueba= user.walletDiv-25
+            if (!validaciones(walletPrueba, wallet,monto)) return
+            user.walletDiv = user.walletDiv - monto
+            user.staterPack = user.staterPack + monto
+            userRepo.editAnyUser(user).then(() => {
+                setTexto("Successful purchase")
+                setMsj(true)
+            }).catch(() => {
+                setTexto("something went wrong")
+                setMsjE(true)
+            })
+        } else {
+            if (!validaciones(user.walletCom, wallet,monto)) return
+            user.staterPack = user.staterPack + monto
+            user.walletCom=user.walletCom-monto
+            userRepo.editAnyUser(user).then(() => {
+                setTexto("Successful purchase")
+                setMsj(true)
+            }).catch(() => {
+                setTexto("something went wrong")
+                setMsjE(true)
+            })
+        }
     }
 
     return (
-        <section className={props.visible ? 'compQR' : 'none'}>
+        <section className='qrPago'>
+            <AlertMsj setVisible={setMsj} visible={msj} texto={texto} />
+            <AlertMsjError setVisible={setMsjE} visible={msjE} texto={texto} />
             <div className="overlay"></div>
-            <div className="modal-content">
-                <div className="sec1-qr">
-                    <div className="s1-qr">
+            <div className="modal-contentQr">
+
+                {!opcionPago && (
+                    <div className="selector">
+                        <div className="titulo">
+                            <img src={img4} alt="ic_pago" />
+                            <p>Select a payment method</p>
+                        </div>
+                        <select value={opcionPago} onChange={(e) => setOpcionPago(e.target.value)}>
+                            {opcionesPago.map((opcion, index) => (
+                                <option key={index} value={opcion}>
+                                    {opcion.charAt(0).toUpperCase() + opcion.slice(1)}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
+
+                {opcionPago === opcionesPago[2] && (
+                    <div className="paymentWallet">
                         <p className="textoM3">Complete the payment</p>
+                        <span>1-Select the wallet</span>
+                        {WalletOpcion("Divident wallet", userData.walletDiv, 1)}
+                        {WalletOpcion("Comission wallet", userData.walletCom, 2)}
+                        <span>2-Select the package price</span>
+                        <select className="select-box" value={opcion} onChange={handleChange} >
+                            {generarOpciones(op)}
+                        </select>
+                        <span>3-Finalize your purchase</span>
+                        <button className="finish" onClick={realizarPago}>Finish payment</button>
+                        <button className="close" onClick={onOpenClose}><span>Close</span></button>
                     </div>
-                    <div className="s2-qr">
-                        <img src={qr} alt="qr" />
-                    </div>
-                    <div className="s3-qr">
-                        <p >Wallet address to pay</p>
-                        <div className="wallet">
-                            <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
-                            <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
+                )}
+
+                {opcionPago === opcionesPago[1] && (
+                    <>
+                        <div className="payment">
+                            <p className="textoM3">Complete the payment</p>
+                            <img src={qr} alt="qr" />
+                            <div className="copyAddrs">
+                                <p >Wallet address to pay</p>
+                                <div className="wallet">
+                                    <input type="text" id="wallet" readOnly value="TMuMJUSBamBf1d2vhbd4g1p13pUf6N7TtM" />
+                                    <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
+                                </div>
+                            </div>
+                            <div className="monto">
+                                <p>Amount</p>
+                                <div>
+                                    {op === 5 ? (
+                                        <input type="text" id="wallet" value={opcion} onChange={handleChange} />
+                                    ) : (
+                                        <select className="select-box" value={opcion} onChange={handleChange} >
+                                            {generarOpciones(op)}
+                                        </select>
+                                    )}
+                                </div>
+                            </div>
+                            <button className="finish" onClick={() => setRequestHandle(opcion)}>Finish payment</button>
+                            <button className="close" onClick={onOpenClose}><span>Close</span></button>
                         </div>
-                    </div>
-                    <div className="s4-qr">
-                        <p>Amount</p>
-                        <div className="amount">
-                            {props.op === 5 ? (
-                                <input type="text" id="wallet" value={opcion} onChange={handleChange} />
-                            ) : (
-                                <select className="select-box" value={opcion} onChange={handleChange} >
-                                    {generarOpciones(props.op)}
-                                </select>
-                            )}
+                        <div className="notasqr">
+                            <div><p className="textoM3">How to make a deposit?</p></div>
+                            <div className="nota">
+                                <img src={img1} className="imgSec2-qr" alt="qric" />
+                                <p>Scan the Qr code with your payment app</p>
+                            </div>
+                            <div className="or">
+                                <p><i class="bi bi-dash"></i> or <i class="bi bi-dash"></i></p>
+                            </div>
+                            <div className="nota">
+                                <img src={img2} className="imgSec2-qr" alt="qric" />
+                                <p>Copy the USDT address and
+                                    amount to pay, then paste them
+                                    into your payment app
+                                </p>
+                            </div>
+                            <div className="nota">
+                                <img src={img3} className="imgSec2-qr" alt="qric" />
+                                <p>Transfer only Tether USD TRC20
+                                    token (USDT). Transferring
+                                    other currency will result in the
+                                    toss of funds
+                                </p>
+                            </div>
+                            <div className="nota">
+                                <img src={img3} className="imgSec2-qr" alt="qric" />
+                                <p>
+                                    Make sure to correctly send the transaction, verifying the exact amount and that the Wallet is correct.
+                                    Any sending error will result in the loss of funds.
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="s5-qr">
-                        <button className="boton3" onClick={closeModal}><span>Close</span></button>
-                        <button className="boton2" onClick={() => setRequestHandle(opcion)}>Finish payment</button>
-                    </div>
-                    <div className="s11-qr">
-                        <p>Press the button "Finish payment" to complete the request</p>
-                    </div>
-                </div>
-                <div className="sec2-qr">
-                    <div className="s6-qr"><p className="textoM3">How to make a deposit?</p></div>
-                    <div className="s7-qr">
-                        <img src={img1} className="imgSec2-qr" alt="qric" />
-                        <p>Scan the Qr code with your payment app</p>
-                    </div>
-                    <div className="s8-qr">
-                        <img src={img2} className="imgSec2-qr" alt="qric" />
-                        <p>Copy the USDT address and
-                            amount to pay, then paste them
-                            into your payment app
-                        </p>
-                    </div>
-                    <div className="s9-qr">
-                        <img src={img3} className="imgSec2-qr" alt="qric" />
-                        <p>Transfer only Tether USD TRC20
-                            token (USDT). Transferring
-                            other currency will result in the
-                            toss of funds
-                        </p>
-                    </div>
-                    <div className="s10-qr">
-                        <img src={img3} className="imgSec2-qr" alt="qric" />
-                        <p>
-                            Make sure to correctly send the transaction, verifying the exact amount and that the Wallet is correct.
-                            Any sending error will result in the loss of funds.
-                        </p>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
         </section >
     )
+
+    function WalletOpcion(titulo, wallet, opc) {
+        return (
+            <div onClick={() => changeSeleccion(opc)} className={seleccionado == opc ? "seleccionado walletOpcion" : "walletOpcion"}>
+                <h3>{titulo}</h3>
+                <div>
+                    <img src={logoUSDT} alt="usdt_logo" />
+                    <span>{(wallet || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}</span>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default QrComponent

@@ -34,27 +34,45 @@ const Retiros = () => {
             );
     }
 
-    const editarUsuario = async (peticionData) => {
+    const guardarHistorial = (peticionData, state) => {
+        console.log(peticionData)
+
         const userRepo = new Common()
-        const userData = await userRepo.getUserDataByName(peticionData.userName)
         if (peticionData.wallet == 1) {
-            userData.walletDiv = userData.walletDiv - peticionData.monto
-            userRepo.saveInHistory(peticionData.userName, -peticionData.monto, "dividend wallet withdrawl", "Dividend wallet")
+            userRepo.saveInHistory(peticionData.userName, -peticionData.monto, "dividend wallet withdrawl", "Dividend wallet", state)
+            console.log(peticionData)
+
         } else {
-            userData.walletCom = userData.walletCom - peticionData.monto
-            userRepo.saveInHistory(peticionData.userName, -peticionData.monto, "commission wallet withdrawl", "Commission wallet")
+            userRepo.saveInHistory(peticionData.userName, -peticionData.monto, "commission wallet withdrawl", "Commission wallet", state)
         }
-        userRepo.editAnyUser(userData).then(() => {
-            fetchData()
-        })
     }
 
     const aprobar = (peticionData) => {
         const peticionesModel = new PeticionesModel()
+        guardarHistorial(peticionData)
+        peticionesModel.borrar(peticionData.firebaseKey)
         sendEmail(peticionData)
-        editarUsuario(peticionData).then(() => {
-            peticionesModel.borrar(peticionData.firebaseKey)
+        fetchData()
+    }
+
+    const eliminar = (peticionData) => {
+        const peticionesModel = new PeticionesModel()
+        const userRepo = new Common()
+        userRepo.fetchUserDataByName(peticionData.email).then(user => {
+            const userData = user
+            if (peticionData.wallet == 1) {
+                userData.walletDiv = Number(userData.walletDiv) + Number(peticionData.monto);
+            } else {
+                userData.walletCom = Number(userData.walletCom) + Number(peticionData.monto);
+            }
+            userData.retiros = Number(userData.retiros) - Number(peticionData.monto);
+            userRepo.editAnyUser(userData)
         })
+        peticionesModel.borrar(peticionData.firebaseKey).then(() => {
+            fetchData()
+        })
+        guardarHistorial(peticionData, 1)
+
     }
 
     const fetchData = async () => {
@@ -109,6 +127,7 @@ const Retiros = () => {
                                         <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
                                     </div>
                                 </div>
+                                <button onClick={() => eliminar(item)}>Eliminar</button>
                             </div>
                         ))}
                     </ul>

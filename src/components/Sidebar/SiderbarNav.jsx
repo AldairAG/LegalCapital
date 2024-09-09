@@ -32,7 +32,7 @@ const SiderNav = () => {
                     <NavBtn lk="/Dashboard/home" ic="bi bi-house" sp="Home" />
                 </li>
                 <li>
-                    <NavBtn lk="/Dashboard/packs" ic="bi bi-boxes" sp="Products" />
+                    <NavBtn lk="/Dashboard/packs" ic="bi bi-boxes" sp="Starter packs" />
                 </li>
                 <li>
                     <NavBtn lk="/Dashboard/My-net" ic="bi bi-people" sp="My net" />

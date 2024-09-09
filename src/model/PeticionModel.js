@@ -51,6 +51,7 @@ export default class Orden {
     }
 
     async saveRetiro() {
+
         try {
             const extractDB = new Common();
             const user = await extractDB.getUserDataR();
@@ -64,7 +65,10 @@ export default class Orden {
                 firebaseKey: newDocRef.key,
                 owner:user.firebaseKey,
                 usdtAddress:user.usdtAddress,
-                wallet:this.wallet||""
+                wallet:this.wallet||"",
+                estado:1,
+                hora : extractDB.obtenerHora(),
+                fecha : extractDB.obtenerFecha()
             }
             await set(newDocRef, peticion)
         } catch (error) {

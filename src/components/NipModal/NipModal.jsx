@@ -3,28 +3,25 @@ import "./NipModal.css"
 import Common from '../js/Common';
 import AlertMsgError from "../../components/AlertMsg/AlertMsgError.jsx"
 import AlertMsg from "../../components/AlertMsg/AlertMsg.jsx"
-import PeticionModel from "../../model/PeticionModel.js"
 
-const NipModal = ({ correctNip, onOpenClose, updatedUserData, modalNip, funcion, monto, wallet, fetch, opcion }) => {
+const NipModal = ({ correctNip, onOpenClose, modalNip, proceso }) => {
   const [inputNip, setInputNip] = useState('');
-  const [error, setError] = useState('');
-  const openClose = onOpenClose
   const [visibleE, setVisibleE] = useState(false);
   const [visible, setVisible] = useState(false);
   const [msj, setMsj] = useState("");
-  const [authTF, setAuthTF] = useState(false)
 
   if (!modalNip) return
 
-  const validarFuncion = () => {
-    if (funcion) {
-      sendRequest(monto, wallet)
+  function validarNip () {
+    if (inputNip === correctNip) {
+      proceso()
     } else {
-      verificarNip()
+      setMsj("Invalid NIP");
+      setVisibleE(true);
     }
   }
 
-  const sendRequest = (monto) => {
+  /*const sendRequest = (monto) => {
     const floatValue = parseFloat(monto);
     const common = new Common();
     let seleccion
@@ -33,19 +30,19 @@ const NipModal = ({ correctNip, onOpenClose, updatedUserData, modalNip, funcion,
     } else {
       seleccion = 2
     }
-    const peticionModel = new PeticionModel("Retiro", floatValue, seleccion)
-    /*if (wallet === 1) {
-      //common.saveInHistory(updatedUserData.userName, -monto, "dividend wallet withdrawl", "Dividend wallet")
-    } else if (wallet === 2) {
-      //common.saveInHistory(updatedUserData.userName, -monto, "commission wallet withdrawl", "Commission wallet")
-    }*/
-    peticionModel.saveRetiro().then(() => {
-      setVisible(true)
-      setMsj("Request submitted successfully")
-      fetch()
-      onOpenClose()
-      setInputNip("")
-    })
+    if (inputNip === correctNip) {
+      const peticionModel = new PeticionModel("Retiro", floatValue, seleccion)
+      peticionModel.saveRetiro().then(() => {
+        setVisible(true)
+        setMsj("Request submitted successfully")
+        fetch()
+        onOpenClose()
+        setInputNip("")
+      })
+    } else {
+      setMsj("Invalid NIP");
+      setVisibleE(true);
+    }
   }
 
   const verificarNip = () => {
@@ -64,7 +61,7 @@ const NipModal = ({ correctNip, onOpenClose, updatedUserData, modalNip, funcion,
       setMsj("Invalid NIP");
       setVisibleE(true);
     }
-  }
+  }*/
 
   return (
     <section className="ModalNip">
@@ -76,8 +73,8 @@ const NipModal = ({ correctNip, onOpenClose, updatedUserData, modalNip, funcion,
           <p>Enter your NIP</p>
           <input type="password" value={inputNip} onChange={(e) => setInputNip(e.target.value)} maxLength={4} placeholder="Enter 4-digit NIP" />
           <div className='botones'>
-            <button onClick={openClose}>Close</button>
-            <button onClick={validarFuncion} className='azul'>Verify</button>
+            <button onClick={onOpenClose}>Close</button>
+            <button onClick={validarNip} className='azul'>Verify</button>
           </div>
         </div>
       /*) : (

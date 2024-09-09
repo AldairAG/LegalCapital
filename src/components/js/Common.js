@@ -1,6 +1,6 @@
 import appFirebase from "../../firebase-config";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, get, set, push } from "firebase/database";
+import { getDatabase, ref, get, set, push, orderByChild, query, equalTo } from "firebase/database";
 import DepositoModel from "../../model/DepositoModel";
 
 class Common {
@@ -51,21 +51,67 @@ class Common {
     }
     getUserDataR = async () => {
         const db = getDatabase(appFirebase);
-        const dbRef = ref(db, "users/");
+        const currentUserEmail = this.getCurrentUser().email;
+        const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(currentUserEmail));
+
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
             const users = Object.values(snapshot.val());
-            const currentUserEmail = this.getCurrentUser();
-            const user = users.find(user => user.email === currentUserEmail.email);
-            if (user) {
-                return user
+            if (users.length > 0) {
+                return users[0]; // Devuelve el primer (y único) usuario que coincide
             } else {
                 alert("No se encontró el usuario");
             }
         } else {
             alert("No se encontraron datos en la base de datos");
         }
-    }
+    };
+
+    fetchUserData = async () => {
+        const db = getDatabase(appFirebase);
+        const currentUserEmail = this.getCurrentUser().email;
+        const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(currentUserEmail));
+
+        return get(dbRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const users = Object.values(snapshot.val());
+                if (users.length > 0) {
+                    return users[0];  // Retorna el usuario si lo encuentra
+                } else {
+                    throw new Error("No se encontró el usuario");
+                }
+            } else {
+                throw new Error("No se encontraron datos en la base de datos");
+            }
+        }).catch((error) => {
+            console.error("Error obteniendo los datos:", error);
+            throw error;  // Maneja y propaga el error
+        });
+    };
+
+    fetchUserDataByName = async (email) => {
+        const db = getDatabase(appFirebase);
+        const currentUserEmail = this.getCurrentUser().email;
+        const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(email));
+
+        return get(dbRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const users = Object.values(snapshot.val());
+                if (users.length > 0) {
+                    return users[0];  // Retorna el usuario si lo encuentra
+                } else {
+                    throw new Error("No se encontró el usuario");
+                }
+            } else {
+                throw new Error("No se encontraron datos en la base de datos");
+            }
+        }).catch((error) => {
+            console.error("Error obteniendo los datos:", error);
+            throw error;  // Maneja y propaga el error
+        });
+    };
+
+
 
     getUserDataByName = async (userName) => {
         const db = getDatabase(appFirebase);
@@ -196,7 +242,7 @@ class Common {
         }
     };
 
-    saveInHistory = async (userName, cantidad, concepto, emisor) => {
+    saveInHistory = async (userName, cantidad, concepto, emisor,state) => {
         const depositoModel = new DepositoModel()
         depositoModel.setDefaultValues()
 
@@ -210,6 +256,7 @@ class Common {
         depositoModel.hora = this.obtenerHora()
         depositoModel.date = this.obtenerFecha()
         depositoModel.emisor = emisor
+        depositoModel.state=state|0
         try {
             await set(newDocRef, depositoModel);
         } catch (error) {

@@ -44,7 +44,7 @@ const TwoStepVerification = ({ userData }) => {
     const sendEmail = (codigo) => {
         emailjs.send("service_033kgeg", "template_5faskmk", {
             code: codigo,
-            from_name: "alagga02@gmail.com"// userData.email,
+            from_name: userData.email// userData.email,
         }, {
             publicKey: '0wCoAjcnZT2N0PVfE',
         })

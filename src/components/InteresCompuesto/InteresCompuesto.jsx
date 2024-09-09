@@ -13,7 +13,7 @@ const InteresCompuesto = ({ keyF }) => {
     const [visibleE, setVisibleE] = useState(false)
     const [userData, setUserData] = useState([])
     const [activar, setActivar] = useState(false)
-    const [periods, setPeriods] = useState(false)
+    const [periods, setPeriods] = useState(12)
     const [msj, setMsj] = useState("")
 
     const openClose2 = () => {
