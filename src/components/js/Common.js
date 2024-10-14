@@ -53,7 +53,7 @@ class Common {
         const db = getDatabase(appFirebase);
         const currentUserEmail = this.getCurrentUser().email;
         const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(currentUserEmail));
-
+        if(!currentUserEmail) return
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
             const users = Object.values(snapshot.val());
@@ -68,25 +68,29 @@ class Common {
     };
 
     fetchUserData = async () => {
-        const db = getDatabase(appFirebase);
-        const currentUserEmail = this.getCurrentUser().email;
-        const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(currentUserEmail));
+        try {
+            const db = getDatabase(appFirebase);
+            const currentUserEmail = this.getCurrentUser().email;
+            const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(currentUserEmail));
 
-        return get(dbRef).then((snapshot) => {
-            if (snapshot.exists()) {
-                const users = Object.values(snapshot.val());
-                if (users.length > 0) {
-                    return users[0];  // Retorna el usuario si lo encuentra
+            return get(dbRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const users = Object.values(snapshot.val());
+                    if (users.length > 0) {
+                        return users[0];  // Retorna el usuario si lo encuentra
+                    } else {
+                        throw new Error("No se encontró el usuario");
+                    }
                 } else {
-                    throw new Error("No se encontró el usuario");
+                    throw new Error("No se encontraron datos en la base de datos");
                 }
-            } else {
-                throw new Error("No se encontraron datos en la base de datos");
-            }
-        }).catch((error) => {
-            console.error("Error obteniendo los datos:", error);
-            throw error;  // Maneja y propaga el error
-        });
+            }).catch((error) => {
+                console.error("Error obteniendo los datos:", error);
+                throw error;  // Maneja y propaga el error
+            });
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     fetchUserDataByName = async (email) => {
@@ -242,7 +246,7 @@ class Common {
         }
     };
 
-    saveInHistory = async (userName, cantidad, concepto, emisor,state) => {
+    saveInHistory = async (userName, cantidad, concepto, emisor, state) => {
         const depositoModel = new DepositoModel()
         depositoModel.setDefaultValues()
 
@@ -256,7 +260,7 @@ class Common {
         depositoModel.hora = this.obtenerHora()
         depositoModel.date = this.obtenerFecha()
         depositoModel.emisor = emisor
-        depositoModel.state=state|0
+        depositoModel.state = state | 0
         try {
             await set(newDocRef, depositoModel);
         } catch (error) {

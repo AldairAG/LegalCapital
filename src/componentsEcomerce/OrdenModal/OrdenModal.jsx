@@ -23,7 +23,9 @@ const OrdenModal = (props) => {
                             </div>
                             <button onClick={onclicVisible}><i class="bi bi-x"></i></button>
                         </div>
-                        <div className="sec1-mec"></div>
+                        <div className="sec1-mec">
+                            <p>Products</p>
+                        </div>
                         <div className="sec2-mec"></div>
                         <div className="sec3-mec"></div>
                         <div className="sec4-mec"></div>

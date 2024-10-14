@@ -57,34 +57,44 @@ export default class Orden {
             console.error("Error al agregar la orden: ", e);
         }
     }
+    async getOrdenes(userName) {
+        try {
+            const db = getDatabase(appFirebase);
+            const ordersRef = ref(db, 'ordenes/');
+            const userOrdersQuery = query(ordersRef, orderByChild('owner'), equalTo(userName));
 
-    async getOrdenes(setOrdenes) {
-    try {
-        const extractDB = new Common();
-        const user = await extractDB.getUserDataR();
+            const snapshot = await get(userOrdersQuery);
 
-        if (!user || !user.userName) {
-            setOrdenes([]);
-            return;
+            if (snapshot.exists()) {
+                const orders = snapshot.val();
+                const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
+                return ordersArray;
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error("Error al obtener las órdenes del usuario:", error);
+            return [] ;
         }
-
-        const db = getDatabase(appFirebase);
-        const ordersRef = ref(db, 'ordenes/');
-        const userOrdersQuery = query(ordersRef, orderByChild('owner'), equalTo(user.userName));
-
-        const snapshot = await get(userOrdersQuery);
-
-        if (snapshot.exists()) {
-            const orders = snapshot.val();
-            const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
-            setOrdenes(ordersArray);
-        } else {
-            setOrdenes([]);
-        }
-    } catch (error) {
-        console.error("Error al obtener las órdenes del usuario:", error);
-        setOrdenes([]);
     }
-}
-    
+
+    async getAllOrdenes() {
+        try {
+            const db = getDatabase(appFirebase);
+            const ordersRef = ref(db, 'ordenes/');
+            const userOrdersQuery = query(ordersRef);
+            const snapshot = await get(userOrdersQuery);
+            if (snapshot.exists()) {
+                const orders = snapshot.val();
+                const ordersArray = Object.keys(orders).map(key => ({ id: key, ...orders[key] }));
+                return ordersArray
+            }else{
+                return []
+            }
+        } catch (error) {
+            console.error("Error al obtener las órdenes del usuario:", error);
+            return []
+        }
+    }
+
 }

@@ -3,32 +3,40 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import "./Cart.css"
 import CartModel from "../../model/CartModel";
 import QR from "../QR/QR";
-const Cart = (props) => {
+const Cart = ({ userData }) => {
+    const [productos, setProductos] = useState([])
     const [visible, setVisible] = useState(false)
+    const [opcion, setOpcion] = useState(1)
+
     const [visibleDP, setVisibleDP] = useState(false)
     const [subtotal, setSubtotal] = useState(0)
     const [total, setTotal] = useState(0)
     const [envio, SetEnvio] = useState(0)
-    const [productos, setProductos] = useState([])
-    const [opcion, setOpcion] = useState(1)
-
 
     const openClose = () => {
         setVisible(!visible)
-        const db = getDatabase();
-        const userRef = ref(db, 'carritos/' + props.keyF + "/productos");
-
-        const unsubscribe = onValue(userRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                setProductos(data);
-            } else {
-                setProductos([])
-            }
-        });
-
-        return () => unsubscribe();
+        fetchCarrito()
     }
+
+    const fetchCarrito = () => {
+        try {
+            const db = getDatabase();
+            const userRef = ref(db, 'carritos/' + userData.firebaseKey + "/productos");
+            const unsubscribe = onValue(userRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    setProductos(data);
+                } else {
+                    setProductos([])
+                }
+            });
+            return () => unsubscribe();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     useEffect(() => {
         const sumCantidad = productos.reduce((acc, producto) => acc + producto.cantidad, 0);
         const sumPrecio = productos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
@@ -44,15 +52,17 @@ const Cart = (props) => {
     }, [productos]);
 
     const eliminarProducto = async (index) => {
-        const cart = new CartModel(props.keyF)
-        const prodcuts = await cart.getFromDatabase()
-        const productos = prodcuts.productos
-        if (index >= 0 && index < productos.length) {
-            const nuevosProductos = productos.filter((_, i) => i !== index);
-            cart.eliminarProducto(nuevosProductos)
-        } else {
-            console.error('Índice no válido');
-        }
+        const cart = new CartModel(userData.firebaseKey)
+        cart.getFromDatabase().then(products => {
+            console.log(products)
+            const prodcutosActuales = products.productos
+            if (index >= 0 && index < prodcutosActuales.length) {
+                const nuevosProductos = prodcutosActuales.filter((_, i) => i !== index);
+                cart.eliminarProducto(nuevosProductos)
+            } else {
+                console.error('Índice no válido');
+            }
+        })
     }
 
     return (
@@ -84,13 +94,13 @@ const Cart = (props) => {
                         <div className="sec5-ecc"><p>Total: </p><p>{total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p></div>
                         <div className="sec6-ecc">
                             <select className="payment-select" value={opcion} onChange={(e) => setOpcion(e.target.value)}>
-                                <option value={1}>Dividend Wallet: {props.wd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
-                                <option value={2}>Commission Wallet: {props.wc.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
-                                <option value={3}>Ecommerce wallet: {props.we.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={1}>Dividend Wallet: {userData.walletDiv.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={2}>Commission Wallet: {userData.walletCom.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
+                                <option value={3}>Ecommerce wallet: {userData.walletEc || "0".toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</option>
                                 {/* <option value={4}>Direct payment</option> */}
                             </select>
                         </div>
-                        <div className="sec7-ecc"><QR opc={opcion} total={total} productos={productos} keyF={props.keyF}/></div>
+                        <div className="sec7-ecc"><QR opc={opcion} total={total} productos={productos} keyF={userData.firebaseKey} /></div>
                     </div>
                 </section>
             )}

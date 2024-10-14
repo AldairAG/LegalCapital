@@ -158,7 +158,7 @@ const CardUser = (props) => {
             </div>
             <div className="sec3">
                 <span>{props.userData.userName}</span>
-                <p>Team capital: ${capitalTotal} <img alt="logo_usdt" /></p>
+                <p>Team capital: ${capitalTotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} <img alt="logo_usdt" /></p>
                 <p>Joined on: {props.userData.admissionDate}</p>
             </div>
             <div className="sec4">

@@ -11,19 +11,12 @@ import AlertMsg from "../../components/AlertMsg/AlertMsg";
 import CartModel from "../../model/CartModel";
 
 
-const QrComponent = (props) => {
+const QrComponent = ({opc,total,productos,keyF}) => {
     const [visible, setVisible] = useState(false)
     const [direccion, setDireccion] = useState([])
     const [msj, setMsj] = useState(false)
     const [msjE, setMsjE] = useState(false)
     const [txt, setTxt] = useState("")
-    const [productos, setProductos] = useState([])
-
-
-
-    useEffect(() => {
-
-    }, [props.opc]);
 
     const openClose = () => {
         setVisible(!visible)
@@ -36,29 +29,28 @@ const QrComponent = (props) => {
     };
 
     const setRequestHandle = () => {
-        const peticionesData = new PeticioModel("Pago directo de ecomerce", props.total)
-        peticionesData.saveProducts(props.productos)
+        const peticionesData = new PeticioModel("Pago directo de ecomerce", total)
+        peticionesData.saveProducts(productos)
     }
 
     const realizarCompra = async () => {
-        if (props.opc == 4) {
+        if (opc == 4) {
             openClose()
         } else {
             const direccionModel = new DireccionModel()
-            if (await direccionModel.direccionIsEmpty(props.keyF)) {
-                if (props.productos.length === 0) {
+            if (await direccionModel.direccionIsEmpty(keyF)) {
+                if (productos.length === 0) {
                     setMsjE(true)
                     setTxt("You don't have any products")
                 } else {
-                    const cart = new CartModel(props.keyF)
-                    const resultado = await cart.realizarCobro(props.opc, props.total)
+                    const cart = new CartModel(keyF)
+                    const resultado = await cart.realizarCobro(opc,total)
                     if (resultado) {
                         setMsjE(true)
                         setTxt(resultado)
                     } else {
                         setMsj(true)
                         setTxt("Your order was created successfully")
-                        setProductos([])
                     }
                 }
             } else {
@@ -92,7 +84,7 @@ const QrComponent = (props) => {
                             </div>
                             <div className="s4-qr">
                                 <p>Amount</p>
-                                <input type="text" id="wallet" readOnly value={props.total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.') + " USDT"} />
+                                <input type="text" id="wallet" readOnly value={total.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.') + " USDT"} />
                             </div>
                             <div className="s5-qr">
                                 <button className="boton3" onClick={openClose}><span>Close</span></button>

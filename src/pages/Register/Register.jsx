@@ -25,9 +25,11 @@ const Register = () => {
     useEffect(() => {
         setReferredBy(r || '');
     }, [r]);
+
     useEffect(() => {
         registerData.activateButton()
     }, [userName, email, password, passwordConf]);
+
     const blurPass = () => {
         registerData.blurPass()
     };
@@ -51,7 +53,6 @@ const Register = () => {
     const handleBlur = () => {
         setUserName(userName.replace(/[^\w\s]/gi, '').replace(/\s/g, ""));
     };
-
 
     const sendEmail = () => {
         emailjs.send("service_033kgeg", "template_ct13fi2", {
@@ -81,6 +82,12 @@ const Register = () => {
         setShowPassword2(!showPassword2);
     };
 
+    const handleChangeMayusToMinus = (e) => {
+        const value = e.target.value;
+        const textoConvertido = value.toLowerCase();  // Convertimos todo el texto a minúsculas
+        setEmail(textoConvertido);
+    }
+
 
     return (
         <div className="register-seccion">
@@ -92,7 +99,7 @@ const Register = () => {
                 <span>Username:</span>
                 <input type="text" placeholder="Enter your Username" value={userName} onChange={handleChange} onBlur={handleBlur} />
                 <span>Email:</span>
-                <input type="email" placeholder="Enter your E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" placeholder="Enter your E-mail" value={email} onChange={handleChangeMayusToMinus} />
                 <span>Password</span>
                 <div className="password">
                     <input type={showPassword ? 'text' : 'password'} onBlur={blurPass} placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />

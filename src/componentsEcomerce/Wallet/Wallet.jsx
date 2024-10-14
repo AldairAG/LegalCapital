@@ -5,7 +5,7 @@ import appFirebase from "../../firebase-config";
 import "./Wallet.css";
 import img1 from "../../Assets/Images/Logos/usdt.png";
 
-const Wallet = (props) => {
+const Wallet = ({userData}) => {
     const [wallet, setWallet] = useState(0);
     const [historial, setHistorial] = useState([]);
     const location = useLocation();
@@ -16,7 +16,7 @@ const Wallet = (props) => {
             const dbRef = ref(db, "history");
 
             // Crear una consulta que filtre por 'concepto' y 'userName'
-            const historyQuery = query(dbRef, orderByChild("userName"), equalTo(props.currentUser));
+            const historyQuery = query(dbRef, orderByChild("userName"), equalTo(userData.userName));
 
             const snapshot = await get(historyQuery);
 
@@ -40,20 +40,20 @@ const Wallet = (props) => {
         if (location.pathname === "/Dashboard/E-comerce") {
             fetchData();
         }
-    }, [location.pathname, props.currentUser]);
+    }, [location.pathname, userData.userName]);
 
     return (
         <section className="Wallet-ec">
-            <div className="sec0-wec"><p>Current balance</p></div>
-            <div className="sec1-wec">
+            <p className="titulos">Current balance</p>
+            <div className="wallet">
                 <div>
                     <img src={img1} alt="ustd_logo" />
-                    <p>{(props.walletEc || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p>
+                    <p>{(userData.walletEc || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</p>
                 </div>
                 {/* <button>Add</button> */}
             </div>
-            <div className="sec2-wec"><p>transaction history</p></div>
-            <div className="sec3-wec">
+            <p className="titulo g">transaction history</p>
+            <div className="historial">
                 <table>
                     <thead>
                         <tr>

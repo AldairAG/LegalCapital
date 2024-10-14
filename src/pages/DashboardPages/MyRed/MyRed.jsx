@@ -113,7 +113,7 @@ const MyRed = (props) => {
                         </div>
                         <div className="nivelCard2">
                             <span className="sp2"> Capital:</span>
-                            <span className="sp1">{sumaTotal} USDT</span>
+                            <span className="sp1">{sumaTotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')} USDT</span>
                         </div>
                         <button
                             className="btnDesTab"
@@ -176,7 +176,7 @@ const MyRed = (props) => {
                                                     <td className="p-4 align-middle">{item.admissionDate}</td>
                                                     <td className="p-4 align-middle">{item.Country}</td>
                                                     <td className="p-4 align-middle">{item.referredBy}</td>
-                                                    <td className="p-4 align-middle">{item.staterPack}</td>
+                                                    <td className="p-4 align-middle">{item.staterPack.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}</td>
                                                     <td className="p-4 align-middle">{calcularRango(item.rank)}</td>
                                                 </tr>
                                             ))

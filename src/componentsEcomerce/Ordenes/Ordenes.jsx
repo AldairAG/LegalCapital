@@ -2,16 +2,21 @@ import { useState, useEffect } from "react"
 import "./Ordenes.css"
 import OrdenModel from "../../model/OrdenModel"
 import OrdenModal from "../OrdenModal/OrdenModal"
-const Ordenes = (props) => {
+const Ordenes = ({userName}) => {
     const [ordenes, setOrdenes] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        fetchOrdenes()
+    }, []);
+
+    const fetchOrdenes = () => {
         const ordenData = new OrdenModel()
-        ordenData.getOrdenes(setOrdenes).then(()=>{
+        ordenData.getOrdenes(userName).then(orders => {
+            setOrdenes(orders)
             setIsLoading(false);
         });
-    }, [props.userName]);
+    }
 
     return (
         <section className="Ordenes-ec">
@@ -30,24 +35,24 @@ const Ordenes = (props) => {
                             </th>
                             <th>
                                 State
-                            </th>
+                            </th>{/* 
                             <th>
                                 Actions
-                            </th>
+                            </th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {isLoading ? (
                             <div className="spinner"></div>
                         ) : (
-                            ordenes.length > 0 ? (
+                            ordenes ? (
                                 ordenes.map((item) => (
                                     <tr key={item.userName}>
                                         <td >{item.fecha}</td>
                                         <td >{item.numeroOrden}</td>
                                         <td >{item.totalPagar} USDT</td>
                                         <td >{item.estado}</td>
-                                        <td><OrdenModal orden={item} /></td>
+                                        {/* <td><OrdenModal orden={item} /></td> */}
                                     </tr>
                                 ))
                             ) : (
