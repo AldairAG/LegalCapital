@@ -20,6 +20,7 @@ import UserPerfil from "../DashboardPages/UserPerfil/UserPerfil.jsx";
 import Retiros from "../DashboardPages/Retiros/Retiros.jsx";
 import Tools from "../DashboardPages/Tools/Tools.jsx";
 import Anuncio2 from '../../components/Anuncio2/Anuncio2.jsx';
+import PagarFacturas from '../DashboardPages/PagarFacturas/PagarFacturas.jsx';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -34,12 +35,12 @@ const Dashboard = () => {
     return (
         <div className="layout">
             <div className={miniBarraLateral ? "containDash" : "containDash"}>
-                <div className={miniBarraLateral ? "sidebar" : "sidebar2"}><Sidebar max={miniBarraLateral}/> </div>
-                <div className="cabeza"><Header setMax={setMiniBarraLateral}/></div>
+                <div className={miniBarraLateral ? "sidebar" : "sidebar2"}><Sidebar max={miniBarraLateral} /> </div>
+                <div className="cabeza"><Header setMax={setMiniBarraLateral} /></div>
                 <div className="container">
-                    <Aviso val={userData["validity"]}/>
-                    <Anuncio/>
-                    <Anuncio2 val={userData["validity"]}/>
+                    <Aviso val={userData["validity"]} />
+                    <Anuncio />
+                    <Anuncio2 val={userData["validity"]} />
                     <div className="contentSeccion">
                         <Switch>
                             <Route path="/Dashboard/home" component={Home} />
@@ -52,6 +53,7 @@ const Dashboard = () => {
                             <Route path="/Dashboard/Support" component={Page6} />
                             <Route path="/Dashboard/Profile" component={Page7} />
                             <Route path="/Dashboard/withdrawals" component={Page8} />
+                            <Route path="/Dashboard/bill-payment" component={Page10} />
                         </Switch>
                     </div>
                 </div>
@@ -63,70 +65,78 @@ const Dashboard = () => {
     function Home() {
         return (
             <>
-                <MainDiv userData={userData}/>
+                <MainDiv userData={userData} />
             </>
         );
     }
     function Page1() {
         return (
             <>
-                <Packs/>
+                <Packs />
             </>
         );
     }
     function Page9() {
         return (
             <>
-                <Ecomerce keyF={userData.firebaseKey}/>
+                <Ecomerce keyF={userData.firebaseKey} />
+            </>
+        );
+    }
+
+    function Page10() {
+        return (
+            <>
+                <PagarFacturas keyF={userData.firebaseKey} />
             </>
         );
     }
     function Page2() {
         return (
             <>
-                <Dividendos userName={userData.userName}/>
+                <Dividendos userName={userData.userName} />
             </>
         );
     }
     function Page3() {
         return (
             <>
-                <Red userName={userData.userName}/>
+                <Red userName={userData.userName} />
             </>
         );
     }
     function Page4() {
         return (
             <>
-                <MyRed userName={userData.userName}/>
+                <MyRed userName={userData.userName} />
             </>
         );
     }
     function Page6() {
         return (
             <>
-                <Support userName={userData.userName} email={userData.email}/>
+                <Support userName={userData.userName} email={userData.email} />
             </>
         );
     }
     function Page7() {
         return (
             <>
-                <UserPerfil keyF={userData.firebaseKey}/>
+                <UserPerfil keyF={userData.firebaseKey} />
             </>
         );
     }
     function Page5() {
         return (
             <>
-                <Tools/>
+                <Tools />
             </>
         );
     }
     function Page8() {
         return (
             <>
-                <Retiros keyF={userData.firebaseKey}/>
+                <Retiros keyF={userData.firebaseKey} />
             </>
         );
     }
