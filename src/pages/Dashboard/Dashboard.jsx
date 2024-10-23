@@ -21,6 +21,8 @@ import Retiros from "../DashboardPages/Retiros/Retiros.jsx";
 import Tools from "../DashboardPages/Tools/Tools.jsx";
 import Anuncio2 from '../../components/Anuncio2/Anuncio2.jsx';
 import PagarFacturas from '../DashboardPages/PagarFacturas/PagarFacturas.jsx';
+import TransferenciasInternas from '../DashboardPages/TransferenciaInterna/TransferenciaInterna.jsx';
+
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -54,6 +56,7 @@ const Dashboard = () => {
                             <Route path="/Dashboard/Profile" component={Page7} />
                             <Route path="/Dashboard/withdrawals" component={Page8} />
                             <Route path="/Dashboard/bill-payment" component={Page10} />
+                            <Route path="/Dashboard/internal-transfers" component={Page11} />
                         </Switch>
                     </div>
                 </div>
@@ -91,6 +94,15 @@ const Dashboard = () => {
             </>
         );
     }
+
+    function Page11() {
+        return (
+            <>
+                <TransferenciasInternas keyF={userData.firebaseKey} />
+            </>
+        );
+    }
+
     function Page2() {
         return (
             <>
