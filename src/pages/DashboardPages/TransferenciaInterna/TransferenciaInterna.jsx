@@ -12,13 +12,14 @@ import Common from "../../../components/js/Common";
 import PeticionModel from "../../../model/PeticionModel"
 
 
-const TransferenciaInterna = (props) => {
+const TransferenciaInterna = ({fKey}) => {
   const location = useLocation();
   const isWithdrawalsPage = location.pathname === "/Dashboard/withdrawals";
-  const [cantidad, setCantidad] = useState("");
   const [visibleMsg, setVisibleMsg] = useState(false);
   const [visibleError, setVisibleError] = useState(false);
   const [textoMsj, setTextoMsj] = useState("");
+
+  const [cantidad, setCantidad] = useState("");
   const [historial, setHistorial] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingRP, setIsLoadingRP] = useState(true);
