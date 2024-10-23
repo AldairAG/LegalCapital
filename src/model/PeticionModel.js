@@ -29,6 +29,25 @@ export default class Orden {
         }
     }
 
+    async saveFactura() {
+        try {
+            const extractDB = new Common();
+            const user = await extractDB.getUserDataR();
+            const db = getDatabase(appFirebase);
+            const newDocRef = push(ref(db, 'peticiones/'));
+            const peticion = {
+                concepto: this.concepto,
+                monto: this.monto,
+                email: user.email,
+                firebaseKey: newDocRef.key,
+            }
+            await set(newDocRef, peticion)
+            return newDocRef.key
+        } catch (error) {
+            console.error("Error al agregar la orden: ", error);
+        }
+    }
+
     async saveProducts(list) {
         try {
             const extractDB = new Common();

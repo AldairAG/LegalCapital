@@ -317,3 +317,15 @@
     font-size: 17px;
     font-weight: 600;
 }
+
+
+.modal-contentQr .payBill{
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    height: 600px;
+    padding: 10px;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}

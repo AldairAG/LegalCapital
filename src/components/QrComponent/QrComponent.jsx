@@ -17,10 +17,17 @@ const QrComponent = ({ visible, openClose, op }) => {
     const [msj, setMsj] = useState(false)
     const [msjE, setMsjE] = useState(false)
     const [texto, setTexto] = useState("")
-    const opcionesPago = ["---", "USDT Transfer", "Use your own earnings"]
+    const opcionesPago = ["---", "USDT Transfer", "Use your own earnings", "Pay by invoice"]
     const [opcionPago, setOpcionPago] = useState("")
     const [userData, setUserData] = useState([])
     const [seleccionado, setSeleccionado] = useState(1)
+    const nota3 = {
+        intruccion1: "1- select an amount and generate your payment code",
+        instruccion2: "2- Copy the code so that someone else can pay for the package",
+        advertencia1: "The maximum amount that can be paid through this method corresponds to 50%",
+        advertencia2: "The remaining amount must be paid via USDT transfer (TRC20)"
+    }
+    const [code, setCode] = useState("")
 
     useEffect(() => {
         fetch()
@@ -38,6 +45,14 @@ const QrComponent = ({ visible, openClose, op }) => {
     };
     const handleCopy = () => {
         const inputElement = document.getElementById("wallet");
+        inputElement.select();
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        setTexto("Wallet copied successfully")
+        setMsj(true)
+    };
+    const handleCopyCode = () => {
+        const inputElement = document.getElementById("code");
         inputElement.select();
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
@@ -245,7 +260,6 @@ const QrComponent = ({ visible, openClose, op }) => {
     const changeSeleccion = (opc) => {
         setSeleccionado(opc)
     }
-
     function fetch() {
         if (visible) return
         const userRepo = new Common()
@@ -255,8 +269,7 @@ const QrComponent = ({ visible, openClose, op }) => {
             console.error("Error al obtener el usuario:", error);
         });
     }
-
-    function validaciones(wallet, walletS,monto) {
+    function validaciones(wallet, walletS, monto) {
         if (walletS == 1) {
             if (wallet <= 25) {
                 setTexto("You must have at least 25 USDT")
@@ -271,7 +284,7 @@ const QrComponent = ({ visible, openClose, op }) => {
         }
 
         //validador por si no selecciono una opcion
-        if(opcion==0){
+        if (opcion == 0) {
             setTexto("You have not selected an option")
             setMsjE(true)
             return false
@@ -280,16 +293,15 @@ const QrComponent = ({ visible, openClose, op }) => {
 
         return true
     }
-
-    const realizarPago =async()=> {
+    const realizarPago = async () => {
         const userRepo = new Common()
         const monto = opcion
         const wallet = seleccionado
         const user = userData
 
         if (wallet == 1) {
-            const walletPrueba= user.walletDiv-25
-            if (!validaciones(walletPrueba, wallet,monto)) return
+            const walletPrueba = user.walletDiv - 25
+            if (!validaciones(walletPrueba, wallet, monto)) return
             user.walletDiv = user.walletDiv - monto
             user.staterPack = user.staterPack + monto
             userRepo.editAnyUser(user).then(() => {
@@ -300,9 +312,9 @@ const QrComponent = ({ visible, openClose, op }) => {
                 setMsjE(true)
             })
         } else {
-            if (!validaciones(user.walletCom, wallet,monto)) return
+            if (!validaciones(user.walletCom, wallet, monto)) return
             user.staterPack = user.staterPack + monto
-            user.walletCom=user.walletCom-monto
+            user.walletCom = user.walletCom - monto
             userRepo.editAnyUser(user).then(() => {
                 setTexto("Successful purchase")
                 setMsj(true)
@@ -311,6 +323,18 @@ const QrComponent = ({ visible, openClose, op }) => {
                 setMsjE(true)
             })
         }
+    }
+    const generarCodigo = () => {
+        if(opcion=="---"){
+            setTexto("You must have at least 25 USDT")
+            setMsjE(true)
+            return
+        }
+
+        const peticionesData = new PeticioModel("payment by invoice", opcion)
+        peticionesData.saveFactura().then((fkey) => {
+            setCode(fkey)
+        })
     }
 
     return (
@@ -413,6 +437,59 @@ const QrComponent = ({ visible, openClose, op }) => {
                         </div>
                     </>
                 )}
+
+                {opcionPago === opcionesPago[3] && (
+                    <>
+                        <div className="payment">
+                            <p className="textoM3">Complete the payment</p>
+
+                            <div className="monto">
+                                <p className="textoM2">1-. Select a quantity</p>
+                                <div>
+                                    {op === 5 ? (
+                                        <input type="text" id="code" value={opcion} onChange={handleChange} />
+                                    ) : (
+                                        <select className="select-box" value={opcion} onChange={handleChange} >
+                                            {generarOpciones(op)}
+                                        </select>
+                                    )}
+                                </div>
+                            </div>
+                            <button className="finish" onClick={generarCodigo}>Generate code</button>
+                            <div className="copyAddrs">
+                                <p className="textoM2">2-. Copy your code</p>
+                                <div className="wallet">
+                                    <input type="text" id="wallet" value={code} onChange={(e) => setCode(e.target.value)} readOnly />
+                                    <button onClick={handleCopyCode} ><i class="bi bi-copy"></i></button>
+                                </div>
+                            </div>
+                            <button className="close" onClick={onOpenClose}><span>Close</span></button>
+                        </div>
+                        <div className="notasqr">
+                            <div><p className="textoM3">How to make a payment by invoice?</p></div>
+                            <div className="nota">
+                                <img src={img1} className="imgSec2-qr" alt="qric" />
+                                <p>{nota3.intruccion1}</p>
+                            </div>
+                            <div className="or">
+                                <p><i class="bi bi-dash"></i> or <i class="bi bi-dash"></i></p>
+                            </div>
+                            <div className="nota">
+                                <img src={img2} className="imgSec2-qr" alt="qric" />
+                                <p>{nota3.instruccion2} </p>
+                            </div>
+                            <div className="nota">
+                                <img src={img3} className="imgSec2-qr" alt="qric" />
+                                <p>{nota3.advertencia1} </p>
+                            </div>
+                            <div className="nota">
+                                <img src={img3} className="imgSec2-qr" alt="qric" />
+                                <p>{nota3.advertencia2} </p>
+                            </div>
+                        </div>
+                    </>
+                )}
+
             </div>
         </section >
     )
