@@ -15,19 +15,19 @@ import PeticionModel from "../../../model/PeticionModel"
 const TransferenciaInterna = (props) => {
   const location = useLocation();
   const isWithdrawalsPage = location.pathname === "/Dashboard/withdrawals";
-  const [cantidad, setCantidad] = useState("");
+
   const [visibleMsg, setVisibleMsg] = useState(false);
   const [visibleError, setVisibleError] = useState(false);
   const [textoMsj, setTextoMsj] = useState("");
-  const [historial, setHistorial] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingRP, setIsLoadingRP] = useState(true);
-  const [visibleNipModal, setVisibleNipModal] = useState(false);
-  const [wallet, setWallet] = useState("");
+
+  const [cantidad, setCantidad] = useState("");
   const [seleccionado, setSeleccionado] = useState(1)
-  const [userData, setUserData] = useState({});
-  const [retiroPendiente, setRetiroPendiente] = useState({})
-  const [retiroActivo, setRetiroActivo] = useState(false)
+
+  const [historial, setHistorial] = useState([]);
+  const [userData, setUserData] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [visibleNipModal, setVisibleNipModal] = useState(false);
 
 
 
@@ -56,46 +56,9 @@ const TransferenciaInterna = (props) => {
     }
   };
 
-  const fetchRetiroPendiente = () => {
-    return new Promise(async (resolve) => {
-      if (!isWithdrawalsPage) return resolve(false);
-
-      try {
-        const db = getDatabase(appFirebase);
-        const dbRef = ref(db, "peticiones");
-        const queryDb = query(dbRef, orderByChild("userName"), equalTo(userData.userName));
-        const snapshot = await get(queryDb);
-
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const retiroEntry = Object.values(data).find(item => item.concepto == "Retiro");
-
-          if (retiroEntry) {
-            setRetiroActivo(true)
-            return resolve(retiroEntry);
-          } else {
-            setRetiroPendiente({});
-            return resolve({});
-          }
-        } else {
-          setRetiroPendiente({});
-          return resolve({});
-        }
-      } catch (error) {
-        setRetiroPendiente({});
-        console.log(error)
-        return resolve({});
-      }
-    });
-  };
-
   useEffect(() => {
     if (!isWithdrawalsPage) return;
-    fetchRetiroPendiente().then(retiro => {
-      setRetiroPendiente(retiro)
-      //console.log(retiro)
-      setIsLoadingRP(false)
-    })
+
     fetchHistorial()
   }, [userData])
 
@@ -110,6 +73,7 @@ const TransferenciaInterna = (props) => {
     const userRepo = new Common()
     userRepo.fetchUserData().then(user => {
       setUserData(user)
+      setIsLoading(false)
     }).catch(error => {
       console.error("Error al obtener el usuario:", error);
     });
@@ -133,9 +97,6 @@ const TransferenciaInterna = (props) => {
       return false;
     };
 
-    if (retiroActivo) {
-      return mostrarError(errores.retiroActivo)
-    }
     if (isNaN(parseFloat(cantidad)) || hasMoreThanTwoDecimals(cantidad)) {
       return mostrarError(errores.invalidValue);
     }
@@ -199,7 +160,6 @@ const TransferenciaInterna = (props) => {
         setVisibleMsg(true)
         setTextoMsj("Request submitted successfully")
         openCloseNipModal()
-        fetchRetiroPendiente()
       })
     }).catch((error) => {
       setVisibleMsg(true)
@@ -224,7 +184,7 @@ const TransferenciaInterna = (props) => {
             {WalletOpcion("Divident wallet", userData.walletDiv, 1)}
             {WalletOpcion("Comission wallet", userData.walletCom, 2)}
           </div>
-          <TextInput ti={"User"} block={false} value={userData.usdtAddress} setValue={setWallet} />
+          {/* <TextInput ti={"User"} block={false} value={userData.usdtAddress} setValue={setWallet} /> */}
           <TextInput ti={"Amount to withdraw(USDT)"} value={cantidad} setValue={setCantidad} />
           <button className="boton4" onClick={openCloseNipModal}><span>Transfer</span></button>
         </section>
@@ -238,8 +198,6 @@ const TransferenciaInterna = (props) => {
           <p className="textoM"><li>When a withdrawal is requested the dividend wallet <span>must have at least 25 USDT</span>.</li></p>
         </section>
       </section>
-
-      
 
       <section className="historial">
         <div className="titulo">
