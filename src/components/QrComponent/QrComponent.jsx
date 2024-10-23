@@ -52,11 +52,11 @@ const QrComponent = ({ visible, openClose, op }) => {
         setMsj(true)
     };
     const handleCopyCode = () => {
-        const inputElement = document.getElementById("code");
+        const inputElement = document.getElementById("codeF");
         inputElement.select();
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
-        setTexto("Wallet copied successfully")
+        setTexto("Code copied successfully")
         setMsj(true)
     };
     const generarOpciones = (op) => {
@@ -461,7 +461,7 @@ const QrComponent = ({ visible, openClose, op }) => {
                             <div className="copyAddrs">
                                 <p className="textoM2">2-. Copy your code</p>
                                 <div className="wallet">
-                                    <input type="text" id="wallet" value={code} onChange={(e) => setCode(e.target.value)} readOnly />
+                                    <input type="text" id="codeF" value={code} onChange={(e) => setCode(e.target.value)} readOnly />
                                     <button onClick={handleCopyCode} ><i class="bi bi-copy"></i></button>
                                 </div>
                             </div>
