@@ -12,9 +12,6 @@ const PagarFacturas = () => {
 
     const pagar =()=>{
         if(!validacion())return
-
-
-
     }
 
     const validacion=()=>{
