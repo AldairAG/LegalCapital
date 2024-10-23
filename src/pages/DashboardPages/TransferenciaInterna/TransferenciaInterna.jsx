@@ -56,46 +56,8 @@ const TransferenciaInterna = (props) => {
     }
   };
 
-  const fetchRetiroPendiente = () => {
-    return new Promise(async (resolve) => {
-      if (!isWithdrawalsPage) return resolve(false);
-
-      try {
-        const db = getDatabase(appFirebase);
-        const dbRef = ref(db, "peticiones");
-        const queryDb = query(dbRef, orderByChild("userName"), equalTo(userData.userName));
-        const snapshot = await get(queryDb);
-
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const retiroEntry = Object.values(data).find(item => item.concepto == "Retiro");
-
-          if (retiroEntry) {
-            setRetiroActivo(true)
-            return resolve(retiroEntry);
-          } else {
-            setRetiroPendiente({});
-            return resolve({});
-          }
-        } else {
-          setRetiroPendiente({});
-          return resolve({});
-        }
-      } catch (error) {
-        setRetiroPendiente({});
-        console.log(error)
-        return resolve({});
-      }
-    });
-  };
-
   useEffect(() => {
     if (!isWithdrawalsPage) return;
-    fetchRetiroPendiente().then(retiro => {
-      setRetiroPendiente(retiro)
-      //console.log(retiro)
-      setIsLoadingRP(false)
-    })
     fetchHistorial()
   }, [userData])
 
@@ -133,9 +95,7 @@ const TransferenciaInterna = (props) => {
       return false;
     };
 
-    if (retiroActivo) {
-      return mostrarError(errores.retiroActivo)
-    }
+
     if (isNaN(parseFloat(cantidad)) || hasMoreThanTwoDecimals(cantidad)) {
       return mostrarError(errores.invalidValue);
     }
@@ -143,7 +103,6 @@ const TransferenciaInterna = (props) => {
     if (!wallet) {
       return mostrarError(errores.invalidValue);
     }
-
 
     if (cantidad > wallet) {
       return mostrarError(errores.insufficientBalance);
@@ -199,7 +158,6 @@ const TransferenciaInterna = (props) => {
         setVisibleMsg(true)
         setTextoMsj("Request submitted successfully")
         openCloseNipModal()
-        fetchRetiroPendiente()
       })
     }).catch((error) => {
       setVisibleMsg(true)
