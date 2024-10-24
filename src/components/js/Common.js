@@ -123,7 +123,6 @@ class Common {
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
             const users = Object.values(snapshot.val());
-            const currentUserEmail = this.getCurrentUser();
             const user = users.find(user => user.userName === userName);
             if (user) {
                 return user

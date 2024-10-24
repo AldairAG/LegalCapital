@@ -21,6 +21,7 @@ const TransferenciaInterna = (props) => {
   const [textoMsj, setTextoMsj] = useState("");
 
   const [cantidad, setCantidad] = useState("");
+  const [userName, setUserName] = useState("")
   const [seleccionado, setSeleccionado] = useState(1)
 
   const [historial, setHistorial] = useState([]);
@@ -82,13 +83,13 @@ const TransferenciaInterna = (props) => {
   function validacion(wallet, userData, trasnferenciaMinima, tipoWallet, cantidad) {
     const errores = {
       invalidValue: "The value you entered is not valid",
-      noWallet: "You have not yet registered your USDT wallet",
+      notUser: "The user does not exist",
       completeProfile: "Complete your profile to be able to withdraw",
       insufficientBalance: "You do not have enough balance to withdraw this amount",
       minWithdrawal: `The minimum withdrawal amount is ${trasnferenciaMinima} USDT`,
       minBalanceAfterWithdraw: "After withdrawing you need to have at least 25 USDT remaining",
       retiroActivo: "you already have a pending withdrawal",
-      
+
     };
 
     const mostrarError = (mensaje) => {
@@ -98,13 +99,9 @@ const TransferenciaInterna = (props) => {
     };
 
     if (isNaN(parseFloat(cantidad)) || hasMoreThanTwoDecimals(cantidad)) {
+      console.log(cantidad)
       return mostrarError(errores.invalidValue);
     }
-
-    if (!wallet) {
-      return mostrarError(errores.invalidValue);
-    }
-
 
     if (cantidad > wallet) {
       return mostrarError(errores.insufficientBalance);
@@ -118,8 +115,12 @@ const TransferenciaInterna = (props) => {
       return mostrarError(errores.minBalanceAfterWithdraw);
     }
 
-    if(wallet<cantidad+cantidad*0.03){
+    if (wallet < cantidad + cantidad * 0.03) {
       return mostrarError(errores.insufficientBalance);
+    }
+
+    if(!userExist){
+      return mostrarError(errores.notUser);
     }
 
     // Si todas las validaciones pasan
@@ -146,32 +147,44 @@ const TransferenciaInterna = (props) => {
     }
   };
 
-  const solicitarRetiro = () => {
+  const userExist = () => {
     const userRepo = new Common()
+    userRepo.getUserDataByName(userName).then(user => {
+      return true
+    }).catch(error => {
+      return false
+    });
+  }
+
+
+  const Transferir = () => {
+    let walletSelec
+    const trasnferenciaMinima=50
     if (seleccionado == 1) {
-      userData.walletDiv = userData.walletDiv - cantidad
+      userData.walletDiv -= cantidad
+      walletSelec=userData.walletDiv
     } else {
-      userData.walletCom = userData.walletCom - cantidad
+      userData.walletCom -= cantidad
+      walletSelec=userData.walletDiv
     }
-    userData.retiros = Number(userData.retiros) + Number(cantidad);
-    userRepo.editAnyUser(userData).then(() => {
-      const peticionModel = new PeticionModel("Retiro", cantidad, seleccionado)
-      peticionModel.saveRetiro().then(() => {
-        setVisibleMsg(true)
-        setTextoMsj("Request submitted successfully")
-        openCloseNipModal()
+    if(!validacion(walletSelec,userData,trasnferenciaMinima,seleccionado,cantidad)) return 
+
+    const userRepo = new Common()
+    userRepo.editAnyUser(userData).then(()=>{
+      userRepo.saveInHistory(userData.userName, -cantidad,"Internal transfer", "", "")
+      userRepo.getUserDataByName().then(user =>{
+        userData.walletDiv += cantidad
+        userRepo.saveInHistory(user.userName, cantidad,"Internal transfer", userData.userName, "")
       })
-    }).catch((error) => {
-      setVisibleMsg(true)
-      setTextoMsj("Error")
     })
+ //"'s internal transfer"
   }
 
   return (
     <section className="contenido Retiros">
       <AlertMsgError texto={textoMsj} visible={visibleError} setVisible={setVisibleError} />
       <AlertMsg texto={textoMsj} visible={visibleMsg} setVisible={setVisibleMsg} />
-      <NipModal correctNip={userData.nip} onOpenClose={openCloseNipModal} modalNip={visibleNipModal} proceso={solicitarRetiro} />
+      <NipModal correctNip={userData.nip} onOpenClose={openCloseNipModal} modalNip={visibleNipModal} proceso={Transferir} />
       <section className="titulos titulo-re">
         <i className="bi bi-cash-coin"></i>
         <span>Transferencias internas</span>
@@ -184,7 +197,7 @@ const TransferenciaInterna = (props) => {
             {WalletOpcion("Divident wallet", userData.walletDiv, 1)}
             {WalletOpcion("Comission wallet", userData.walletCom, 2)}
           </div>
-          {/* <TextInput ti={"User"} block={false} value={userData.usdtAddress} setValue={setWallet} /> */}
+          <TextInput ti={"User"} block={false} value={userName} setValue={setUserName} />
           <TextInput ti={"Amount to withdraw(USDT)"} value={cantidad} setValue={setCantidad} />
           <button className="boton4" onClick={openCloseNipModal}><span>Transfer</span></button>
         </section>

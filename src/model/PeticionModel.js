@@ -1,5 +1,5 @@
 import appFirebase from "../firebase-config";
-import { getDatabase, ref, set, remove, push } from "firebase/database";
+import { getDatabase, ref, set, remove, push,get,query } from "firebase/database";
 import Common from "../components/js/Common"
 export default class Orden {
     constructor(concepto, monto,wallet) {
@@ -29,7 +29,7 @@ export default class Orden {
         }
     }
 
-        async saveFactura() {
+    async saveFactura() {
         try {
             const extractDB = new Common();
             const user = await extractDB.getUserDataR();
@@ -104,5 +104,22 @@ export default class Orden {
             console.error('Error al realizar el cobro:', error);
         }
     }
+
+    getFactura = async (firebaseKey) => {
+        const db = getDatabase(appFirebase);
+        const dbRef = query(ref(db, "users/"+firebaseKey))
+
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+            const users = Object.values(snapshot.val());
+            if (users.length > 0) {
+                return users[0]; 
+            } else {
+                throw new Error("Invoice not found");
+            }
+        } else {
+            alert("no data");
+        }
+    };
 
 }
