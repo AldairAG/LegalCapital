@@ -13,7 +13,7 @@ const NipModal = ({ correctNip, onOpenClose, modalNip, proceso }) => {
   if (!modalNip) return
 
   function validarNip () {
-    if (inputNip === correctNip) {
+    if (inputNip == correctNip) {
       proceso()
     } else {
       setMsj("Invalid NIP");

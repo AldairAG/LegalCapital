@@ -53,7 +53,7 @@ class Common {
         const db = getDatabase(appFirebase);
         const currentUserEmail = this.getCurrentUser().email;
         const dbRef = query(ref(db, "users/"), orderByChild("email"), equalTo(currentUserEmail));
-        if(!currentUserEmail) return
+        if (!currentUserEmail) return
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
             const users = Object.values(snapshot.val());
@@ -118,21 +118,23 @@ class Common {
 
 
     getUserDataByName = async (userName) => {
-        const db = getDatabase(appFirebase);
-        const dbRef = ref(db, "users/");
-        const snapshot = await get(dbRef);
-        if (snapshot.exists()) {
-            const users = Object.values(snapshot.val());
-            const user = users.find(user => user.userName === userName);
-            if (user) {
-                return user
+        try {
+            const db = getDatabase(appFirebase);
+            const dbRef = query(ref(db, "users/"), orderByChild("userName"), equalTo(userName));
+            const snapshot = await get(dbRef);
+
+            if (snapshot.exists()) {
+                const user = Object.values(snapshot.val())[0]; // Tomamos el primer usuario encontrado.
+                return user;
             } else {
-                console.log("No se encontró el usuario");
+                console.log("No se encontró un usuario con ese nombre.");
+                return null;
             }
-        } else {
-            alert("No se encontraron datos en la base de datos");
+        } catch (error) {
+            console.error("Error al obtener el usuario:", error);
+            return null;
         }
-    }
+    };
 
     getAnyUser = async (userEmail) => {
         const db = getDatabase(appFirebase);

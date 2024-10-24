@@ -14,7 +14,7 @@ import PeticionModel from "../../../model/PeticionModel"
 
 const TransferenciaInterna = (props) => {
   const location = useLocation();
-  const isWithdrawalsPage = location.pathname === "/Dashboard/withdrawals";
+  const isWithdrawalsPage = location.pathname === "/Dashboard/internal-transfers";
 
   const [visibleMsg, setVisibleMsg] = useState(false);
   const [visibleError, setVisibleError] = useState(false);
@@ -29,9 +29,6 @@ const TransferenciaInterna = (props) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [visibleNipModal, setVisibleNipModal] = useState(false);
-
-
-
 
   const fetchHistorial = async () => {
     if (!isWithdrawalsPage) return;
@@ -80,7 +77,7 @@ const TransferenciaInterna = (props) => {
     });
   }
 
-  function validacion(wallet, userData, trasnferenciaMinima, tipoWallet, cantidad) {
+  async function validacion(wallet, userData, trasnferenciaMinima, tipoWallet, monto, userName) {
     const errores = {
       invalidValue: "The value you entered is not valid",
       notUser: "The user does not exist",
@@ -88,8 +85,7 @@ const TransferenciaInterna = (props) => {
       insufficientBalance: "You do not have enough balance to withdraw this amount",
       minWithdrawal: `The minimum withdrawal amount is ${trasnferenciaMinima} USDT`,
       minBalanceAfterWithdraw: "After withdrawing you need to have at least 25 USDT remaining",
-      retiroActivo: "you already have a pending withdrawal",
-
+      retiroActivo: "You already have a pending withdrawal",
     };
 
     const mostrarError = (mensaje) => {
@@ -98,28 +94,33 @@ const TransferenciaInterna = (props) => {
       return false;
     };
 
-    if (isNaN(parseFloat(cantidad)) || hasMoreThanTwoDecimals(cantidad)) {
-      console.log(cantidad)
+    if (isNaN(parseFloat(monto)) || hasMoreThanTwoDecimals(monto)) {
       return mostrarError(errores.invalidValue);
     }
-
-    if (cantidad > wallet) {
+    if (monto > wallet) {
       return mostrarError(errores.insufficientBalance);
     }
 
-    if (cantidad < trasnferenciaMinima) {
+    if (monto < trasnferenciaMinima) {
       return mostrarError(errores.minWithdrawal);
     }
 
-    if (tipoWallet === 1 && userData.walletDiv - cantidad < 25) {
+    if (tipoWallet === 1 && userData.walletDiv - monto < 25) {
       return mostrarError(errores.minBalanceAfterWithdraw);
     }
 
-    if (wallet < cantidad + cantidad * 0.03) {
+    if (wallet < parseFloat(monto) + parseFloat(monto) * 0.03) {
+      console.log(monto + monto * 0.03)
       return mostrarError(errores.insufficientBalance);
     }
 
-    if(!userExist){
+    if (!userName) {
+      return mostrarError(errores.invalidValue);
+    }
+
+    // Esperamos a que se resuelva la verificación del usuario.
+    const exists = await userExist();
+    if (!exists) {
       return mostrarError(errores.notUser);
     }
 
@@ -143,41 +144,49 @@ const TransferenciaInterna = (props) => {
     if (visibleNipModal) {
       setVisibleNipModal(false)
     } else {
-      if (validacion(wallet, userData, trasnferenciaMinima, seleccionado, cantidad)) setVisibleNipModal(!visibleNipModal);
+      validacion(wallet, userData, trasnferenciaMinima, seleccionado, cantidad, userName)
+        .then(isValid => {
+          if (isValid) {
+            setVisibleNipModal(!visibleNipModal)
+          }
+        });
     }
   };
 
-  const userExist = () => {
-    const userRepo = new Common()
-    userRepo.getUserDataByName(userName).then(user => {
-      return true
-    }).catch(error => {
-      return false
-    });
-  }
-
+  const userExist = async () => {
+    const userRepo = new Common();
+    try {
+      const user = await userRepo.getUserDataByName(userName);
+      return !!user;
+    } catch (error) {
+      return false;
+    }
+  };
 
   const Transferir = () => {
     let walletSelec
-    const trasnferenciaMinima=50
+    const trasnferenciaMinima = 50
     if (seleccionado == 1) {
-      userData.walletDiv -= cantidad
-      walletSelec=userData.walletDiv
+      userData.walletDiv -= Number(cantidad)
+      walletSelec = userData.walletDiv
     } else {
-      userData.walletCom -= cantidad
-      walletSelec=userData.walletDiv
+      userData.walletCom -=  Number(cantidad)
+      walletSelec = userData.walletDiv
     }
-    if(!validacion(walletSelec,userData,trasnferenciaMinima,seleccionado,cantidad)) return 
 
     const userRepo = new Common()
-    userRepo.editAnyUser(userData).then(()=>{
-      userRepo.saveInHistory(userData.userName, -cantidad,"Internal transfer", "", "")
-      userRepo.getUserDataByName().then(user =>{
-        userData.walletDiv += cantidad
-        userRepo.saveInHistory(user.userName, cantidad,"Internal transfer", userData.userName, "")
+    userRepo.editAnyUser(userData).then(() => {
+      userRepo.getUserDataByName(userName).then(user => {
+        user.walletDiv += Number(cantidad)
+        userRepo.editAnyUser(user).then(() => {
+          setTextoMsj("Transfer sent successfully")
+          setVisibleMsg(true)
+          openCloseNipModal()
+        })
+        userRepo.saveInHistory(user.userName, cantidad, "Internal transfer", userData.userName, "")
       })
     })
- //"'s internal transfer"
+    //"'s internal transfer"
   }
 
   return (
