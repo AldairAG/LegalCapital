@@ -10,6 +10,7 @@ import NipModal from "../../../components/NipModal/NipModal";
 import appFirebase from "../../../firebase-config";
 import Common from "../../../components/js/Common";
 import PeticionModel from "../../../model/PeticionModel"
+import img1 from "../../../Assets/Images/qr/qrms.png"
 
 const PagarFacturas = () => {
     const location = useLocation();
@@ -63,6 +64,13 @@ const PagarFacturas = () => {
         setSeleccionado(opc)
     }
 
+    const handleCopy = () => {
+        const inputElement = document.getElementById("wallet");
+        inputElement.select();
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    };
+
     return (
         <section className="contenido Retiros">
             <AlertMsgError texto={textoMsj} visible={visibleError} setVisible={setVisibleError} />
@@ -96,10 +104,28 @@ const PagarFacturas = () => {
                 </section>
             </section>
 
+            <section className="qrPagoFac">
+                <div className="contenidoqrpf">
+                    <label className="titulo">Pago con QR</label>
+                    <div className="walletInput">
+                                    <input type="text" id="wallet" readOnly value="" />
+                                    <button onClick={handleCopy} ><i class="bi bi-copy"></i></button>
+                    </div>
+                    
 
+                </div>
+                <div className="qr-section">
+                    <section className="notas">
+                        <p className="textoM"><li>Scan the QR code to pay.</li></p>
+                    </section>
+                    <img src={img1} alt="QR code" />
+                </div>
 
+            </section>
 
         </section >
+
+
     )
 
     function WalletOpcion(titulo, wallet, opc) {

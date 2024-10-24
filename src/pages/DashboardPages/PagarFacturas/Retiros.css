@@ -1,3 +1,4 @@
+
 .Retiros {
     display: grid;
     grid-template-rows: 75px auto auto;
@@ -240,6 +241,75 @@ thead:hover {
     background-color: #e4e8f0;
 }
 
+.qrPagoFac{
+    grid-area: "contenido-re";
+    display: flex;
+    flex-direction: column;
+    
+    
+    justify-self: center;
+    height: 550px;
+    max-width: 1500px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+}
+
+.qrPagoFac .contenidoqrpf{
+   
+    height: 50px;
+}
+
+.qrPagoFac .qr-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 20px; /* Para mantener separación de la sección anterior */
+}
+
+.qrPagoFac .qr-section img{
+    width: 100px;
+    height: 100px;
+}
+
+
+.modal-content .s3-qr .walletInput {
+    width: 100%;
+    display: flex;
+}
+
+.modal-content .s3-qr .walletInput input {
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 10px 0px 10px 10px;
+    border: 0.5px solid #ccc;
+    font-weight: 600;
+}
+
+.modal-content .s3-qr .walletInput input:focus {
+    border-color: #0011ff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.modal-content .s3-qr .walletInput button {
+    width: 10%;
+    background-color: ghostwhite;
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-inline-start: -7PX;
+    padding: 2px;
+    color: black;
+    border: 0.5px solid #9b9b9b;
+    transition: .3s;
+}
+
 
 
 @media(max-width:910px) {
@@ -257,6 +327,8 @@ thead:hover {
         height: 100px;
     }
 }
+
+
 
 
 /*.contenido-re{
